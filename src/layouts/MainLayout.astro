@@ -15,15 +15,12 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
 	<body>
 		<NavBar />
-		<main>
 			<slot />
-		</main>
 		<Footer />
 	</body>
 </html>
@@ -46,20 +43,57 @@ const { title } = Astro.props;
 		background-color: var(--color-bg);
 	}
 
+	body{
+		margin-left: 25%;
+		margin-right: 25%;
+	}
+
+	@media (max-width: 768px){
+		body{
+			margin-left: 15%;
+			margin-right: 15%;
+		}
+	}
+
 
 </style>
 
 <style is:global>
 	h1 {
 		font-size: var(--font-size-xl);
+		color: rgb(20, 20, 20);
 	}
 
 	h2 {
 		font-size: var(--font-size-lg);
+		color: rgb(34, 34, 34);
 	}
 
 	code {
 		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
 			Bitstream Vera Sans Mono, Courier New, monospace;
 	}
+	p{
+		letter-spacing: 0.05em;
+		text-align:justify;  
+		line-height: 1.3rem;
+		font-size: 0.875rem;
+		color: rgb(61, 61, 61);
+	}
+	a:hover{
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	button{
+		margin-top: 30px;
+		padding: 5px 30px 5px 30px;
+		border: solid 1.5px rgb(61, 61, 61);
+		border-radius: 5px;
+	}
+
+	button:hover{
+		background-color: #f0f0f0;
+	}
+
 </style>
