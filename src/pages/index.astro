@@ -1,11 +1,27 @@
 ---
 import Layout from '../layouts/MainLayout.astro';
+import Card from '../components/card.astro';
 ---
 
 <Layout title="Vinicius Ventura">
-		
+    <h1 class="text-7xl font-semibold">Vinicius Ventura</h1>
+    <h2>Junior Web Developer</h2>
+
+    <h1 class="mt-36 text-4xl mb-4">About Me</h1>
+    <p class="text-justify tracking-wide">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+    <h1 class="mt-36 text-4xl mb-6">Projects</h1>
+    <div class="grid grid-flow-col grid-rows-2 gap-4 justify-between">
+        <Card title="bank_app" body="SLA" language="React" link="https://github.com/viniciusventura29/bank_app"/>
+        <Card title="Elixir_RealTimeChat" body="SLA" language="Elixir" link="https://github.com/viniciusventura29/Elixir_RealTimeChat"/>
+        <Card title="Django_WebSocket" body="SLA" language="Django" link="https://github.com/viniciusventura29/Django_WebSocket"/> 
+        <Card title="monkeypad" body="Dontpad for monkeys 🙊" language="Elixir" link="https://github.com/viniciusventura29/monkeypad"/>
+    </div>
+
+    <h1 class="mt-36 text-4xl mb-4">Contacts</h1>
+    <div class="flex flex-col">
+        <a class="mb-2" href="https://github.com/viniciusventura29">ViniciusVentura29</a>
+        <a class="mb-2" href="https://www.linkedin.com/in/vini-ventura29/">Vini-ventura29</a>
+        <p class="mb-2">ViniciusVentura29@gmail.com</p>
+    </div>
 </Layout>
-
-<style>
-
-</style>

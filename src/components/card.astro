@@ -1,0 +1,17 @@
+---
+export interface Props{
+    title : string;
+    body: string;
+    language: string;
+    link: string;
+}
+const {title,body,language,link} = Astro.props;
+---
+<a target="_blank" href={link}>
+    <div class="border w-[20rem] border-gray-800 rounded-md p-2">
+        <h5 class="text-lg">{title}</h5>
+        <h5 class="text-xs mt-2">{body}</h5>
+        <h5 class="text-xs mt-6">{language}</h5>
+
+    </div>
+</a>
