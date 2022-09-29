@@ -2,16 +2,16 @@
 export interface Props{
     title : string;
     body: string;
-    language: string;
+    data: string;
     link: string;
 }
-const {title,body,language,link} = Astro.props;
+const {title,body,data,link} = Astro.props;
 ---
-<a target="_blank" href={link}>
-    <div class="border hover:bg-slate-100 border-gray-800 rounded-md p-2">
-        <h5 class="text-base font-semibold">{title}</h5>
-        <h5 class="text-xs mt-2">{body}</h5>
-        <h5 class="text-xs mt-6">{language}</h5>
+<a href={link}>
+    <div class="border hover:bg-slate-100 border-gray-800 rounded-md p-4">
+        <h5 class="text-xl font-semibold">{title}</h5>
+        <h5 class="text-xs lg:pr-20 text-slate-800 mt-2">{body}</h5>
+        <h5 class="text-xs text-slate-500 italic mb-2 mt-4">{data}</h5>
 
     </div>
 </a>
