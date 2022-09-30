@@ -1,16 +1,18 @@
 ---
 import Layout from '../layouts/MainLayout.astro';
 import Card from '../components/card.astro';
+
+
 ---
 
 <Layout title="Vinicius Ventura">
-    <div class="flex justify-between items-center">
+    <div class="flex lg:flex-row flex-col justify-between items-center">
         <div>
         <h1 class="lg:text-6xl text-6xl font-semibold text-[#08678C]">Vinicius Ventura</h1>
         <h3>Junior Web Developer</h3>
-        <div class="flex gap-5">
-        <a href="https://github.com/viniciusventura29"><button class="gap-2"><img src="../../github.svg" alt="" > GitHub</button></a>
-        <a href="https://www.linkedin.com/in/vini-ventura29/"><button class="gap-2"><img class="w-[1.75rem]" src="../../linkedin.svg" alt="" > Linkedin</button></a>
+        <div class="flex lg:gap-5 gap-2">
+        <a href="https://github.com/viniciusventura29"><button class="gap-2 px-1 py-2"><img class="lg:w-[1.75rem] w-[1.5rem]" src="../../github.svg" alt="" > GitHub</button></a>
+        <a href="https://www.linkedin.com/in/vini-ventura29/"><button class="gap-2 px-2 py-2"><img class="lg:w-[1.75rem] w-[1.5rem]" src="../../linkedin.svg" alt="" > Linkedin</button></a>
         </div>
         </div>
         <img class="w-[30rem]" src="../../Software-Developer.svg" alt="" />
