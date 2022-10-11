@@ -9,7 +9,7 @@ publishDate: 11/10/2022
 
 # Welcome to my personal website/blog!
 
-This is just the beginning, my goals are:
+This is just the beginning, my goals are: 
 
 
 * Use [water.css] to styling and responsivity. (DONE)
