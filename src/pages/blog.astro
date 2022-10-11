@@ -23,5 +23,5 @@ const posts = await Astro.glob("./blog/*.md").then((posts) =>
   </div>
   <div class="mt-20 grid lg:grid-cols-2 gap-2 lg:gap-6 w-full">
         {posts.map((post) => <Card post={post} />)}
-  </div> 
+  </div>
 </Layout>
