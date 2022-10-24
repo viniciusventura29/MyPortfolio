@@ -9,17 +9,8 @@ publishDate: 11/10/2022
 
 # Welcome to my personal website/blog!
 
-This is just the beginning, my goals are:
+This is my persoal blog!
 
+Here I pretend to communicate and write something about some interesting things in the tech world
 
-* Use [water.css] to styling and responsivity. (DONE)
-* Do a theme selector.
-* Maybe Link to a landing page.
-
-As you guys can see these are not ambitious goals, so i hope i solve them soon! 
-
-You can find me on my [github] or in my [linkedin] profile.
-
-[github]: https://github.com/vitormiura
-[linkedin]: https://www.linkedin.com/in/vitormiura/
-[water.css]: https://watercss.kognise.dev/
+I'm a young software and web developer that loves learn new technologies. I'm a musician too, this is a part of my life that I really love altough my dream is develop systems.
