@@ -2,7 +2,7 @@
 layout: ../../layouts/MainLayout.astro
 
 url: /websocket
-title: Hello!
+title: Vinicius Ventura!
 description: Welcome to my personal website/blog!
 publishDate: 11/10/2022
 ---
@@ -18,5 +18,7 @@ I'm a young software and web developer that loves learn new technologies. I'm a 
 If you like me or want to see a little bit more about me, you can follow me on github and linkedin!
 
 💻 Git - viniciusventura29
+
 💼 Linkedin - vini-ventura29
+
 📧 Email - viniciusventura29@gmail.com
