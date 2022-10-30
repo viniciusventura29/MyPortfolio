@@ -6,10 +6,10 @@ const { post } = Astro.props;
 ---
 
 <a href={post.url}>
-  <div class="border hover:bg-slate-100 border-gray-800 rounded-md p-4">
+  <div class="border hover:bg-cyan-50 border-gray-800 h-40 rounded-md p-4">
     <h5 class="text-xl font-semibold">{post.title}</h5>
-    <h5 class="text-xs lg:pr-20 text-slate-800 mt-2">{post.description}</h5>
-    <time class="text-xs text-slate-500 bottom-0 italic mb-2 mt-4"
+    <h5 class="text-xs lg:pr-2 text-justify h-16 overflow-hidden text-slate-800 mb-[0.5rem] mt-2">{post.description}</h5>
+    <time class="text-xs text-slate-500 italic"
       >{post.publishDate}
     </time>
   </div>
