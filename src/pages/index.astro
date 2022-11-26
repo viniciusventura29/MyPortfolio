@@ -152,6 +152,16 @@ import Card from "../components/card.astro";
 </script>
 
 <style>
+  :global(html) {
+
+    scroll-behavior: smooth;
+   }
+   @media (prefers-reduced-motion: reduce) {
+     :global(html) {
+       scroll-behavior: auto;
+     }
+    }
+
   .input-cursor {
     display: inline-block;
     background-color: white;
@@ -177,3 +187,5 @@ import Card from "../components/card.astro";
     animation: blink 0.5s linear infinite alternate;
   }
 </style>
+
+
