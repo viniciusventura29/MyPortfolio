@@ -6,16 +6,21 @@ import Card from "../components/card.astro";
 <Layout title="Vinicius Ventura">
   <div class="flex lg:flex-row flex-col justify-between items-center">
     <div class="flex flex-col items-center lg:items-start">
-      <h1 class="lg:text-6xl text-6xl text-center lg:text-start font-semibold text-[#08678C]">
-        Vinicius Ventura
-      </h1>
+      <div class="flex lg:text-6xl text-6xl text-center lg:text-start font-semibold text-[#08678C]">
+        <h1
+          id="name"
+          class=""
+        >
+        </h1>
+        <span class="input-cursor border-r-2 border-[#08678C]"></span>
+      </div>
       <h3>Junior Web Developer</h3>
       <div class="flex lg:gap-2 gap-2">
         <a href="https://github.com/viniciusventura29"
           ><button class="gap-2 items-center"
             ><img
-              class="lg:w-[1.75rem] w-[1.5rem]"
-              src="../../github.svg"
+              class="lg:w-[1.5rem] w-[1.5rem]"
+              src="../../brand-github.svg"
               alt=""
             /> GitHub</button
           >
@@ -23,15 +28,14 @@ import Card from "../components/card.astro";
         <a href="https://www.linkedin.com/in/vini-ventura29/"
           ><button class="gap-2 items-center"
             ><img
-              class="lg:w-[1.75rem] w-[1.5rem]"
-              src="../../linkedin.svg"
+              class="lg:w-[1.5rem] w-[1.5rem]"
+              src="../../brand-linkedin (1).svg"
               alt=""
             /> Linkedin</button
           >
         </a>
       </div>
     </div>
-    
   </div>
 
   <h1
@@ -129,3 +133,47 @@ import Card from "../components/card.astro";
     <p class="mb-2 text-[#011C40]">📧 - ViniciusVentura29@gmail.com</p>
   </div>
 </Layout>
+
+<script is:inline>
+  var i = 0;
+  var name = "Vinicius Ventura";
+  var typingSpeed = 100;
+
+  function write() {
+    if (i < name.length) {
+      document.getElementById("name").innerHTML += name.charAt(i);
+      document.getElementById("name").classList.add("typing-container");
+      i++;
+      setTimeout(write, typingSpeed);
+    }
+  }
+
+  write();
+</script>
+
+<style>
+  .input-cursor {
+    display: inline-block;
+    background-color: white;
+    margin-left: 8px;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 1;
+    }
+    60% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .input-cursor {
+    animation: blink 0.5s linear infinite alternate;
+  }
+</style>
