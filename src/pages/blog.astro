@@ -19,7 +19,7 @@ const posts = await Astro.glob("./blog/*.md").then((posts) =>
       <h1 class="text-6xl font-semibold text-[#08678C]">Vinicius Ventura</h1>
       <h3>This is my personal blog</h3>
     </div>
-    <img class="w-[30rem]" src="../../Bloging.svg" alt="" />
+    
   </div>
   <div class="mt-20 grid lg:grid-cols-2 gap-2">
         {posts.map((post) => <Card post={post} />)}
