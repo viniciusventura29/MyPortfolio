@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/MainLayout.astro";
-import Card from "../components/card.astro";
 ---
 
 <Layout title="Vinicius Ventura">
@@ -45,13 +44,13 @@ import Card from "../components/card.astro";
     About Me
   </h1>
   <div>
-    <p class="font-semibold text-xl my-2">Me</p>
+    <p class="font-semibold text-xl my-2">Me 👨🏻‍💻</p>
     <p class="ml-2">
       Hi! I'm Vinicius Ventura, a young web and software developer that is
       looking for new knowledges and opportunities.
     </p>
 
-    <p class="font-semibold text-xl my-2">Jobs</p>
+    <p class="font-semibold text-xl my-2">Jobs Experiences 💼</p>
     <p class="ml-2">
       I'm currently work at Bosch, is my first formal job, but, before I started
       to work here, I was used to work with web design autonomously. When I
@@ -61,7 +60,7 @@ import Card from "../components/card.astro";
       internals.
     </p>
 
-    <p class="font-semibold text-xl my-2">Education</p>
+    <p class="font-semibold text-xl my-2">Education 📚</p>
     <p class="ml-2">
       Talking a little bit about my education, I have been just already finished
       a developer system technical course at Etec Polivalente, in my high
@@ -76,43 +75,39 @@ import Card from "../components/card.astro";
       id="Projects"
       class="mt-20 lg:mt-36 text-4xl w-full font-medium text-[#011C40] mb-6"
     >
-      Projects
+      Projects 💻
     </h1>
-    <div class="grid lg:grid-flow-col grid-rows-2 gap-2">
-      <a
-        target="_blank"
-        href="https://github.com/viniciusventura29/Django_WebSocket"
-      >
-        <img
-          class="w-12/12"
-          src="https://github-readme-stats.vercel.app/api/pin/?username=viniciusventura29&repo=Django_WebSocket"
-        />
-      </a>
-      <a target="_blank" href="https://github.com/viniciusventura29/monkeypad">
-        <img
-          class="w-12/12"
-          src="https://github-readme-stats.vercel.app/api/pin/?username=viniciusventura29&repo=monkeypad"
-        />
-      </a>
-      <a target="_blank" href="https://github.com/viniciusventura29/bank_app">
-        <img
-          class="w-12/12"
-          src="https://github-readme-stats.vercel.app/api/pin/?username=viniciusventura29&repo=bank_app"
-        />
-      </a>
-      <a
-        target="_blank"
-        href="https://github.com/viniciusventura29/Elixir_RealTimeChat"
-      >
-        <img
-          class="w-12/12"
-          src="https://github-readme-stats.vercel.app/api/pin/?username=viniciusventura29&repo=ElixirChat"
-        />
-      </a>
+    <div class="">
+      <ul class="space-y-1 text-gray-500 list-disc list-inside">
+        <li class="hover:text-blue-500">
+          <a
+            href="https://venturanotes.vercel.app/"
+            target={"_blank"}
+          >
+            <strong>Notes</strong> - This website is my personal notes,
+            where I use to organize myself.
+          </a>
+        </li>
+        <li>
+          <strong>Bosch Einer</strong> - A bosch Toolkit and Developer
+          ecossystem, revamped (Experience using Typescript, ReactJS,
+          Microservices and Monorepos)
+        </li>
+        <li class="hover:text-blue-500">
+          <a
+            href="https://ventura.monkeydevs.org/"
+            target={"_blank"}
+          >
+            <strong>The Books</strong> - This is website was developed to help people to organize themself with
+            they personal tasks. This website contain three tools, a notes tool,a to do list and a Kanban methology tool
+
+            Also have a auth system to everyone create your own user.
+          </a>
+        </li>
+      </ul>
     </div>
-    <a target="_blank" class="" href="https://github.com/viniciusventura29"
-      ><button class="text-[#074973] border-[#074973]">Projects &nbsp; ➤</button
-      >
+    <a target="_blank" href="https://github.com/viniciusventura29"
+      ><button class="text-[#074973] border-[#074973] text-sm">See more projects</button>
     </a>
   </div>
 
@@ -123,14 +118,14 @@ import Card from "../components/card.astro";
     Contacts
   </h1>
   <div class="flex flex-col w-[16rem]">
-    <a class="mb-2 text-[#011C40] hover:underline" href="https://github.com/viniciusventura29"
-      >💻 - ViniciusVentura29</a
+    <a class="mb-2 text-[#011C40] hover:underline flex" href="https://github.com/viniciusventura29"
+      ><img class="p-1 pl-0" src="brand-github.svg"> - ViniciusVentura29</a
     >
     <a
-      class="mb-2 text-[#011C40] hover:underline"
-      href="https://www.linkedin.com/in/vini-ventura29/">💼 - Vini-ventura29</a
+      class="mb-2 text-[#011C40] hover:underline flex"
+      href="https://www.linkedin.com/in/vini-ventura29/"><img class="p-1 pl-0" src="brand-linkedin (1).svg"> - Vini-ventura29</a
     >
-    <p class="mb-2 text-[#011C40]">📧 - ViniciusVentura29@gmail.com</p>
+    <p class="mb-2 text-[#011C40] flex"><img class="p-1 pl-0" src="mail.svg" alt=""> - ViniciusVentura29@gmail.com</p>
   </div>
 </Layout>
 
