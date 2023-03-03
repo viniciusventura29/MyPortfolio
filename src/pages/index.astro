@@ -5,12 +5,10 @@ import Layout from "../layouts/MainLayout.astro";
 <Layout title="Vinicius Ventura">
   <div class="flex lg:flex-row flex-col justify-between items-center">
     <div class="flex flex-col items-center lg:items-start">
-      <div class="flex lg:text-6xl text-6xl text-center lg:text-start font-semibold text-[#08678C]">
-        <h1
-          id="name"
-          class=""
-        >
-        </h1>
+      <div
+        class="flex lg:text-6xl text-6xl text-center lg:text-start font-semibold text-[#08678C]"
+      >
+        <h1 id="name" class=""></h1>
         <span class="input-cursor border-r-2 border-[#08678C]"></span>
       </div>
       <h3>Junior Web Developer</h3>
@@ -46,8 +44,7 @@ import Layout from "../layouts/MainLayout.astro";
   <div>
     <p class="font-semibold text-xl my-2">Me 👨🏻‍💻</p>
     <p class="ml-2">
-      Hi! I'm Vinicius Ventura, a young web and software developer that is
-      looking for new knowledges and opportunities.
+      Hi! I'm Vinicius Ventura, a young web and software developer that is very enthusiastic about software architecture and web development is looking for new knowledges and opportunities.
     </p>
 
     <p class="font-semibold text-xl my-2">Jobs Experiences 💼</p>
@@ -68,6 +65,14 @@ import Layout from "../layouts/MainLayout.astro";
       developing at Senai Roberto Mange and in parallel I'm graduating at Fatec
       Americana.
     </p>
+    <p class="font-semibold text-xl my-2">Hobbies ❤️</p>
+    <p class="ml-2">
+      About my hobbies, I could say that my actual favorite thing to do is programing, I'm passionated and I love study about it.
+      besides my programing love, I'm crazy about music, I like too much play instruments and sing, usually when I have a burnout 
+      I use to play or hear music, this definitely calm myself down. I like play videogames and hangout with my familly and friends
+      this make me very happy.
+    </p>
+    
   </div>
 
   <div>
@@ -80,34 +85,29 @@ import Layout from "../layouts/MainLayout.astro";
     <div class="">
       <ul class="space-y-1 text-gray-500 list-disc list-inside">
         <li class="hover:text-blue-500">
-          <a
-            href="https://venturanotes.vercel.app/"
-            target={"_blank"}
-          >
-            <strong>Notes</strong> - This website is my personal notes,
-            where I use to organize myself.
+          <a href="https://venturanotes.vercel.app/" target={"_blank"}>
+            <strong>Notes</strong> - This website is my personal notes, where I use
+            to organize myself.
           </a>
         </li>
         <li>
-          <strong>Bosch Einer</strong> - A bosch Toolkit and Developer
-          ecossystem, revamped (Experience using Typescript, ReactJS,
-          Microservices and Monorepos)
+          <strong>Bosch Einer</strong> - A bosch Toolkit and Developer ecossystem,
+          revamped (Experience using Typescript, ReactJS, Microservices and Monorepos)
         </li>
         <li class="hover:text-blue-500">
-          <a
-            href="https://ventura.monkeydevs.org/"
-            target={"_blank"}
-          >
-            <strong>The Books</strong> - This is website was developed to help people to organize themself with
-            they personal tasks. This website contain three tools, a notes tool,a to do list and a Kanban methology tool
-
-            Also have a auth system to everyone create your own user.
+          <a href="https://ventura.monkeydevs.org/" target={"_blank"}>
+            <strong>The Books</strong> - This is website was developed to help people
+            to organize themself with they personal tasks. This website contain three
+            tools, a notes tool,a to do list and a Kanban methology tool Also have
+            a auth system to everyone create your own user.
           </a>
         </li>
       </ul>
     </div>
     <a target="_blank" href="https://github.com/viniciusventura29"
-      ><button class="text-[#074973] border-[#074973] text-sm">See more projects</button>
+      ><button class="text-[#074973] border-[#074973] text-sm"
+        >See more projects</button
+      >
     </a>
   </div>
 
@@ -118,14 +118,19 @@ import Layout from "../layouts/MainLayout.astro";
     Contacts
   </h1>
   <div class="flex flex-col w-[16rem]">
-    <a class="mb-2 text-[#011C40] hover:underline flex" href="https://github.com/viniciusventura29"
-      ><img class="p-1 pl-0" src="brand-github.svg"> - ViniciusVentura29</a
+    <a
+      class="mb-2 text-[#011C40] hover:underline flex"
+      href="https://github.com/viniciusventura29"
+      ><img class="p-1 pl-0" src="brand-github.svg" /> - ViniciusVentura29</a
     >
     <a
       class="mb-2 text-[#011C40] hover:underline flex"
-      href="https://www.linkedin.com/in/vini-ventura29/"><img class="p-1 pl-0" src="brand-linkedin (1).svg"> - Vini-ventura29</a
+      href="https://www.linkedin.com/in/vini-ventura29/"
+      ><img class="p-1 pl-0" src="brand-linkedin (1).svg" /> - Vini-ventura29</a
     >
-    <p class="mb-2 text-[#011C40] flex"><img class="p-1 pl-0" src="mail.svg" alt=""> - ViniciusVentura29@gmail.com</p>
+    <p class="mb-2 text-[#011C40] flex">
+      <img class="p-1 pl-0" src="mail.svg" alt="" /> - ViniciusVentura29@gmail.com
+    </p>
   </div>
 </Layout>
 
@@ -148,14 +153,13 @@ import Layout from "../layouts/MainLayout.astro";
 
 <style>
   :global(html) {
-
     scroll-behavior: smooth;
-   }
-   @media (prefers-reduced-motion: reduce) {
-     :global(html) {
-       scroll-behavior: auto;
-     }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) {
+      scroll-behavior: auto;
     }
+  }
 
   .input-cursor {
     display: inline-block;
@@ -182,5 +186,3 @@ import Layout from "../layouts/MainLayout.astro";
     animation: blink 0.5s linear infinite alternate;
   }
 </style>
-
-
