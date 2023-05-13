@@ -1,4 +1,6 @@
 ---
+layout: ../../layouts/MainLayout.astro
+
 url: /websocket
 title: Websockets
 description: Here I explain a little bit about what the websocket is, how this protocol works and why it is used, if want to understand something about it click here!
