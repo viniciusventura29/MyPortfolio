@@ -2,6 +2,10 @@
 import Layout from "../layouts/MainLayout.astro";
 ---
 
+<head>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
 <Layout title="Vinicius Ventura">
   <div class="flex lg:flex-row flex-col justify-between items-center">
     <div class="flex flex-col items-center lg:items-start">
@@ -42,13 +46,13 @@ import Layout from "../layouts/MainLayout.astro";
     About Me
   </h1>
   <div>
-    <p class="font-semibold text-xl my-2">Me 👨🏻‍💻</p>
-    <p class="ml-2">
+    <p data-aos="fade-up" class="font-semibold text-xl my-2">Me 👨🏻‍💻</p>
+    <p data-aos="fade-up" class="ml-2">
       Hi! I'm Vinicius Ventura, a young web and software developer that is very enthusiastic about software architecture and web development is looking for new knowledges and opportunities.
     </p>
 
-    <p class="font-semibold text-xl my-2">Jobs Experiences 💼</p>
-    <p class="ml-2">
+    <p data-aos="fade-up" class="font-semibold text-xl my-2">Jobs Experiences 💼</p>
+    <p data-aos="fade-up" class="ml-2">
       I'm currently work at Bosch, is my first formal job, but, before I started
       to work here, I was used to work with web design autonomously. When I
       worked like a designer, I used to do posts for Instagram and Facebook,
@@ -57,16 +61,16 @@ import Layout from "../layouts/MainLayout.astro";
       internals.
     </p>
 
-    <p class="font-semibold text-xl my-2">Education 📚</p>
-    <p class="ml-2">
+    <p data-aos="fade-up" class="font-semibold text-xl my-2">Education 📚</p>
+    <p data-aos="fade-up" class="ml-2">
       Talking a little bit about my education, I have been just already finished
       a developer system technical course at Etec Polivalente, in my high
       school, and now I'm doing another technical course, focoused in web
       developing at Senai Roberto Mange and in parallel I'm graduating at Fatec
       Americana.
     </p>
-    <p class="font-semibold text-xl my-2">Hobbies ❤️</p>
-    <p class="ml-2">
+    <p data-aos="fade-up" class="font-semibold text-xl my-2">Hobbies ❤️</p>
+    <p data-aos="fade-up" class="ml-2">
       About my hobbies, I could say that my actual favorite thing to do is programing, I'm passionated and I love study about it.
       besides my programing love, I'm crazy about music, I like too much play instruments and sing, usually when I have a burnout 
       I use to play or hear music, this definitely calm myself down. I like play videogames and hangout with my familly and friends
@@ -82,19 +86,19 @@ import Layout from "../layouts/MainLayout.astro";
     >
       Projects 💻
     </h1>
-    <div class="">
+    <div>
       <ul class="space-y-4 text-gray-500 list-disc list-inside">
-        <li class="hover:text-blue-500">
+        <li data-aos="fade-up" class="hover:text-blue-500">
           <a href="https://venturanotes.vercel.app/" target={"_blank"}>
             <strong>Notes</strong> - This website is my personal notes, where I use
             to organize myself.
           </a>
         </li>
-        <li>
+        <li data-aos="fade-up">
           <strong>Bosch Einer</strong> - A bosch Toolkit and Developer ecossystem,
           revamped (Experience using Typescript, ReactJS, Microservices and Monorepos)
         </li>
-        <li class="hover:text-blue-500">
+        <li data-aos="fade-up" class="hover:text-blue-500">
           <a href="https://ventura.monkeydevs.org/" target={"_blank"}>
             <strong>The Books</strong> - This is website was developed to help people
             to organize themself with they personal tasks. This website contain three
@@ -102,14 +106,14 @@ import Layout from "../layouts/MainLayout.astro";
             a auth system to everyone create your own user.
           </a>
         </li>
-        <li>
+        <li data-aos="fade-up">
           <strong>Bosch internals projects</strong> - I developed some internals projects at bosch. projects like websites, api's, 
           chatBots and desktop softwares. The technologies core used in this projects was Python and TypeScript.
         </li>
       </ul>
     </div>
     <a target="_blank" href="https://github.com/viniciusventura29"
-      ><button class="text-[#074973] border-[#074973] text-sm"
+      ><button data-aos="fade-up" class="text-[#074973] border-[#074973] text-sm"
         >See more projects</button
       >
     </a>
@@ -123,16 +127,18 @@ import Layout from "../layouts/MainLayout.astro";
   </h1>
   <div class="flex flex-col w-[16rem]">
     <a
+      data-aos="fade-up"
       class="mb-2 text-[#011C40] hover:underline flex"
       href="https://github.com/viniciusventura29"
       ><img class="p-1 pl-0" src="brand-github.svg" /> - ViniciusVentura29</a
     >
     <a
+      data-aos="fade-up"
       class="mb-2 text-[#011C40] hover:underline flex"
       href="https://www.linkedin.com/in/vini-ventura29/"
       ><img class="p-1 pl-0" src="brand-linkedin (1).svg" /> - Vini-ventura29</a
     >
-    <p class="mb-2 text-[#011C40] flex">
+    <p data-aos="fade-up" class="mb-2 text-[#011C40] flex">
       <img class="p-1 pl-0" src="mail.svg" alt="" /> - ViniciusVentura29@gmail.com
     </p>
   </div>
@@ -154,6 +160,10 @@ import Layout from "../layouts/MainLayout.astro";
 
   write();
 </script>
+<script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script is:inline>
+    AOS.init();
+  </script>
 
 <style>
   :global(html) {
