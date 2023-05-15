@@ -3,33 +3,31 @@ import Card from "../components/card.astro";
 import Layout from "../layouts/MainLayout.astro";
 
 const posts = await Astro.glob("./blog/*.md").then((posts) =>
-  posts.map(({ frontmatter, url }) => ({  
+  posts.map(({ frontmatter, url }) => ({
     url: url,
     title: frontmatter.title,
     description: frontmatter.description,
     publishDate: frontmatter.publishDate,
   }))
 );
-
 ---
 
 <Layout title="Vinicius Ventura - Blog">
-  <div class="flex lg:flex-row flex-col justify-between items-center">
-    <div>
-      <div class="flex lg:text-5xl text-6xl text-center lg:text-start font-semibold text-[#08678C]">
-        <h1
-          id="name"
-          class=""
+  <div class="mt-20 lg:mt-32">
+    <div class="flex lg:flex-row flex-col justify-between items-center">
+      <div>
+        <div
+          class="flex lg:text-5xl text-6xl text-center lg:text-start font-semibold text-[#08678C]"
         >
-        </h1>
-        <span class="input-cursor border-r-2 border-[#08678C]"></span>
+          <h1 id="name" class=""></h1>
+          <span class="input-cursor border-r-2 border-[#08678C]"></span>
+        </div>
+        <h3>This is my personal blog</h3>
       </div>
-      <h3>This is my personal blog</h3>
     </div>
-    
-  </div>
-  <div class="mt-20 grid lg:grid-cols-2 gap-2">
-        {posts.map((post) => <Card post={post} />)}
+    <div class="mt-20 grid lg:grid-cols-2 gap-2">
+      {posts.map((post) => <Card post={post} />)}
+    </div>
   </div>
 </Layout>
 
@@ -51,7 +49,6 @@ const posts = await Astro.glob("./blog/*.md").then((posts) =>
 </script>
 
 <style>
-  
   @keyframes blink {
     0% {
       opacity: 1;
