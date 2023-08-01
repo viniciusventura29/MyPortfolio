@@ -9,6 +9,29 @@ publishDate: 11/10/2022
 
 # Websocket
 
-Websocket is something that open my mind to several things.
+Here I'll try to explain you what is websocket and why is it used for
 
-Before start to study about webscoket, I never ever have heard about others web protocols. So, this post is to tell you guys, what I think about websocket and what I undestand about it.
+Websocket is a different form to see request and responses on the web, because websocket do not have "requests" and "responses" like in http, in fact websocket have a bilateral comunication 
+wich gives us the possibility of receives informations whithout requests from the server.
+
+Let's undestand fastly how http works to better see websockets.
+
+In http we have to do a request to receive a reponse, follow the example bellow.
+
+![Alt text](../http.png)
+
+I asked for a website page and it returns me what i asked. Following the same logic if I don't ask for nothing it will returns me nothing! 
+
+Then now is when some problems comes out. Try to imagine do a real time application with http... We cannot know when we get new informations in the server and the client will only 
+get new information if they asked for, so, to do something nearly of real time we have to do a infinity of requests, even though there's nothing to be received. Is a lot of constant request to
+verify if there is something new in the server.
+
+The websocket was made for resolve this kind of problem. Like i said in the start, websocket don't work like http model ("request" and "response"). websocket is like a tunnel of informations,
+ sending and receiving. The client don't have to "ask" for information to receive updates responses, the server send it automatically, because of it we called it a "bilateral comunication".
+
+![Alt text](../websocket.png)
+
+Anyway, websocket is a interesting protocol but isn't appropriate to all the cases, develop using this protocol is not the easily thing to do and also you could lose performace in your application
+using websocket so, you have to thing and calculate if is valid use this technology in your application.
+
+This is the end of this short article. I hope you have learned something and enjoyed! Thanks for reading.
