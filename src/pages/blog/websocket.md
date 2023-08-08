@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/MainLayout.astro
+layout: ../../layouts/BlogLayout.astro
 
 url: /websocket
 title: Websockets
@@ -9,10 +9,12 @@ publishDate: 11/10/2022
 
 # Websocket
 
-Here I'll try to explain you what is websocket and why is it used for
+#### Here, I'll try to explain you, what is websocket and why is it used for
 
 Websocket is a different form to see request and responses on the web, because websocket do not have "requests" and "responses" like in http, in fact websocket have a bilateral comunication 
 wich gives us the possibility of receives informations whithout requests from the server.
+
+## How works in http
 
 Let's undestand fastly how http works to better see websockets.
 
@@ -23,11 +25,13 @@ In http we have to do a request to receive a reponse, follow the example bellow.
 I asked for a website page and it returns me what i asked. Following the same logic if I don't ask for nothing it will returns me nothing! 
 
 Then now is when some problems comes out. Try to imagine do a real time application with http... We cannot know when we get new informations in the server and the client will only 
-get new information if they asked for, so, to do something nearly of real time we have to do a infinity of requests, even though there's nothing to be received. Is a lot of constant request to
+get new information if they asked for, so, to do something nearly of real time, we have to do a infinity of requests, even though there's nothing to be received. Is a lot of constant request to
 verify if there is something new in the server.
 
-The websocket was made for resolve this kind of problem. Like i said in the start, websocket don't work like http model ("request" and "response"). websocket is like a tunnel of informations,
- sending and receiving. The client don't have to "ask" for information to receive updates responses, the server send it automatically, because of it we called it a "bilateral comunication".
+## How works in Websocket
+
+The websocket bring us the solution for this type of problem. Like i said in the start, websocket doesn't work like `http model` ("request" and "response"). websocket is like a tunnel of informations,
+ sending and receiving. The client don't have to "ask" for information to receive updates responses, the server send it automatically. They have a bilateral comunication, both client to server and server to cliente.
 
 ![Alt text](../websocket.png)
 
