@@ -1,137 +1,132 @@
 ---
-import NavBar from '../components/NavBar.astro';
-import Footer from '../components/Footer.astro';
+import NavBar from "../components/NavBar.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
-	frontmatter:{
-        author:string;
-        date:string;
-        title:string;
-    }
+  frontmatter: {
+    author: string;
+    date: string;
+    title: string;
+  };
 }
 
 const { frontmatter } = Astro.props as Props;
 ---
 
-<!DOCTYPE Markdown>
+<!DOCTYPE html>
 <html lang="pt-br">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{frontmatter.title}</title>
-	</head>
-	<body>
-		<NavBar />
-			<slot />
-		<Footer />  
-	</body>
-</html>
-
-<style>
-	:root {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{frontmatter.title}</title>
+  </head>
+  <body>
+    <NavBar />
+    <slot />
+    <Footer />
+    <style>
+      :root {
         --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
         --font-size-md: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
-		--font-size-lg: clamp(1.2rem, 0.54vw + 1.11rem, 1.39rem);
-		--font-size-xl: clamp(1.6rem, 1.1vw + 1.6rem, 1.9rem);
-		--font-size-2xl: clamp(2rem, 1.54vw + 1.41rem, 3.31rem);
+        --font-size-lg: clamp(1.2rem, 0.54vw + 1.11rem, 1.39rem);
+        --font-size-xl: clamp(1.6rem, 1.1vw + 1.6rem, 1.9rem);
+        --font-size-2xl: clamp(2rem, 1.54vw + 1.41rem, 3.31rem);
 
-		--color-text: hsl(12, 5%, 4%);
-		--color-bg: hsl(0, 0%, 99%);
-		--color-border: hsl(17, 24%, 90%);
-	}
+        --color-text: hsl(12, 5%, 4%);
+        --color-bg: hsl(0, 0%, 99%);
+        --color-border: hsl(17, 24%, 90%);
+      }
 
-	html {
-		font-family: system-ui, sans-serif;
-		font-size: var(--font-size-base);
-		color: var(--color-text);
-		background-color: var(--color-bg);
-	}
+      html {
+        font-family: system-ui, sans-serif;
+        font-size: var(--font-size-base);
+        color: var(--color-text);
+        background-color: var(--color-bg);
+      }
 
-	body{
-		margin-left: 30%;
-		margin-right: 30%;
-	}
+      body {
+        margin-left: 30%;
+        margin-right: 30%;
+      }
 
-	@media (max-width: 768px){
-		body{
-			margin-left: 15%;
-			margin-right: 15%;
-		}
-	}
+      @media (max-width: 768px) {
+        body {
+          margin-left: 15%;
+          margin-right: 15%;
+        }
+      }
+    </style>
 
-
-</style>
-
-<style is:global>
-    h1 {
-		font-size: var(--font-size-2xl);
-		color: #00275a;
+    <style is:global>
+      h1 {
+        font-size: var(--font-size-2xl);
+        color: #00275a;
         font-weight: 600;
         margin-top: 2rem;
-	}
-	h2 {
-		font-size: var(--font-size-xl);
-		color: #003375;
+      }
+      h2 {
+        font-size: var(--font-size-xl);
+        color: #003375;
         font-weight: 500;
-        margin-top:4rem
-	}
-    h3 {
-		font-size: var(--font-size-lg);
-		color: rgb(34, 34, 34);
-	}
+        margin-top: 2rem;
+      }
+      h3 {
+        font-size: var(--font-size-lg);
+        color: rgb(34, 34, 34);
+        margin-top: 2rem;
+      }
 
-    h4 {
-		font-size: var(--font-size-base);
-		color: #00275ad0;
-	}
+      h4 {
+        font-size: var(--font-size-base);
+        color: #00275ad0;
+        margin-top: 1rem;
+      }
 
-	li{
-		letter-spacing: 0.05em;
-		text-align:justify;  
-		line-height: 1.3rem;
-		font-size: 0.775rem;
-		color: #011C40;
-		list-style: inside;
-	}
+      li {
+        letter-spacing: 0.05em;
+        text-align: justify;
+        line-height: 1.3rem;
+        font-size: 0.775rem;
+        color: #011c40;
+        list-style: inside;
+      }
 
-    hr{
+      hr {
         margin-top: 1rem;
         border-top-width: 2px;
-        
-    }
+      }
 
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
+      code {
+        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
         background: #e1e1e1;
         padding: 4px;
         border-radius: 6px;
         font-size: 0.775rem;
-	}
-	p{
-		letter-spacing: 0.05em;
-		text-align:justify;  
-		line-height: 1.3rem;
-		font-size: 0.875rem;
-		color: #011C40;
+      }
+      p {
+        letter-spacing: 0.05em;
+        text-align: justify;
+        line-height: 1.3rem;
+        font-size: 0.875rem;
+        color: #011c40;
 
-        @apply mt-4
-	}
+        @apply mt-4;
+      }
 
-	button{
-		display: flex;
-		margin-top: 30px;
-		padding: 10px 10px 10px 10px;
-		border: solid 1.5px rgb(61, 61, 61);
-		border-radius: 5px;
-	}
+      button {
+        display: flex;
+        margin-top: 30px;
+        padding: 10px 10px 10px 10px;
+        border: solid 1.5px rgb(61, 61, 61);
+        border-radius: 5px;
+      }
 
-	button:hover{
-		background-color: #f0f0f0;
-	}
-	
-
-</style>
-
+      button:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+  </body>
+</html>
