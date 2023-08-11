@@ -13,7 +13,7 @@ The real problem is when people take sides and only see one side opinion.
 
 This happens a lot! 
 
-This article is to expose to you my opinion about one polemic topic. *Which is better monolito or microservice?*
+This article is to expose to you my opinion about one polemic topic. **Which is better monolito or microservice?**
 
 ## The Begin
 Before this type of discussion appears, is obvious that just already had a way to build applications and this software architecture is called *Monolito*.
@@ -78,15 +78,26 @@ Here we could see all the mainly functions a part, but, all them are micro part 
 Following this logic, each single micro service, has your own database, own logic and also own codebase.
 
 ### Good Points
+A big good point of microservices architecture is that if one micro service stops, the application does not break!
+
+For example:
+IMAGEMMMMMMMMM IMAGEMMMMMMMMM IMAGEMMMMMMMMM IMAGEMMMMMMMMM IMAGEMMMMMMMMMIMAGEMMMMMMMMM IMAGEMMMMMMMMM IMAGEMMMMMMMMM
+Here we could see that if one of the micro services breaks the others keeps working.
+
 It's clear that microservice bring us many facilities, like:
 - Smaller codebase;
-- Code more undestandnable;
+>Each micro service is responisble of your own code, so is going to be less code in differents repositories
+- Code more understandnable;
+>It's easier to understand the code because, the code is smaller and the code will be limited by the functionality of that module 
 - Each module can be available independently;
+>Each module is developed to work by itself, what means that you can integrate or available alone
 - Technology aggregation;
+>In a single micro service, you can use what program language you want or have more affinity.
 
 Way to develop systems where each module can be thought, developed and made available independently
 
 ### Bad Points
+It's obvious that microservice is not perfect. This software architecture has problems, so let's talk about some bad points in microservice.
 
 ## Future?
 
