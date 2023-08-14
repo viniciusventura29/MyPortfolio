@@ -77,14 +77,23 @@ Here we could see all the mainly functions a part, but, all them are micro part 
 
 Following this logic, each single micro service, has your own database, own logic and also own codebase.
 
+#### Observations
+Microservices sometimes is confused with POSA (pattern-oriented software architecture), but they are different!
+
+The big company *RedHat*, say this about it:
+> The main characteristic that differentiates them is scope: SOA is an architectural approach adopted by the enterprise as a whole, while microservices are an implementation strategy of the development team for each application.
+
+Anyway, having this in mind let's continue.
+
 ### Good Points
 A big good point of microservices architecture is that if one micro service stops, the application does not break!
 
 For example:
-IMAGEMMMMMMMMM IMAGEMMMMMMMMM IMAGEMMMMMMMMM IMAGEMMMMMMMMM IMAGEMMMMMMMMMIMAGEMMMMMMMMM IMAGEMMMMMMMMM IMAGEMMMMMMMMM
-Here we could see that if one of the micro services breaks the others keeps working.
+![Alt text](../e-commerce_microservice2.png)
 
-It's clear that microservice bring us many facilities, like:
+Here we could see that if one of the micro services breaks the others keeps working and that is great beacause its bring us more consistency and reliability.
+
+It's clear tha microtservice bring us many facilities, like:
 - Smaller codebase;
 >Each micro service is responisble of your own code, so is going to be less code in differents repositories
 - Code more understandnable;
@@ -97,12 +106,21 @@ It's clear that microservice bring us many facilities, like:
 Way to develop systems where each module can be thought, developed and made available independently
 
 ### Bad Points
-It's obvious that microservice is not perfect. This software architecture has problems, so let's talk about some bad points in microservice.
+Unluckily, microservice is not perfect. This software architecture has problems, so let's talk about some bad points in microservice.
+
+Microservice is, usually, complex. Microservices softwares has to be very well planned and good executed, because, if not, the software insecure, vulnerable and it will be hard to understand the hole
+application.
+
+The truth is, microservice is excelent however can be a shot in the foot.  
 
 ## Future?
+So, to answare finally the waited question... **Which is better**
 
-Bom para mvps, projetos de baixa escalabilidade, validações de projetos
+In my opnion, depends of situation :)!
 
-Forma para desenvolver sistemas onde cada modulo pode ser pensado, desenvolvido e disponibilizado de forma independente
-Parecido com o SOA (arquitetura orientada a serviço) porém, não são as mesmas coisas.
+We, when developers, have to be clever when use a architecture or other! For example, is not smart use microservice architecture in a website for a small local city store, because, the development
+will be slower, the website probably will not have a huge business rule and also will be expensier.
 
+Anyway, I write this article to learn you a little bit about this two software architectures and also to try *open the your eyes* about this discussion. 
+
+Hope you liked.
