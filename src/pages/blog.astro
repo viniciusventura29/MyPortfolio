@@ -17,12 +17,12 @@ const posts = await Astro.glob("./blog/*.md").then((posts) =>
     <div class="flex lg:flex-row flex-col justify-between items-center">
       <div>
         <div
-          class="flex lg:text-5xl text-6xl text-center lg:text-start font-semibold text-[#08678C]"
+          class="flex lg:text-5xl text-6xl text-center lg:text-start font-semibold dark:text-blue-300 text-[#08678C]"
         >
-          <h1 id="name" class=""></h1>
-          <span class="input-cursor border-r-2 border-[#08678C]"></span>
+          <h1 id="name" class="dark:text-blue-300"></h1>
+          <span class="input-cursor border-r-2 dark:border-blue-300 border-[#08678C]"></span>
         </div>
-        <h3>This is my personal blog</h3>
+        <h3 class="dark:text-blue-100">This is my personal blog</h3>
       </div>
     </div>
     <div class="mt-20 grid lg:grid-cols-2 gap-2">

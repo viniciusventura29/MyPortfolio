@@ -3,39 +3,66 @@ import Layout from "../layouts/MainLayout.astro";
 ---
 
 <head>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
 
 <Layout title="Vinicius Ventura">
   <div class="mt-20 lg:mt-32">
     <div class="flex lg:flex-row flex-col justify-between items-center">
       <div class="flex flex-col items-center w-full relative">
-        
         <div
-          class="flex lg:text-5xl text-6xl text-center lg:text-start font-semibold text-[#08678C]"
+          class="flex lg:text-5xl text-6xl text-center lg:text-start font-semibold dark:text-blue-300 text-[#08678C]"
         >
           <h1 id="name" class=""></h1>
           <span class="input-cursor border-r-2 border-[#08678C]"></span>
         </div>
         <h3>Junior Web Developer</h3>
-        <div class="flex lg:gap-2 gap-2">
+        <div class="flex lg:gap-5 mt-7 gap-2">
           <a href="https://github.com/viniciusventura29"
-            ><button class="gap-2 items-center"
-              ><img
-                class="lg:w-[1.5rem] w-[1.5rem]"
-                src="../../brand-github.svg"
-                alt=""
-              /> GitHub</button
+            ><button
+              class="gap-2 items-center !bg-transparent dark:hover:!bg-[#46424f]"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-brand-github"
+                width="29"
+                height="29"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path
+                  d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"
+                ></path>
+              </svg></button
             >
           </a>
           <a href="https://www.linkedin.com/in/vini-ventura29/"
-            ><button class="gap-2 items-center"
-              ><img
-                class="lg:w-[1.5rem] w-[1.5rem]"
-                src="../../brand-linkedin (1).svg"
-                alt=""
-              /> Linkedin</button
-            >
+            ><button
+              class="gap-2 items-center !bg-transparent dark:hover:!bg-[#46424f]"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-brand-linkedin"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                <line x1="8" y1="11" x2="8" y2="16"></line>
+                <line x1="8" y1="8" x2="8" y2="8.01"></line>
+                <line x1="12" y1="16" x2="12" y2="11"></line>
+                <path d="M16 16v-3a2 2 0 0 0 -4 0"></path>
+              </svg>
+            </button>
           </a>
         </div>
       </div>
@@ -44,59 +71,86 @@ import Layout from "../layouts/MainLayout.astro";
 
   <div>
     <h1
-    id="AboutMe"
-    class="mt-20 lg:mt-36 text-4xl font-medium text-[#011C40] mb-6"
-  >
-    About Me
-  </h1>
-  <div>
-    <p data-aos="fade-up" class="font-semibold text-xl my-2">Me 👨🏻‍💻</p>
-    <p data-aos="fade-up" class="ml-2">
-      Hi! I'm Vinicius Ventura, a young web and software developer that is very enthusiastic about software 
-      architecture, software engineer and web development. I always looking for new knowledges and opportunities, I love learn new things and undestand about them.
-    </p>
+      id="AboutMe"
+      class="mt-20 lg:mt-36 text-4xl font-medium dark:text-blue-300 text-[#011C40] mb-6"
+    >
+      About Me
+    </h1>
+    <div>
+      <p
+        data-aos="fade-up"
+        class="dark:text-blue-200 font-semibold text-xl my-2"
+      >
+        Me 👨🏻‍💻
+      </p>
+      <p data-aos="fade-up" class="ml-2">
+        Hi! I'm Vinicius Ventura, a young web and software developer that is
+        very enthusiastic about software architecture, software engineer and web
+        development. I always looking for new knowledges and opportunities, I
+        love learn new things and undestand about them.
+      </p>
 
-    <p data-aos="fade-up" class="font-semibold text-xl my-2">Jobs Experiences 💼</p>
-    <p data-aos="fade-up" class="ml-2">
-      I'm currently work at Bosch, is my first formal job, but, before I started
-      to work here, I used to work with web design autonomously. When I
-      worked like a designer, I used to do posts for Instagram and Facebook,
-      logotypes, visual identities, arts for Whatsapp and others. 
-      About my currently job, me and my team, develop softwares and websites to the
-      internals. We have the philosophy of always looking for solutions and try to do the others lifes better.
-    </p>
+      <p
+        data-aos="fade-up"
+        class="dark:text-blue-200 font-semibold text-xl my-2"
+      >
+        Jobs Experiences 💼
+      </p>
+      <p data-aos="fade-up" class="ml-2">
+        I'm currently work at Bosch, is my first formal job, but, before I
+        started to work here, I used to work with web design autonomously. When
+        I worked like a designer, I used to do posts for Instagram and Facebook,
+        logotypes, visual identities, arts for Whatsapp and others. About my
+        currently job, me and my team, develop softwares and websites to the
+        internals. We have the philosophy of always looking for solutions and
+        try to do the others lifes better.
+      </p>
 
-    <p data-aos="fade-up" class="font-semibold text-xl my-2">Education 📚</p>
-    <p data-aos="fade-up" class="ml-2">
-      Talking a little bit about my education, I have been just already finished
-      a developer system technical course at Etec Polivalente, in my high
-      school, and now I'm doing another technical course, focoused in web
-      developing at Senai Roberto Mange and in parallel I'm graduating at Fatec
-      Americana.
-    </p>
-    <p data-aos="fade-up" class="font-semibold text-xl my-2">Hobbies ❤️</p>
-    <p data-aos="fade-up" class="ml-2">
-      About my hobbies, I could say that my actual favorite thing to do is programing, I'm passionated and I love study about it.
-      besides my programing love, I'm crazy about music, I like too much play instruments and sing. 
-      Usually when I have a burnout beacuse of programming, I try to play or hear music, because this definitely calm myself down. I like play videogames and hangout with my familly and friends
-      this make me very happy.
-    </p>
-    
-  </div>
-  
+      <p
+        data-aos="fade-up"
+        class="dark:text-blue-200 font-semibold text-xl my-2"
+      >
+        Education 📚
+      </p>
+      <p data-aos="fade-up" class="ml-2">
+        Talking a little bit about my education, I have been just already
+        finished a developer system technical course at Etec Polivalente, in my
+        high school, and now I'm doing another technical course, focoused in web
+        developing at Senai Roberto Mange and in parallel I'm graduating at
+        Fatec Americana.
+      </p>
+      <p
+        data-aos="fade-up"
+        class="dark:text-blue-200 font-semibold text-xl my-2"
+      >
+        Hobbies ❤️
+      </p>
+      <p data-aos="fade-up" class="ml-2">
+        About my hobbies, I could say that my actual favorite thing to do is
+        programing, I'm passionated and I love study about it. besides my
+        programing love, I'm crazy about music, I like too much play instruments
+        and sing. Usually when I have a burnout beacuse of programming, I try to
+        play or hear music, because this definitely calm myself down. I like
+        play videogames and hangout with my familly and friends this make me
+        very happy.
+      </p>
+    </div>
+
     <div>
       <h1
         id="Projects"
-        class="mt-20 lg:mt-36 text-4xl w-full font-medium text-[#011C40] mb-6"
+        class="mt-20 lg:mt-36 text-4xl w-full font-medium dark:text-blue-300 text-[#011C40] mb-6"
       >
         Projects 💻
       </h1>
       <div>
-        <ul class="space-y-4 text-gray-500 list-disc list-inside">
+        <ul
+          class="space-y-4 dark:text-[#eee] text-gray-500 list-disc list-inside"
+        >
           <li data-aos="fade-up" class="hover:text-blue-500">
             <a href="https://venturanotes.vercel.app/" target={"_blank"}>
-              <strong>Notes</strong> - This website is my personal notes, where I use
-              to organize myself.
+              <strong>Notes</strong> - This website is my personal notes, where I
+              use to organize myself.
             </a>
           </li>
           <li data-aos="fade-up">
@@ -105,28 +159,32 @@ import Layout from "../layouts/MainLayout.astro";
           </li>
           <li data-aos="fade-up" class="hover:text-blue-500">
             <a href="https://ventura.monkeydevs.org/" target={"_blank"}>
-              <strong>The Books</strong> - This is website was developed to help people
-              to organize themself with they personal tasks. This website contain three
-              tools, a notes tool,a to do list and a Kanban methology tool Also have
-              a auth system to everyone create your own user.
+              <strong>The Books</strong> - This is website was developed to help
+              people to organize themself with they personal tasks. This website
+              contain three tools, a notes tool,a to do list and a Kanban methology
+              tool Also have a auth system to everyone create your own user.
             </a>
           </li>
           <li data-aos="fade-up">
-            <strong>Bosch internals projects</strong> - I developed some internals projects at bosch. projects like websites, api's, 
-            chatBots and desktop softwares. The technologies core used in this projects was Python and TypeScript.
+            <strong>Bosch internals projects</strong> - I developed some internals
+            projects at bosch. projects like websites, api's, chatBots and desktop
+            softwares. The technologies core used in this projects was Python and
+            TypeScript.
           </li>
         </ul>
       </div>
       <a target="_blank" href="https://github.com/viniciusventura29"
-        ><button data-aos="fade-up" class="text-[#074973] border-[#074973] text-sm"
+        ><button
+          data-aos="fade-up"
+          class="text-[#074973] border-[#074973] text-sm px-4"
           >See more projects</button
         >
       </a>
     </div>
-  
+
     <h1
       id="Contacts"
-      class="mt-20 lg:mt-36 text-4xl font-medium text-[#011C40] mb-4"
+      class="mt-20 lg:mt-36 text-4xl font-medium dark:text-blue-300 text-[#011C40] mb-4"
     >
       Contacts
     </h1>
@@ -135,43 +193,100 @@ import Layout from "../layouts/MainLayout.astro";
         data-aos="fade-up"
         class="mb-2 text-[#011C40] hover:underline flex"
         href="https://github.com/viniciusventura29"
-        ><img class="p-1 pl-0" src="brand-github.svg" /> - ViniciusVentura29</a
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-brand-github p-1 pl-0"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path
+            d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"
+          ></path>
+        </svg> - ViniciusVentura29</a
       >
       <a
         data-aos="fade-up"
         class="mb-2 text-[#011C40] hover:underline flex"
         href="https://www.linkedin.com/in/vini-ventura29/"
-        ><img class="p-1 pl-0" src="brand-linkedin (1).svg" /> - Vini-ventura29</a
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-brand-linkedin p-1 pl-0"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+          <line x1="8" y1="11" x2="8" y2="16"></line>
+          <line x1="8" y1="8" x2="8" y2="8.01"></line>
+          <line x1="12" y1="16" x2="12" y2="11"></line>
+          <path d="M16 16v-3a2 2 0 0 0 -4 0"></path>
+        </svg> - Vini-ventura29</a
       >
       <p data-aos="fade-up" class="mb-2 text-[#011C40] flex">
-        <img class="p-1 pl-0" src="mail.svg" alt="" /> - ViniciusVentura29@gmail.com
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-mail p-1 pl-0"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path
+            d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"
+          ></path>
+          <path d="M3 7l9 6l9 -6"></path>
+        </svg>
+
+        - ViniciusVentura29@gmail.com
       </p>
     </div>
   </div>
 </Layout>
 
 <script is:inline>
-  var i = 0;
-  var name = "Vinicius Ventura";
-  var typingSpeed = 100;
+var i = 0;
+var name = "Vinicius Ventura";
+var typingSpeed = 100;
 
-  function write() {
-    if (i < name.length) {
-      document.getElementById("name").innerHTML += name.charAt(i);
-      document.getElementById("name").classList.add("typing-container");
-      i++;
-      setTimeout(write, typingSpeed);
-    }
+function write() {
+  if (i < name.length) {
+    document.getElementById("name").innerHTML += name.charAt(i);
+    document.getElementById("name").classList.add("typing-container");
+    i++;
+    setTimeout(write, typingSpeed);
   }
+}
 
-  write();
+write();
 </script>
 <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script is:inline>
-    AOS.init();
-  </script>
+<script is:inline>
+AOS.init();
+</script>
 
 <style>
+  :global(.dark) .teste {
+    fill: white;
+  }
+
   :global(html) {
     scroll-behavior: smooth;
   }
