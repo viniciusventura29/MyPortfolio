@@ -2,25 +2,25 @@
 layout: ../../layouts/BlogLayout.astro
 
 url: /monoVSmicro
-title: Microserviços vs Monolito
-description: Microserviços vs Monolito
+title: Microserviços vs Monolith
+description: Microserviços vs Monolith
 publishDate: 07/08/2023
 ---
 
-# Monolito vs Microservice
+# Monolith vs Microservice
 When we talk about develop a software, many of doubts and discussions comes out, like which program language is better, which database use or even how disponibilize the application. That is normal.
 The real problem is when people take sides and only see one side opinion.   
 
 This happens a lot! 
 
-This article is to expose to you my opinion about one polemic topic. **Which is better monolito or microservice?**
+This article is to expose to you my opinion about one polemic topic. **Which is better monolith or microservice?**
 
 ## The Begin
-Before this type of discussion appears, is obvious that just already had a way to build applications and this software architecture is called *Monolito*.
+Before this type of discussion appears, is obvious that just already had a way to build applications and this software architecture is called *Monolith*.
 
-Monolito was imagined first, because, most of the time, is a simpler architecture. Let undestand what exactaly is a *monolito* project, follow below:
+Monolith as imagined first, because, most of the time, is a simpler architecture. Let undestand what exactaly is a *monolith* project, follow below:
 
-### Understanding a monolito
+### Understanding a monolith
 
 ![Alt text](../e-commerce_monolito1.png)
 This is a example of a e-commerce application. To better explain what is happening, we have this e-commerce splitted in three parts:  
@@ -42,7 +42,7 @@ That singularity bring us a lot of advantages, like:
 - Rapid development;
     >Imagining that is one programing language, that is one business rule and also one programing pattern to folow, the development is usually faster.
 
-Monolito seems to be very nice, it's have a lot of good points, so, let undestand a little more about it. 
+Monolith seems to be very nice, it's have a lot of good points, so, let undestand a little more about it. 
 
 Imagine that our e-commerce have all this functionallities.
 
@@ -58,11 +58,11 @@ Like I said all the functionallities are highly coupled and this means that, if 
 ![Alt text](../e-commerce_monolito4.png)
 In our example, the notification functionallity had some problem and becauso of it, all the application is out.
 
-Unfortunately, this problem is not the only one in a monolito application...
+Unfortunately, this problem is not the only one in a monolith application...
 
-Considering that a monolito application is single app that comports all the functionalities and modules of your application, this turns out to be a little tricky when we have to escalate the application. Other point that we have to be attention with, is the codebase size, because if the software needs to have more capacity, funcionality or some like this, the codebase will grows with the application.   
+Considering that a monolith application is single app that comports all the functionalities and modules of your application, this turns out to be a little tricky when we have to escalate the application. Other point that we have to be attention with, is the codebase size, because if the software needs to have more capacity, funcionality or some like this, the codebase will grows with the application.   
 
-## Today
+## Present
 Looking to this problems, the software architectures wanted to find a better way to do software, so, they thought in a solution.
 
 The term microservices was coined in May 2011 during a software architects conference to represent a style of systems architecture. The proposal of microservices-oriented architecture is to develop systems that are more flexible, scalable and simpler to maintain than the architectures of monolithic systems, which are normally used.
@@ -102,16 +102,19 @@ It's clear tha microtservice bring us many facilities, like:
 >Each module is developed to work by itself, what means that you can integrate or available alone
 - Technology aggregation;
 >In a single micro service, you can use what program language you want or have more affinity.
+- Well-defined boundaries between modules
+>Microservices forces you to split your application business logic into modules, and also provides a mental framework to do so.
 
-Way to develop systems where each module can be thought, developed and made available independently
+As you can see, microservices has a lot of advantages, and it's used at some point by almost every large tech company nowadays, since it provides many capabilities for these organizations to scale properly the modules of a system.
 
 ### Bad Points
 Unluckily, microservice is not perfect. This software architecture has problems, so let's talk about some bad points in microservice.
 
-Microservice is, usually, complex. Microservices softwares has to be very well planned and good executed, because, if not, the software insecure, vulnerable and it will be hard to understand the hole
-application.
+Microservice is, usually, complex. Microservices softwares has to be very well planned and good executed, because, if not, the software insecure, vulnerable and it will be hard to understand the hole application.
 
-The truth is, microservice is excelent however can be a shot in the foot.  
+The truth is, microservice is excelent however can be a shot in the foot.
+
+It's important to have in mind too that, is harder to deploy a microservice application because you have to deploy each service independent. 
 
 ## Future?
 So, to answare finally the waited question... **Which is better**
