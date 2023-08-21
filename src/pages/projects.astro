@@ -1,16 +1,26 @@
 ---
-import Layout from "../layouts/MainLayout.astro"
+import Layout from "../layouts/MainLayout.astro";
 
+type Projects = {
+  title: string;
+  description: string;
+  img: string;
+  link: string;
+}[];
+
+const projects: Projects = [
+  { title: "title", description: "OI", img: "", link: "" },
+];
 ---
 
 <Layout title="Vinicius Ventura">
-    <main>
-        <div class="grid grid-cols-4 gap-1 h-96 justify-items-center rounded-lg">
-            <div class="bg-gray-500 w-full col-span-4 h-full rounded-t shadow"></div>
-            <div class="bg-gray-500 w-full col-span-2 h-full shadow"></div>
-            <div class="bg-gray-500 w-full col-span-2 h-full shadow"></div>
-            <div class="bg-gray-500 w-full col-span-1 h-full rounded-bl shadow"></div>
-            <div class="bg-gray-500 w-full col-span-3 h-full rounded-br shadow"></div>
-        </div>
-    </main>
+  <main>
+    <div class="flex flex-col justify-items-center rounded-lg">
+      {
+        projects.map((pr) => {
+          <div class="bg-gray-500 w-full col-span-4 h-full rounded-t shadow" >{pr.title}</div>;
+        })
+      }
+    </div>
+  </main>
 </Layout>
