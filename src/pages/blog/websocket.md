@@ -20,7 +20,7 @@ Let's undestand fastly how http works to better see websockets.
 
 In http we have to do a request to receive a reponse, follow the example bellow.
 
-![Alt text](../http.png)
+![Alt text](../blog/websocket/http.png)
 
 I asked for a website page and it returns me what i asked. Following the same logic if I don't ask for nothing it will returns me nothing! 
 
@@ -33,7 +33,7 @@ verify if there is something new in the server.
 The websocket bring us the solution for this type of problem. Like i said in the start, websocket doesn't work like `http model` ("request" and "response"). websocket is like a tunnel of informations,
  sending and receiving. The client don't have to "ask" for information to receive updates responses, the server send it automatically. They have a bilateral comunication, both client to server and server to cliente.
 
-![Alt text](../websocket.png)
+![Alt text](../blog/websocket/websocket.png)
 
 Anyway, websocket is a interesting protocol but isn't appropriate to all the cases, develop using this protocol is not the easily thing to do and also you could lose performace in your application
 using websocket so, you have to thing and calculate if is valid use this technology in your application.
