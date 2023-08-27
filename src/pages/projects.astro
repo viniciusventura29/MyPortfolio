@@ -10,7 +10,7 @@ type Projects = {
 
 const projects: Projects = [
   { title: "title", description: "OI", img: "", link: "" },
-  { title: "aaa", description: "ssss", img: "", link: "" },
+  { title: "aaa", description: "ssss", img: "https://s2-techtudo.glbimg.com/Bxr-QA4_gL25CarCCxr9JQFybt8=/0x0:1024x609/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/c/u/15eppqSmeTdHkoAKM0Uw/dall-e-2.jpg", link: "" },
 ];
 ---
 
@@ -19,10 +19,10 @@ const projects: Projects = [
     <div class="flex flex-col gap-5 justify-items-center">
       {
         projects.map((pr) => (
-          <div class="bg-[#262036] w-full col-span-4 h-full rounded shadow p-4">
+          <div class="bg-[#e5e9e9] dark:bg-[#262036] w-full col-span-4 h-full rounded shadow p-4">
             <img class="rounded w-full h-52" src={pr.img} alt="" />
-            <h2 class="text-[#eee]">{pr.title}</h2>
-            <p class="!text-gray-400">{pr.description}</p>
+            <h2 class="text-tertiaryBlue dark:text-[#eee]">{pr.title}</h2>
+            <p class="text-gray-500 dark:!text-gray-400">{pr.description}</p>
 
             <a class="p-2 w-1" target="_blank" href={pr.link}>
               <svg
