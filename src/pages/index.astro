@@ -297,17 +297,22 @@ function printMousePos(event) {
   }, 4000)
 }
 
+var golasImg = document.querySelector(".golas")
+
 function golas(){
   let top = Math.floor(Math.random() * (1000 - 40) + 40);
   let left = Math.floor(Math.random() * (1800 - 40) + 40);
   let golasImg = document.querySelector(".golas")
   golasImg.style.top = `${top}px`
   golasImg.style.left = `${left}px`
-    golasImg.style.height = '32px'
+}
+
+function showGolas(){
+  golasImg.style.height = '32px'
 }
 
 setTimeout(()=>{
-  golas()
+  showGolas()
 },60000)
 
 document.addEventListener("click", printMousePos);
