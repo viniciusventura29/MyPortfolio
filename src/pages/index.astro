@@ -8,7 +8,7 @@ import Layout from "../layouts/MainLayout.astro";
 
 <Layout title="Vinicius Ventura">
   <div class="main">
-    <div class="mt-20 lg:mt-32 ">
+    <div class="mt-20 lg:mt-32">
       <div class="flex lg:flex-row flex-col justify-between items-center">
         <div class="flex flex-col items-center w-full relative">
           <div
@@ -69,7 +69,11 @@ import Layout from "../layouts/MainLayout.astro";
         </div>
       </div>
     </div>
-<img src="../go-logo.svg" class="h-0 golas absolute cursor-pointer" alt="">
+    <img
+      src="../go-logo.svg"
+      class="h-0 golas absolute cursor-pointer"
+      alt=""
+    />
     <div>
       <h1
         id="AboutMe"
@@ -148,23 +152,41 @@ import Layout from "../layouts/MainLayout.astro";
           <ul
             class="space-y-4 dark:text-[#eee] text-gray-500 list-disc list-inside"
           >
-            <li data-aos="fade-up" class="hover:text-blue-500">
-              <a href="https://venturanotes.vercel.app/" target={"_blank"}>
-                <strong>Notes</strong> - This website is my personal notes, where
-                I use to organize myself.
-              </a>
+            <li data-aos="fade-up">
+              <strong>Notes</strong> - This website is my personal notes, where I
+              use to organize myself.
             </li>
             <li data-aos="fade-up">
               <strong>Bosch Einer</strong> - A bosch Toolkit and Developer ecossystem,
               revamped (Experience using Typescript, ReactJS, Microservices and Monorepos)
             </li>
-            <li data-aos="fade-up" class="hover:text-blue-500">
-              <a href="https://ventura.monkeydevs.org/" target={"_blank"}>
-                <strong>The Books</strong> - This is website was developed to help
-                people to organize themself with they personal tasks. This website
-                contain three tools, a notes tool,a to do list and a Kanban methology
-                tool Also have a auth system to everyone create your own user.
-              </a>
+            <li data-aos="fade-up">
+              <strong>The Books</strong> - This is website was developed to help
+              people to organize themself with they personal tasks. This website
+              contain three tools, a notes tool,a to do list and a Kanban methology
+              tool Also have a auth system to everyone create your own user.
+            </li>
+            <li data-aos="fade-up">
+              <strong>Personals projects</strong> - I developed a lot of personals
+              projects using severals technologies! </br>
+              In the backend I developed projects using:
+              - Golang
+              - Deno
+              - Elixir
+              - Node</br>
+              In the front-end I just have used:
+              - React
+              - Nextjs
+              - Fresh
+              - Phoenix
+            </li>
+            <li data-aos="fade-up">
+              <strong>Robosch</strong> - I won the first place in a Bosch hackathon with this project!
+              Me and my group, developed this project to help and support new apprendices
+              at Bosch, because, a apprentice has a lot of doubts about the interprise,
+              the rules, areas and other similar things. So, to help this new colaborators,
+              we developed this chatBot thats use Machine learning to get better
+              answers. The robosch can be on web, Whatsapp and also telegram!
             </li>
             <li data-aos="fade-up">
               <strong>Bosch internals projects</strong> - I developed some internals
@@ -277,43 +299,44 @@ function write() {
   }
 }
 
-function randomNumber(){
+function randomNumber() {
   return Math.floor(Math.random() * (200 - 40) + 40);
 }
 
 function printMousePos(event) {
-  let divSize = randomNumber()
-  golas()
-  let newDiv = document.createElement('div')
-  newDiv.style.top = (event.pageY - 65) + 'px';
-  newDiv.style.left = (event.pageX - 70)+'px';
-  newDiv.style.height = divSize + 'px';
-  newDiv.style.width = divSize + 'px';
-  newDiv.className ="rounded-full absolute -z-10 blur-3xl bg-blue-400 dark:bg-blue-300"
+  let divSize = randomNumber();
+  golas();
+  let newDiv = document.createElement("div");
+  newDiv.style.top = event.pageY - 65 + "px";
+  newDiv.style.left = event.pageX - 70 + "px";
+  newDiv.style.height = divSize + "px";
+  newDiv.style.width = divSize + "px";
+  newDiv.className =
+    "rounded-full absolute -z-10 blur-3xl bg-blue-300 dark:bg-blue-300";
   document.body.appendChild(newDiv);
 
-  setTimeout(()=>{
+  setTimeout(() => {
     newDiv.remove();
-  }, 4000)
+  }, 4000);
 }
 
-var golasImg = document.querySelector(".golas")
+var golasImg = document.querySelector(".golas");
 
-function golas(){
+function golas() {
   let top = Math.floor(Math.random() * (1000 - 40) + 40);
   let left = Math.floor(Math.random() * (1800 - 40) + 40);
-  let golasImg = document.querySelector(".golas")
-  golasImg.style.top = `${top}px`
-  golasImg.style.left = `${left}px`
+  let golasImg = document.querySelector(".golas");
+  golasImg.style.top = `${top}px`;
+  golasImg.style.left = `${left}px`;
 }
 
-function showGolas(){
-  golasImg.style.height = '32px'
+function showGolas() {
+  golasImg.style.height = "32px";
 }
 
-setTimeout(()=>{
-  showGolas()
-},60000)
+setTimeout(() => {
+  showGolas();
+}, 60000);
 
 document.addEventListener("click", printMousePos);
 
