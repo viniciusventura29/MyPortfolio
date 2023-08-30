@@ -26,6 +26,7 @@ const { frontmatter } = Astro.props as Props;
   <body>
     <NavBar />
     <ThemeIcon />
+    <div id="read"></div>
     <slot />
     <Footer />
     <style>
@@ -186,15 +187,29 @@ const { frontmatter } = Astro.props as Props;
     </style>
 
     <script>
-      var allWords = []
-      var getP = document.getElementsByTagName('p')
+      function countNumberOfReading() {
+      let allWords = []
+      let getP = document.getElementsByTagName('p')
       for (var i = 0; i < getP.length; i++){
         allWords.push(getP[i].innerText)
       }
-      console.log(allWords.join(','))
+     
+      let numbersOfWords = allWords.join(',').split(' ').length
 
-      console.log(allWords.join(',').split(' '))
-  
+      let minutesOfReading = (numbersOfWords/300 )+1
+      
+      console.log(minutesOfReading.toFixed())
+
+      return minutesOfReading.toFixed()
+      }
+
+      countNumberOfReading()
+
+      var text = document.createTextNode(countNumberOfReading() + " minutes reading")
+
+
+      document.getElementById('read').appendChild(text)
+      
     </script>
   </body>
 </html>
