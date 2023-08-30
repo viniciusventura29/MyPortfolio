@@ -1,11 +1,11 @@
 ---
-import NavBar from '../components/NavBar.astro';
-import Footer from '../components/Footer.astro';
-import { Spa } from 'astro-spa'
-import ThemeIcon from '../components/ThemeIcon.astro';
+import NavBar from "../components/NavBar.astro";
+import Footer from "../components/Footer.astro";
+import ThemeIcon from "../components/ThemeIcon.astro";
+import { ViewTransitions } from "astro:transitions";
 
 export interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -13,103 +13,98 @@ const { title } = Astro.props;
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<NavBar />
-		<ThemeIcon />
-			<slot />
-			<Spa progressBar={false} />
-		<Footer />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <NavBar />
+    <ThemeIcon />
+    <slot />
+    <ViewTransitions />
+    <Footer />
+    <style>
+      :root {
+        --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
+        --font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
+        --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
+
+        --color-text: hsl(12, 5%, 4%);
+        --color-bg: hsl(0, 0%, 99%);
+        --color-border: hsl(17, 24%, 90%);
+      }
+
+      html {
+        font-family: system-ui, sans-serif;
+        font-size: var(--font-size-base);
+        color: var(--color-text);
+        background-color: var(--color-bg);
+      }
+
+      body {
+        margin-left: 30% !important;
+        margin-right: 30% !important;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          margin-left: 15%;
+          margin-right: 15%;
+        }
+      }
+    </style>
+
+    <style is:global>
+      html.dark {
+        background-color: #1a1625;
+        color: #eeeeee;
+      }
+
+      .dark a {
+        color: #eeeeee;
+      }
+      .dark p {
+        color: #eeeeee;
+      }
+      h2 {
+        font-size: var(--font-size-lg);
+        color: rgb(34, 34, 34);
+      }
+
+      code {
+        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+      }
+      p {
+        letter-spacing: 0.05em;
+        text-align: justify;
+        line-height: 1.3rem;
+        font-size: 0.875rem;
+        color: #011c40;
+      }
+
+      button {
+        display: flex;
+        margin-top: 30px !important;
+        padding: 10px 10px 10px 10px !important;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: #f0f0f0;
+      }
+
+      .dark button {
+        background-color: #46424f;
+        color: #eeeeee;
+      }
+
+      .dark button:hover {
+        background-color: #2f2b3a;
+      }
+    </style>
+  </body>
 </html>
-
-<style>
-	:root {
-		--font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
-		--font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
-		--font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
-
-		--color-text: hsl(12, 5%, 4%);
-		--color-bg: hsl(0, 0%, 99%);
-		--color-border: hsl(17, 24%, 90%);
-	}
-
-	html {
-		font-family: system-ui, sans-serif;
-		font-size: var(--font-size-base);
-		color: var(--color-text);
-		background-color: var(--color-bg);
-	}
-
-	body{
-		margin-left: 30%;
-		margin-right: 30%;
-	}
-
-	@media (max-width: 768px){
-		body{
-			margin-left: 15%;
-			margin-right: 15%;
-		}
-	}
-
-
-</style>
-
-<style is:global>
-	html.dark {
-  background-color: #1a1625;
-  color: #EEEEEE;
-}
-
-.dark a {
-  color: #EEEEEE;
-}
-.dark p {
-  color: #EEEEEE;
-}
-	h2 {
-		font-size: var(--font-size-lg);
-		color: rgb(34, 34, 34);
-	}
-
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
-	p{
-		letter-spacing: 0.05em;
-		text-align:justify;  
-		line-height: 1.3rem;
-		font-size: 0.875rem;
-		color: #011C40;
-	}
-
-	button{
-		display: flex;
-		margin-top: 30px;
-		padding: 10px 10px 10px 10px;
-		border-radius: 5px;
-	}
-
-	button:hover{
-		background-color: #f0f0f0;
-	}
-
-	.dark button{
-		background-color: #46424f;
-		color: #EEEEEE;
-	}
-
-	.dark button:hover{
-		background-color: #2f2b3a;
-	}
-	
-
-</style>

@@ -62,21 +62,21 @@ const { frontmatter } = Astro.props as Props;
       }
 
       body {
-        margin-left: 30%;
-        margin-right: 30%;
+        margin-left: 30% !important;
+        margin-right: 30% !important;
       }
 
       @media (max-width: 768px) {
         body {
-          margin-left: 15%;
-          margin-right: 15%;
+          margin-left: 15% !important;
+          margin-right: 15% !important;
         }
       }
     </style>
 
     <style is:global>
       h1 {
-        font-size: var(--font-size-2xl);
+        font-size: var(--font-size-2xl) !important;
         color: #00275a;
         font-weight: 600;
         
@@ -87,10 +87,10 @@ const { frontmatter } = Astro.props as Props;
       }
 
       h2 {
-        font-size: var(--font-size-xl);
+        font-size: var(--font-size-xl) !important;
         color: #003375;
-        font-weight: 500;
-        margin-top: 2rem;
+        font-weight: 500 !important;
+        margin-top: 2rem !important;
       }
 
       .dark h2 {
@@ -98,9 +98,9 @@ const { frontmatter } = Astro.props as Props;
       }
 
       h3 {
-        font-size: var(--font-size-lg);
+        font-size: var(--font-size-lg) !important;
         color: rgb(34, 34, 34);
-        margin-top: 2rem;
+        margin-top: 2rem !important;
       }
 
       .dark h3 {
@@ -108,8 +108,8 @@ const { frontmatter } = Astro.props as Props;
       }
 
       h4 {
-        font-size: var(--font-size-base);
-        margin-top: 1rem;
+        font-size: var(--font-size-base) !important;
+        margin-top: 1rem !important;
       }
 
       .dark h4 {
@@ -117,10 +117,10 @@ const { frontmatter } = Astro.props as Props;
       }
 
       li {
-        letter-spacing: 0.05em;
+        letter-spacing: 0.05em !important;
         text-align: justify;
-        line-height: 1.3rem;
-        font-size: 0.775rem;
+        line-height: 1.3rem !important;
+        font-size: 0.775rem !important;
         color: #011c40;
         list-style: inside;
       }
@@ -130,15 +130,15 @@ const { frontmatter } = Astro.props as Props;
       }
 
       hr {
-        margin-top: 1rem;
+        margin-top: 1rem !important;
         border-top-width: 2px;
       }
 
       blockquote p {
-        margin: 0 0 1.2rem 1.1rem;
-        letter-spacing: 0.05em;
+        margin: 0 0 1.2rem 1.1rem !important;
+        letter-spacing: 0.05em !important;
         text-align: justify;
-        line-height: 1.3rem;
+        line-height: 1.3rem !important;
         font-size: 0.775rem;
         color: #6a6a6a;
         padding: 2px 20px;
@@ -149,7 +149,7 @@ const { frontmatter } = Astro.props as Props;
       code {
         font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
           DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        background: #e1e1e1;
+        background: #e1e1e1 !important;
         padding: 4px;
         border-radius: 6px;
         font-size: 0.775rem;
@@ -175,8 +175,8 @@ const { frontmatter } = Astro.props as Props;
 
       button {
         display: flex;
-        margin-top: 30px;
-        padding: 10px 10px 10px 10px;
+        margin-top: 30px !important;
+        padding: 10px 10px 10px 10px !important;
         border: solid 1.5px rgb(61, 61, 61);
         border-radius: 5px;
       }
@@ -213,6 +213,14 @@ const { frontmatter } = Astro.props as Props;
       if(readElement){
         readElement.appendChild(text)
       }
+
+      document.addEventListener("astro:after-swap",()=>{
+        let readElement = document.getElementById('read')
+
+if(readElement){
+  readElement.appendChild(text)
+}
+      })
       
     </script>
   </body>
