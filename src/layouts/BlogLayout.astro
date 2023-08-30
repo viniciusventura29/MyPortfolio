@@ -78,7 +78,7 @@ const { frontmatter } = Astro.props as Props;
         font-size: var(--font-size-2xl);
         color: #00275a;
         font-weight: 600;
-        margin-top: 2rem;
+        
       }
 
       .dark h1 {
@@ -184,5 +184,17 @@ const { frontmatter } = Astro.props as Props;
         background-color: #f0f0f0;
       }
     </style>
+
+    <script>
+      var allWords = []
+      var getP = document.getElementsByTagName('p')
+      for (var i = 0; i < getP.length; i++){
+        allWords.push(getP[i].innerText)
+      }
+      console.log(allWords.join(','))
+
+      console.log(allWords.join(',').split(' '))
+  
+    </script>
   </body>
 </html>
