@@ -26,7 +26,7 @@ const { frontmatter } = Astro.props as Props;
   <body>
     <NavBar />
     <ThemeIcon />
-    <div id="read"></div>
+    <div class="p-2 px-4 mt-10 text-xs dark:bg-[#262036] bg-gray-200 w-fit rounded" id="read"></div>
     <slot />
     <Footer />
     <style>
@@ -208,7 +208,11 @@ const { frontmatter } = Astro.props as Props;
       var text = document.createTextNode(countNumberOfReading() + " minutes reading")
 
 
-      document.getElementById('read').appendChild(text)
+      let readElement = document.getElementById('read')
+
+      if(readElement){
+        readElement.appendChild(text)
+      }
       
     </script>
   </body>
