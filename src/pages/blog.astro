@@ -13,16 +13,14 @@ const posts = await Astro.glob("./blog/*.md").then((posts) =>
 ---
 
 <Layout title="Vinicius Ventura - Blog">
-  <div class="mt-20 lg:mt-32">
-    <div class="flex lg:flex-row flex-col justify-between items-center">
+  <div class="mt-16">
+    <div class="flex w-full flex-col justify-between items-center">
       <div>
         <div
           class="flex lg:text-5xl text-6xl text-center lg:text-start font-semibold dark:text-blue-300 text-[#08678C]"
         >
-          <h1 id="name" class="dark:text-blue-300"></h1>
-          <span class="input-cursor border-r-2 dark:border-blue-300 border-[#08678C]"></span>
+          <h1 class="dark:text-blue-300">My blog</h1>
         </div>
-        <h3 class="dark:text-blue-100">This is my personal blog</h3>
       </div>
     </div>
     <div class="mt-20 grid lg:grid-cols-2 gap-2">
@@ -31,40 +29,3 @@ const posts = await Astro.glob("./blog/*.md").then((posts) =>
   </div>
 </Layout>
 
-<script is:inline>
-  var i = 0;
-  var name = "Vinicius Ventura";
-  var typingSpeed = 100;
-
-  function write() {
-    if (i < name.length) {
-      document.getElementById("name").innerHTML += name.charAt(i);
-      document.getElementById("name").classList.add("typing-container");
-      i++;
-      setTimeout(write, typingSpeed);
-    }
-  }
-
-  write();
-</script>
-
-<style>
-  @keyframes blink {
-    0% {
-      opacity: 1;
-    }
-    40% {
-      opacity: 1;
-    }
-    60% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-
-  .input-cursor {
-    animation: blink 0.5s linear infinite alternate;
-  }
-</style>

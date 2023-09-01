@@ -49,8 +49,8 @@ const { frontmatter } = Astro.props as Props;
         background-color: var(--color-bg);
       }
 
-      html.dark {
-        background-color: #1a1625;
+      html .dark {
+        background-color: #1a1623;
         color: #eeeeee;
       }
 
@@ -91,6 +91,10 @@ const { frontmatter } = Astro.props as Props;
         color: #003375;
         font-weight: 500 !important;
         margin-top: 2rem !important;
+      }
+
+      nav h2 {
+        font-size: 1.5rem !important;
       }
 
       .dark h2 {
