@@ -12,7 +12,7 @@ const { title } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html class="bg-grainy" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -42,6 +42,11 @@ const { title } = Astro.props;
         font-size: var(--font-size-base);
         color: var(--color-text);
         background-color: var(--color-bg);
+      }
+
+      .bg-grainy{
+        background-image: url(../../public/back-grainy.svg);
+        background-size: cover;
       }
 
       body {
