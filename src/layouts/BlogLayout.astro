@@ -15,7 +15,7 @@ const { frontmatter } = Astro.props as Props;
 ---
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html class="bg-grainy" lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -48,8 +48,15 @@ const { frontmatter } = Astro.props as Props;
         color: var(--color-text);
         background-color: var(--color-bg);
       }
+      .bg-grainy{
+        background-image: url(../back-grainy.svg);
+        background-size: cover;
+      }
+    </style>
 
-      html .dark {
+    <style is:global>
+
+      html.dark {
         background-color: #1a1623;
         color: #eeeeee;
       }
@@ -72,9 +79,7 @@ const { frontmatter } = Astro.props as Props;
           margin-right: 15% !important;
         }
       }
-    </style>
 
-    <style is:global>
       h1 {
         font-size: var(--font-size-2xl) !important;
         color: #00275a;
@@ -95,6 +100,7 @@ const { frontmatter } = Astro.props as Props;
 
       nav h2 {
         font-size: 1.5rem !important;
+        line-height: 2rem/* 32px */;
       }
 
       .dark h2 {
