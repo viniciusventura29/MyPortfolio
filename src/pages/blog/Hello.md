@@ -1,13 +1,12 @@
 ---
 layout: ../../layouts/BlogLayout.astro
-
-url: /websocket
+url: /blog/Hello
 title: Vinicius Ventura!
 description: Welcome to my personal website/blog!
 publishDate: 11/10/2022
 ---
 
-# Welcome!
+## Welcome!
 
 This is my persoal blog! 🤩
 

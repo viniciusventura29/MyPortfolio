@@ -3,8 +3,8 @@ import Card from "../components/card.astro";
 import Layout from "../layouts/MainLayout.astro";
 
 const posts = await Astro.glob("./blog/*.md").then((posts) =>
-  posts.map(({ frontmatter, url }) => ({
-    url: url,
+  posts.map(({ frontmatter }) => ({
+    url: frontmatter.url,
     title: frontmatter.title,
     description: frontmatter.description,
     publishDate: frontmatter.publishDate,
@@ -24,8 +24,26 @@ const posts = await Astro.glob("./blog/*.md").then((posts) =>
       </div>
     </div>
     <div class="mt-20 grid lg:grid-cols-2 gap-2">
-      {posts.map((post) => <Card post={post} />)}
+      {
+        posts.map((post) => (
+          <a href={post.url}>
+            <div class="border hover:bg-gray-100 dark:hover:bg-[#2f2b3a] dark:text-blue-300 border-gray-800 h-40 rounded-md p-4">
+              <h5
+                class="text-xl font-semibold"
+                transition:name={`title-${post.title}`}
+              >
+                {post.title}
+              </h5>
+              <h5 class="text-xs lg:pr-2 text-justify h-16 overflow-hidden dark:text-blue-100 text-slate-800 mb-[0.5rem] mt-2">
+                {post.description}
+              </h5>
+              <time class="text-xs text-slate-500 italic">
+                {post.publishDate}
+              </time>
+            </div>
+          </a>
+        ))
+      }
     </div>
   </div>
 </Layout>
-

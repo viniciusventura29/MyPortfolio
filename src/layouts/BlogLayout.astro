@@ -2,6 +2,7 @@
 import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
 import ThemeIcon from "../components/ThemeIcon.astro";
+import { ViewTransitions } from "astro:transitions";
 
 interface Props {
   frontmatter: {
@@ -23,11 +24,17 @@ const { frontmatter } = Astro.props as Props;
     <meta name="generator" content={Astro.generator} />
     <title>{frontmatter.title}</title>
   </head>
-  <body>
+  <body >
     <NavBar />
     <ThemeIcon />
-    <div class="p-2 px-4 mt-10 text-xs dark:bg-[#262036] bg-gray-200 w-fit rounded" id="read"></div>
+    <div
+      class="p-2 px-4 mt-10 text-xs dark:bg-[#262036] bg-gray-200 w-fit rounded"
+      id="read"
+    >
+    </div>
+    <h1 class="w-full" transition:name={`title-${frontmatter.title}`}>{frontmatter.title}</h1>
     <slot />
+    <ViewTransitions />
     <Footer />
     <style>
       :root {
@@ -48,14 +55,13 @@ const { frontmatter } = Astro.props as Props;
         color: var(--color-text);
         background-color: var(--color-bg);
       }
-      .bg-grainy{
+      .bg-grainy {
         background-image: url(../back-grainy.svg);
         background-size: cover;
       }
     </style>
 
     <style is:global>
-
       html.dark {
         background-color: #1a1623;
         color: #eeeeee;
@@ -84,7 +90,6 @@ const { frontmatter } = Astro.props as Props;
         font-size: var(--font-size-2xl) !important;
         color: #00275a;
         font-weight: 600;
-        
       }
 
       .dark h1 {
@@ -100,7 +105,7 @@ const { frontmatter } = Astro.props as Props;
 
       nav h2 {
         font-size: 1.5rem !important;
-        line-height: 2rem/* 32px */;
+        line-height: 2rem /* 32px */;
       }
 
       .dark h2 {
@@ -198,40 +203,40 @@ const { frontmatter } = Astro.props as Props;
 
     <script>
       function countNumberOfReading() {
-      let allWords = []
-      let getP = document.getElementsByTagName('p')
-      for (var i = 0; i < getP.length; i++){
-        allWords.push(getP[i].innerText)
-      }
-     
-      let numbersOfWords = allWords.join(',').split(' ').length
+        let allWords = [];
+        let getP = document.getElementsByTagName("p");
+        for (var i = 0; i < getP.length; i++) {
+          allWords.push(getP[i].innerText);
+        }
 
-      let minutesOfReading = (numbersOfWords/300 )+1
-      
-      console.log(minutesOfReading.toFixed())
+        let numbersOfWords = allWords.join(",").split(" ").length;
 
-      return minutesOfReading.toFixed()
-      }
+        let minutesOfReading = numbersOfWords / 300 + 1;
 
-      countNumberOfReading()
+        console.log(minutesOfReading.toFixed());
 
-      var text = document.createTextNode(countNumberOfReading() + " minutes reading")
-
-
-      let readElement = document.getElementById('read')
-
-      if(readElement){
-        readElement.appendChild(text)
+        return minutesOfReading.toFixed();
       }
 
-      document.addEventListener("astro:after-swap",()=>{
-        let readElement = document.getElementById('read')
+      countNumberOfReading();
 
-if(readElement){
-  readElement.appendChild(text)
-}
-      })
-      
+      var text = document.createTextNode(
+        countNumberOfReading() + " minutes reading"
+      );
+
+      let readElement = document.getElementById("read");
+
+      if (readElement) {
+        readElement.appendChild(text);
+      }
+
+      document.addEventListener("astro:after-swap", () => {
+        let readElement = document.getElementById("read");
+
+        if (readElement) {
+          readElement.appendChild(text);
+        }
+      });
     </script>
   </body>
 </html>
