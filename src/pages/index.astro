@@ -346,7 +346,8 @@ write();
 </script>
 <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script is:inline>
-AOS.init();
+  document.addEventListener("astro:after-swap", ()=>{AOS.init()})
+  AOS.init();
 </script>
 
 <style>

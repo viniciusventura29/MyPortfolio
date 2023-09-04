@@ -9,8 +9,48 @@ type Projects = {
 }[];
 
 const projects: Projects = [
-  { title: "title", description: "OI", img: "", link: "" },
-  { title: "aaa", description: "ssss", img: "https://s2-techtudo.glbimg.com/Bxr-QA4_gL25CarCCxr9JQFybt8=/0x0:1024x609/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/c/u/15eppqSmeTdHkoAKM0Uw/dall-e-2.jpg", link: "" },
+  {
+    title: "Notes",
+    description:
+      "The notes is a website to support you manage your annotations!",
+    img: "./notes.png",
+    link: "https://github.com/viniciusventura29/Notes",
+  },
+  {
+    title: "Bosch Einer",
+    description:
+      " A bosch Toolkit and Developer ecossystem, revamped (Experience using Typescript, ReactJS, Microservices and Monorepos)",
+    img: "",
+    link: "https://github.com/ets-einer/einer",
+  },
+  {
+    title: "The Books",
+    description:
+      "This is website was developed to help people to organize themself with they personal tasks. This website contain three tools, a notes tool, a to do list and a Kanban methology tool Also have a auth system to everyone create your own user.",
+    img: "",
+    link: "https://github.com/viniciusventura29/books",
+  },
+  {
+    title: "Robosch",
+    description:
+      "I won the first place in a Bosch hackathon with this project! Me and my group, developed this project to help and support new apprendices at Bosch, because, a apprentice has a lot of doubts about the interprise, the rules, areas and other similar things. So, to help this new colaborators, we developed this chatBot thats use Machine learning to get better answers. The robosch can be on web, Whatsapp and also telegram!",
+    img: "./robosch.png",
+    link: "https://github.com/viniciusventura29/robosch_backend",
+  },
+  {
+    title: "Bosch internals projects",
+    description:
+      "I developed some internals projects at bosch. projects like websites, api's, chatBots and desktop softwares. The technologies core used in this projects was Python and TypeScript.",
+    img: "",
+    link: "",
+  },
+  {
+    title: "Personals projects",
+    description:
+      "I developed a lot of personals projects using severals technologies! In the backend I developed projects using: - Golang - Deno - Elixir - Node In the front-end I just have used: - React - Nextjs - Fresh - Phoenix",
+    img: "",
+    link: "https://github.com/viniciusventura29?tab=repositories",
+  },
 ];
 ---
 
@@ -19,12 +59,12 @@ const projects: Projects = [
     <div class="flex flex-col gap-5 justify-items-center">
       {
         projects.map((pr) => (
-          <div class="bg-[#e5e9e9] dark:bg-[#262036] w-full col-span-4 h-full rounded shadow p-4">
+          <div class="bg-[#e5e9e9] cursor-pointer hover:shadow-lg dark:bg-[#262036] w-full col-span-4 h-full rounded shadow-md p-4 flex flex-col">
             <img class="rounded w-full h-52" src={pr.img} alt="" />
-            <h2 class="text-tertiaryBlue dark:text-[#eee]">{pr.title}</h2>
+            <h2 class="text-tertiaryBlue font-semibold dark:text-[#eee] mt-4">{pr.title}</h2>
             <p class="text-gray-500 dark:!text-gray-400">{pr.description}</p>
 
-            <a class="p-2 w-1" target="_blank" href={pr.link}>
+            <a class="p-2 overflow-hidden w-9 mt-4 hover:bg-[#cdcfcf] hover:dark:bg-[#332b48] rounded" target="_blank" href={pr.link}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-brand-github"
