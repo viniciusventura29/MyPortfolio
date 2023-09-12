@@ -2,7 +2,7 @@
 layout: ../../layouts/BlogLayout.astro
 url: /blog/monoVSmicro
 title: Monolith vs Microservice
-description: Microserviços vs Monolith.
+description: My opinion about the polemic dicussion monolith vs microservice.
 publishDate: 07/08/2023
 ---
 

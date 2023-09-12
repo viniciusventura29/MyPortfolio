@@ -2,7 +2,7 @@
 layout: ../../layouts/BlogLayout.astro
 url: /blog/websocket
 title: Websockets
-description: Here I explain a little bit about what the websocket is, how this protocol works and why it is used, if want to understand something about it click here!
+description: A little explanation about what is websocket, how this protocol works and why it is used, if want to understand something about it click here!
 publishDate: 11/10/2022
 ---
 
