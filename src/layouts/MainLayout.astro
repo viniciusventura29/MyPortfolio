@@ -19,12 +19,12 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-  </head>
-  <body>
-    <NavBar />
-    <ThemeIcon />
-    <slot />
     <ViewTransitions />
+  </head>
+  <body class="dark:scrollbar-thumb-darkBlue  scrollbar-thumb-slate-600 dark:scrollbar-track-slate-800 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
+    <NavBar />
+    <ThemeIcon transition:persist/>
+    <slot />
     <Footer />
     <style>
       :root {
@@ -43,10 +43,10 @@ const { title } = Astro.props;
         color: var(--color-text);
         background-color: var(--color-bg);
       }
-
+      
       .bg-grainy{
-        background-image: url(../back-grainy.svg);
         background-size: cover;
+        background-image: url(../back-grainy.svg);
       }
 
       body {

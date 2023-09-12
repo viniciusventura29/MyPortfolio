@@ -323,11 +323,13 @@ function printMousePos(event) {
 var golasImg = document.querySelector(".golas");
 
 function golas() {
-  let top = Math.floor(Math.random() * (1000 - 40) + 40);
+  if(golasImg.style){
+    let top = Math.floor(Math.random() * (1000 - 40) + 40);
   let left = Math.floor(Math.random() * (1800 - 40) + 40);
   let golasImg = document.querySelector(".golas");
   golasImg.style.top = `${top}px`;
   golasImg.style.left = `${left}px`;
+  }
 }
 
 function showGolas() {
@@ -346,7 +348,7 @@ write();
 </script>
 <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script is:inline>
-  document.addEventListener("astro:after-swap", ()=>{AOS.init()})
+  document.addEventListener("astro:page-load", ()=>{AOS.init()})
   AOS.init();
 </script>
 
