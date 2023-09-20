@@ -19,7 +19,8 @@ import Layout from "../layouts/MainLayout.astro";
           </div>
           <h3>Junior Web Developer</h3>
           <div class="flex lg:gap-5 mt-7 gap-2">
-            <a href="https://github.com/viniciusventura29"
+            
+            <a href="https://github.com/viniciusventura29" target="_blank"
               ><button
                 class="gap-2 items-center !bg-transparent dark:hover:!bg-[#46424f]"
                 ><svg
@@ -41,7 +42,8 @@ import Layout from "../layouts/MainLayout.astro";
                 </svg>
               </button>
             </a>
-            <a href="https://www.linkedin.com/in/vini-ventura29/"
+            <a href="https://www.linkedin.com/in/vini-ventura29/" target="_blank"
+            
               ><button
                 class="gap-2 items-center !bg-transparent dark:hover:!bg-[#46424f]"
                 ><svg
@@ -214,6 +216,7 @@ import Layout from "../layouts/MainLayout.astro";
       <div class="flex flex-col w-[16rem]">
         <a
           data-aos="fade-up"
+          target="_blank"
           class="mb-2 text-[#011C40] hover:underline flex"
           href="https://github.com/viniciusventura29"
           ><svg
@@ -236,6 +239,7 @@ import Layout from "../layouts/MainLayout.astro";
         >
         <a
           data-aos="fade-up"
+          target="_blank"
           class="mb-2 text-[#011C40] hover:underline flex"
           href="https://www.linkedin.com/in/vini-ventura29/"
           ><svg
@@ -324,8 +328,9 @@ var golasImg = document.querySelector(".golas");
 
 function golas() {
   if(golasImg.style){
-    let top = Math.floor(Math.random() * (1000 - 40) + 40);
-  let left = Math.floor(Math.random() * (1800 - 40) + 40);
+    console.log()
+    let top = Math.floor(Math.random() * (window.screen.height - 40) + 40);
+  let left = Math.floor(Math.random() * (window.screen.width - 40) + 40);
   let golasImg = document.querySelector(".golas");
   golasImg.style.top = `${top}px`;
   golasImg.style.left = `${left}px`;
@@ -349,7 +354,9 @@ write();
 <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script is:inline>
   document.addEventListener("astro:page-load", ()=>{AOS.init()})
-  AOS.init();
+  if(AOS){
+    AOS.init();
+  }
 </script>
 
 <style>

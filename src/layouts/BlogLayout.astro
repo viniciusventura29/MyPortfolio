@@ -15,7 +15,7 @@ interface Props {
 const { frontmatter } = Astro.props as Props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html class="bg-grainy" lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -24,7 +24,9 @@ const { frontmatter } = Astro.props as Props;
     <meta name="generator" content={Astro.generator} />
     <title>{frontmatter.title}</title>
   </head>
-  <body class="dark:scrollbar-thumb-darkBlue  scrollbar-thumb-slate-600 dark:scrollbar-track-slate-800 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full" >
+  <body
+    class="dark:scrollbar-thumb-darkBlue scrollbar-thumb-slate-600 dark:scrollbar-track-slate-800 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
+  >
     <NavBar />
     <ThemeIcon />
     <div
@@ -32,7 +34,9 @@ const { frontmatter } = Astro.props as Props;
       id="read"
     >
     </div>
-    <h1 class="w-full" transition:name={`title-${frontmatter.title}`}>{frontmatter.title}</h1>
+    <h1 class="w-full" transition:name={`title-${frontmatter.title}`}>
+      {frontmatter.title}
+    </h1>
     <slot />
     <ViewTransitions />
     <Footer />
@@ -162,8 +166,15 @@ const { frontmatter } = Astro.props as Props;
       }
 
       code {
-        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+        font-family:
+          Menlo,
+          Monaco,
+          Lucida Console,
+          Liberation Mono,
+          DejaVu Sans Mono,
+          Bitstream Vera Sans Mono,
+          Courier New,
+          monospace;
         background: #e1e1e1 !important;
         padding: 4px;
         border-radius: 6px;
@@ -181,7 +192,7 @@ const { frontmatter } = Astro.props as Props;
         font-size: 0.875rem;
         color: #011c40;
 
-        @apply mt-4;
+        margin-top: 1rem !important;
       }
 
       .dark p {
@@ -201,8 +212,8 @@ const { frontmatter } = Astro.props as Props;
       }
 
       details {
-        background:#e2e2e2;
-        padding: 20px 30px;
+        background: #e2e2e2;
+        padding: 15px 20px;
         cursor: pointer;
         letter-spacing: 0.05em;
         text-align: justify;
@@ -211,14 +222,13 @@ const { frontmatter } = Astro.props as Props;
         color: #011c40;
         font-weight: 400;
         border-radius: 7px;
-        
-        margin-top: 2rem !important;
+
+        margin: 1rem 0 1rem 0 !important;
       }
 
-      details summary{
+      details summary {
         font-weight: 600;
       }
-
     </style>
 
     <script>
@@ -250,7 +260,7 @@ const { frontmatter } = Astro.props as Props;
         readElement.appendChild(text);
       }
 
-      document.addEventListener("astro:after-swap", () => {
+      document.addEventListener("astro:page-load", () => {
         let readElement = document.getElementById("read");
 
         if (readElement) {
