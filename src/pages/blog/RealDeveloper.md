@@ -2,22 +2,45 @@
 layout: ../../layouts/BlogLayout.astro
 url: /blog/RealDeveloper
 title: A real developer
-description: My opnion about what is a real developer to me.
+description: My opinion about what is a real developer to me.
 publishDate: 01/09/2023
 ---
 
-A *Real Developer*... It's could sounds stranges but a think that I always gets me thinking about, what difference me from others devs? What makes me a developer? 
+A *Real Developer*... It's could sounds stranges but I will explain what I mean. I try to do my best in everyway, including my professional life so I always gets me thinking, what difference between good devs to others devs? What makes me a developer? What I have to do to be a good dev?
 
-Before we talk about what is a real developer,  I would like to explain what is not a developer in my conception.
+---
 
-From start, write code does not makes you a developer! There is a lot of other things that compose dev. 
+Before I start is important to know that everything that I will write here is not what you have to be but what I think is important to have in mind or where drive your effort to.
 
-Nowadays, our lifes are accelerated, in every way! We are been teatched to learn fast and work faster and delivery a solution even more faster and is dangerous we walk through this path because *"Frameworkers developers"* can be created.
+---
+
+<!-- 
+WHAT IS 
+- dev code reader
+- interactive dev
+- open minded
+- study dev
+
+
+
+WHAT IS NOT -->
+
+<!-- Before we talk about what I concearn about what is a real developer,  I would like to explain what is **not** a real developer in my 
+conception.
+
+---
+
+Nowadays, our lifes are accelerated, in every way! We have been teach to learn fast and work faster and delivery a solution even more faster, 
+and that is dangerous way to walk through. Because walking in this path can create *"Frameworkers developers"*.
 
 <details>
     <summary>Frameworkers developers</summary>
-    A frameworker developer is that dev that only knows to write code in one framework, not even know the language
+    A frameworker developer is that dev that only knows to write code in that framework don't understanding why that framework work like that and the worst, not even understanding the language that the framework uses.
 </details>
 
+From start, write code does not makes you a developer! There is a lot of other things that compose a dev.
 
-The problem with frameworkes developers is that 
+Before you misunderstand me, I'm not meaning that you have to learn a lot of frameworks or that is wrong you focus in one framework, actually,
+that is great! What I see as a problem is don't undestand how this framework works, why it is like it is and why use it.
+
+*It's easy copy and paste code or use chatgpt to do a hole website, the challanger is understand the technology and knows when use it.* -->
