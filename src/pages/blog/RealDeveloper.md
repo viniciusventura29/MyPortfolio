@@ -13,17 +13,29 @@ A *Real Developer*... It's could sounds stranges but I will explain what I mean.
 Before I start is important to know that everything that I will write here is not what you have to be but what I think is important to have in mind or where drive your effort to.
 
 ---
+# good code reader
+
+In my conception, one of the first topics that we must to have in mind to be a good dev is to be a good code reader, have the habit to read 
+others developers code. It's very important because when you read someone else code you see new ways to code, develop your critical eye, 
+improve your understandability about programming, improve your criativity and keeps your mind always opened.
+
+You could do this contribuiting in open sources projects, what is other important topic that I'll talk more about it below
+
+# Open source
+
 
 <!-- 
 WHAT IS 
 - dev code reader
-- interactive dev
 - open minded
-- study dev
+- dev that participate of open source community
 
+WHAT IS NOT
+- frameworkers devs
+- "The best language" dev/ java is slow dev
+- hype dev
 
-
-WHAT IS NOT -->
+-->
 
 <!-- Before we talk about what I concearn about what is a real developer,  I would like to explain what is **not** a real developer in my 
 conception.
