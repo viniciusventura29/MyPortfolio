@@ -6,6 +6,8 @@ description: A little explanation about what is websocket, how this protocol wor
 publishDate: 11/10/2022
 ---
 
+Some months ago I have done some projects using this protocol and in this article I tell what I learn.
+
 #### Here, I'll try to explain you, what is websocket and why is it used for
 
 Websocket is a different form to see request and responses on the web, because websocket do not have "requests" and "responses" like in http, in fact websocket have a bilateral comunication 
@@ -27,8 +29,10 @@ verify if there is something new in the server.
 
 ## How works in Websocket
 
-The websocket bring us the solution for this type of problem. Like i said in the start, websocket doesn't work like `http model` ("request" and "response"). websocket is like a tunnel of informations,
- sending and receiving. The client don't have to "ask" for information to receive updates responses, the server send it automatically. They have a bilateral comunication, both client to server and server to cliente.
+The websocket bring us the solution for this type of problem. Like i said in the start, websocket doesn't work like `http model` ("request" 
+and "response"). websocket is like a tunnel of informations,
+sending and receiving. The client don't have to "ask" for information to receive updates responses, the server send it automatically. They 
+have a bilateral comunication, both client to server and server to cliente.
 
 ![Alt text](/blog/websocket/websocket.png)
 
