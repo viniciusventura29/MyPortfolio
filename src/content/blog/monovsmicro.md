@@ -1,9 +1,9 @@
 ---
-layout: ../../layouts/BlogLayout.astro
-url: /blog/monoVSmicro
-title: Monolith vs Microservice
-description: My opinion about the polemic dicussion monolith vs microservice.
+title: Why you should not develop a microservice
+description: My opinion about the dicussion monolith vs microservice.
 publishDate: 07/08/2023
+image: /blogg/monoVSmicro/microVSmonoWallpaper.png
+time: 4 
 ---
 
 When we talk about develop a software, many of doubts and discussions comes out, like which program language is better, which database use or even how disponibilize the application. That is normal.
@@ -11,7 +11,9 @@ The real problem is when people take sides and only see one side opinion.
 
 This happens a lot! 
 
-This article is to expose to you my opinion about one polemic topic. **Which is better monolith or microservice?**
+I was on Twitter and I saw a big discussion thread about **Which is better monolith or microservice?**
+
+So, this article is to expose to you my opinion about. 
 
 ## The Begin
 Before this type of discussion appears, is obvious that just already had a way to build applications and this software architecture is called *Monolith*.
@@ -20,7 +22,7 @@ Monolith as imagined first, because, most of the time, is a simpler architecture
 
 ### Understanding a monolith
 
-![Alt text](/blog/monoVSmicro/e-commerce_monolito1.png)
+![Alt text](/blogg/monoVSmicro/e-commerce_monolito1.png)
 This is a example of a e-commerce application. To better explain what is happening, we have this e-commerce splitted in three parts:  
 - We have the frontend, is what the final user see and interacts with;
 - The backend, is where all the logic of the application is;
@@ -44,7 +46,7 @@ Monolith seems to be very nice, it's have a lot of good points, so, let undestan
 
 Imagine that our e-commerce have all this functionallities.
 
-![Alt text](/blog/monoVSmicro/e-commerce_monolito2.png)
+![Alt text](/blogg/monoVSmicro/e-commerce_monolito2.png)
 
 It's a great application right? We have a lot of functionallities coupled in it and this bring us the first problem of the monilito...
 
@@ -52,8 +54,8 @@ It's a great application right? We have a lot of functionallities coupled in it 
 
 Like I said all the functionallities are highly coupled and this means that, if one functionallitie breaks, all the others breaks too. 
 
-![Alt text](/blog/monoVSmicro/e-commerce_monolito3.png)
-![Alt text](/blog/monoVSmicro/e-commerce_monolito4.png)
+![Alt text](/blogg/monoVSmicro/e-commerce_monolito3.png)
+![Alt text](/blogg/monoVSmicro/e-commerce_monolito4.png)
 In our example, the notification functionallity had some problem and becauso of it, all the application is out.
 
 Unfortunately, this problem is not the only one in a monolith application...
@@ -69,7 +71,7 @@ But the first question is, What exactaly it works?
 
 ### Understanding a microservice
 In a microservice, the modules and functions are splitted. It's like if each service is a single application. Follow the example bellow:
-![Alt text](/blog/monoVSmicro/e-commerce_microservice1.png)
+![Alt text](/blogg/monoVSmicro/e-commerce_microservice1.png)
 
 Here we could see all the mainly functions a part, but, all them are micro part of something bigger, the final application itself.
 
@@ -87,7 +89,7 @@ Anyway, having this in mind let's continue.
 A big good point of microservices architecture is that if one micro service stops, the application does not break!
 
 For example:
-![Alt text](/blog/monoVSmicro/e-commerce_microservice2.png)
+![Alt text](/blogg/monoVSmicro/e-commerce_microservice2.png)
 
 Here we could see that if one of the micro services breaks the others keeps working and that is great beacause its bring us more consistency and reliability.
 

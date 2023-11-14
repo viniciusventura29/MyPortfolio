@@ -1,39 +1,30 @@
 ---
-import { ViewTransitions } from "astro:transitions";
-import Card from "../components/card.astro";
+import { getCollection } from "astro:content";
 import Layout from "../layouts/MainLayout.astro";
 
-const posts = await Astro.glob("./blog/*.md").then((posts) =>
-  posts.map(({ frontmatter }) => ({
-    url: frontmatter.url,
-    title: frontmatter.title,
-    description: frontmatter.description,
-    publishDate: frontmatter.publishDate,
-  }))
-);
+const posts = await getCollection('blog');
 ---
 
 <Layout title="Vinicius Ventura - Blog">
   <div class="">
-    <div class="flex w-full flex-col justify-between items-center">
-    </div>
     <h2 class="mb-6">My blog</h2>
     <div class=" grid gap-2">
       {
         posts.map((post) => (
-          <a href={post.url}>
-            <div class="border hover:bg-gray-200 bg-gray-100 dark:hover:bg-[#2f2b3a] dark:text-blue-300 dark:border-gray-800 h-40 dark:bg-[#292533] rounded-md p-4">
+          <a href={`blog/${post.slug}`}>
+            <div class="border hover:bg-gray-200 bg-gray-100 dark:hover:bg-[#2f2b3a] dark:text-blue-300 dark:border-gray-800 dark:bg-[#292533] rounded-md p-4">
+              <img src={post.data.image} transition:name={post.data.image} class="flex justify-center w-full h-auto rounded-md bg-red-100 mb-4" />
               <h5
                 class="text-xl font-semibold"
-                transition:name={`title-${post.title}`}
+                transition:name={`title-${post.data.title}`}
               >
-                {post.title}
+                {post.data.title}
               </h5>
               <h5 class="text-xs lg:pr-2 text-justify h-16 overflow-hidden dark:text-blue-100 text-slate-800 mb-[0.5rem] mt-2">
-                {post.description}
+                {post.data.description}
               </h5>
               <time class="text-xs text-slate-500 italic">
-                {post.publishDate}
+                {post.data.publishDate}
               </time>
             </div>
           </a>
