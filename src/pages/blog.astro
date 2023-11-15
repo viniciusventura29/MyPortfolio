@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../layouts/MainLayout.astro";
-import Card from "../components/Card.astro";
 
 const posts = await getCollection("blog");
 ---
@@ -12,15 +11,27 @@ const posts = await getCollection("blog");
     <div class="grid gap-2">
       {
         posts.map((post) => (
-          <Card
-            post={{
-              image: post.data.image,
-              description: post.data.description,
-              publishDate: post.data.publishDate,
-              slug: post.slug,
-              title: post.data.title,
-            }}
-          />
+          <a href={`blog/${post.slug}`}>
+            <div class="border hover:bg-[#2f2b3a] text-blue-300 border-gray-800 bg-[#292533] rounded-md p-4">
+              <img
+                src={post.data.image}
+                transition:name={post.data.image}
+                class="flex justify-center w-full h-auto rounded-md bg-red-100 mb-4"
+              />
+              <h5
+                class="text-xl font-semibold"
+                transition:name={`title-${post.data.title}`}
+              >
+                {post.data.title}
+              </h5>
+              <h5 class="text-xs lg:pr-2 text-justify h-16 overflow-hidden text-blue-100 mb-[0.5rem] mt-2">
+                {post.data.description}
+              </h5>
+              <time class="text-xs text-slate-500 italic">
+                {post.data.publishDate}
+              </time>
+            </div>
+          </a>
         ))
       }
     </div>
