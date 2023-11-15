@@ -1,22 +1,38 @@
 ---
 export interface Props {
-  post: { description: string; publishDate: string; title: string; url: string };
+  post: {
+    image: string | undefined;
+    description: string;
+    publishDate: string;
+    title: string;
+    slug: string;
+  };
 }
 const { post } = Astro.props;
 ---
 
-<a href={post.url}>
+<a href={`blog/${post.slug}`}>
   <div
-    class="border hover:bg-gray-100 dark:hover:bg-[#2f2b3a] dark:text-blue-300 border-gray-800 h-40 rounded-md p-4"
+    class="border hover:bg-[#2f2b3a] text-blue-300 border-gray-800 bg-[#292533] rounded-md p-4"
   >
-    <h5 class="text-xl font-semibold" transition:name={`title-${post.title}`}>
+    <img
+      src={post.image}
+      transition:name={post.image}
+      class="flex justify-center w-full h-auto rounded-md bg-red-100 mb-4"
+    />
+    <h5
+      class="text-xl font-semibold"
+      transition:name={`title-${post.title}`}
+    >
       {post.title}
     </h5>
     <h5
-      class="text-xs lg:pr-2 text-justify h-16 overflow-hidden dark:text-blue-100 text-slate-800 mb-[0.5rem] mt-2"
+      class="text-xs lg:pr-2 text-justify h-16 overflow-hidden text-blue-100 mb-[0.5rem] mt-2"
     >
       {post.description}
     </h5>
-    <time class="text-xs text-slate-500 italic">{post.publishDate}</time>
+    <time class="text-xs text-slate-500 italic">
+      {post.publishDate}
+    </time>
   </div>
 </a>

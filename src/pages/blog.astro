@@ -1,33 +1,26 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../layouts/MainLayout.astro";
+import Card from "../components/Card.astro";
 
-const posts = await getCollection('blog');
+const posts = await getCollection("blog");
 ---
 
 <Layout title="Vinicius Ventura - Blog">
   <div class="">
-    <h2 class="mb-6">My blog</h2>
-    <div class=" grid gap-2">
+    <h2 class="mb-6 text-3xl font-semibold mt-16 text-blue-300">My blog</h2>
+    <div class="grid gap-2">
       {
         posts.map((post) => (
-          <a href={`blog/${post.slug}`}>
-            <div class="border hover:bg-gray-200 bg-gray-100 dark:hover:bg-[#2f2b3a] dark:text-blue-300 dark:border-gray-800 dark:bg-[#292533] rounded-md p-4">
-              <img src={post.data.image} transition:name={post.data.image} class="flex justify-center w-full h-auto rounded-md bg-red-100 mb-4" />
-              <h5
-                class="text-xl font-semibold"
-                transition:name={`title-${post.data.title}`}
-              >
-                {post.data.title}
-              </h5>
-              <h5 class="text-xs lg:pr-2 text-justify h-16 overflow-hidden dark:text-blue-100 text-slate-800 mb-[0.5rem] mt-2">
-                {post.data.description}
-              </h5>
-              <time class="text-xs text-slate-500 italic">
-                {post.data.publishDate}
-              </time>
-            </div>
-          </a>
+          <Card
+            post={{
+              image: post.data.image,
+              description: post.data.description,
+              publishDate: post.data.publishDate,
+              slug: post.slug,
+              title: post.data.title,
+            }}
+          />
         ))
       }
     </div>

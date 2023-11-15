@@ -20,26 +20,14 @@ const { title } = Astro.props;
     <title>{title}</title>
     <ViewTransitions />
   </head>
-  <body class="dark:scrollbar-thumb-darkBlue  scrollbar-thumb-slate-600 dark:scrollbar-track-slate-800 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
+  <body class="scrollbar-thumb-darkBlue scrollbar-track-slate-800 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
     <NavBar />
     <slot />
     <Footer />
     <style>
-      :root {
-        --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
-        --font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
-        --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
-
-        --color-text: hsl(12, 5%, 4%);
-        --color-bg: hsl(0, 0%, 99%);
-        --color-border: hsl(17, 24%, 90%);
-      }
-
       html {
         font-family: system-ui, sans-serif;
         font-size: var(--font-size-base);
-        color: var(--color-text);
-        background-color: var(--color-bg);
       }
       
       .bg-grainy{
@@ -68,20 +56,19 @@ const { title } = Astro.props;
     </style>
 
     <style is:global>
-      html.dark {
+      html  {
         background-color: #1a1623;
         color: #eeeeee;
       }
 
-      .dark a {
+      a {
         color: #eeeeee;
       }
-      .dark p {
+      p {
         color: #eeeeee;
       }
       h2 {
         font-size: var(--font-size-lg);
-        color: rgb(34, 34, 34);
       }
 
       code {
@@ -93,7 +80,6 @@ const { title } = Astro.props;
         text-align: justify;
         line-height: 1.3rem;
         font-size: 0.875rem;
-        color: #011c40;
       }
     </style>
   </body>
