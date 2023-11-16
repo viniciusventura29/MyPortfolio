@@ -1,6 +1,8 @@
 <div class="flex flex-col items-center w-full relative">
+  <div class="circle-img"></div>
+
   <div
-    class="flex lg:text-5xl text-6xl text-center lg:text-start font-semibold text-blue-300 "
+    class="flex lg:text-5xl text-6xl text-center lg:text-start font-semibold text-blue-300"
   >
     <h1 id="name" class=""></h1>
     <span class="input-cursor border-r-2 border-[#08678C]"></span>
@@ -74,8 +76,7 @@ write();
 </script>
 
 <style>
-
-  span{
+  span {
     animation: blink 1s linear infinite;
   }
   @keyframes blink {
@@ -87,6 +88,44 @@ write();
     }
     100% {
       opacity: 1;
+    }
+  }
+
+  .circle-img {
+    width: 320px;
+    height: 320px;
+    background-color: #2c2738;
+    margin-bottom: 2rem;
+    display: flex;
+    background-size: cover;
+    background-image: url("/foto.jpg");
+    animation:
+      sensualImg 12s linear infinite,
+      3s linear infinite alternate boxMagic;
+  }
+
+  @keyframes sensualImg {
+    0% {
+      border-radius: 65% 35% 39% 61% / 57% 38% 62% 43%;
+    }
+    50% {
+      border-radius: 27% 73% 64% 36% / 34% 53% 47% 66%;
+    }
+    100% {
+      border-radius: 65% 35% 39% 61% / 57% 38% 62% 43%;
+    }
+  }
+
+  @keyframes boxMagic {
+    from {
+      box-shadow:
+        0 0 0 #02507a,
+        0 0 0 #042c43;
+    }
+    to {
+      box-shadow:
+        0 -5px 0 #042c43,
+        0 5px 0 #02507a;
     }
   }
 </style>
