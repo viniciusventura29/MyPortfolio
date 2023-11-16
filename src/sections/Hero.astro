@@ -2,7 +2,7 @@
   <div class="circle-img"></div>
 
   <div
-    class="flex lg:text-5xl text-6xl text-center lg:text-start font-semibold text-blue-300"
+    class="flex lg:text-5xl text-3xl text-center lg:text-start font-semibold text-blue-300"
   >
     <h1 id="name" class=""></h1>
     <span class="input-cursor border-r-2 border-[#08678C]"></span>
@@ -126,6 +126,13 @@ write();
       box-shadow:
         0 -5px 0 #042c43,
         0 5px 0 #02507a;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .circle-img {
+      width: 180px;
+    height: 180px;
     }
   }
 </style>
