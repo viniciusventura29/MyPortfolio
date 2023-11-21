@@ -4,10 +4,7 @@ import BlogLayout from "../../layouts/BlogLayout.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+  return posts.map((post) => ({ params: { slug: post.slug }, props: post }));
 }
 
 type Props = CollectionEntry<"blog">;
@@ -22,9 +19,9 @@ const { Content } = await post.render();
     image: post.data.image,
     publishDate: post.data.publishDate,
     title: post.data.title,
-    time: post.data.time
+    time: post.data.time,
+    draft: post.data.draft,
   }}
 >
   <Content />
 </BlogLayout>
-

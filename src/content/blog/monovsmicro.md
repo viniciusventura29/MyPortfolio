@@ -4,6 +4,7 @@ description: My opinion about the dicussion monolith vs microservice.
 publishDate: 07/08/2023
 image: /blogg/monoVSmicro/microVSmonoWallpaper.png
 time: 4 
+draft: false
 ---
 
 When we talk about develop a software, many of doubts and discussions comes out, like which program language is better, which database use or even how disponibilize the application. That is normal.
