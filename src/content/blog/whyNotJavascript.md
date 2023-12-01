@@ -16,4 +16,4 @@ Yes, that's right you can, but, should you?
 
 This statement is very tricky, because you really can, but will not always be the best solution
 
-The JS that we know nowadays is the same Javascript was idealized to do simple interactions in a web app because of it, the language have a lot of 
+Javascript was idealized to be a simple language and works only in the client side and because of that the language have a lot of particularities. For example: 
