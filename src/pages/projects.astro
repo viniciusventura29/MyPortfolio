@@ -7,6 +7,7 @@ import booksLogo from '../../public/BooksLogo.svg'
 import einerLogo from '../../public/EinerLogo.svg'
 import github from '../../public/brand-github.svg'
 import BoschLogo from '../../public/Bosch_symbol_logo_black_red (2).svg'
+import ProjectModal from '../components/ProjectModal.astro'
 
 
 type Projects = {
@@ -64,7 +65,7 @@ const projects: Projects = [
       "I developed a lot of personals projects using severals technologies! In the backend I developed projects using: - Golang - Deno - Elixir - Node In the front-end I just have used: - React - Nextjs - Fresh - Phoenix",
     img: github,
     link: "https://github.com/viniciusventura29?tab=repositories",
-    background: "bg-white dark:invert"
+    background: "bg-white invert"
   },
 ];
 ---
@@ -74,17 +75,17 @@ const projects: Projects = [
     <div class="flex flex-col gap-5 justify-items-center">
       {
         projects.map((pr) => (
-          <div class="bg-[#e5e9e9] cursor-pointer hover:shadow-lg dark:bg-[#262036] w-full col-span-4 h-full rounded shadow-md p-4 flex flex-col">
+          <div onclick={`window.${pr.title}.showModal()`} class="cursor-pointer hover:shadow-lg bg-[#262036] w-full col-span-4 h-full rounded shadow-md p-4 flex flex-col">
             <div class={`w-full rounded h-52 flex items-center justify-center ${pr.background}`}>
               <Image class=" w-full h-20" src={pr.img} alt="" />  
             </div>
-            <h2 class="text-tertiaryBlue font-semibold dark:text-[#eee] mt-4">{pr.title}</h2>
-            <p class="text-gray-500 dark:!text-gray-400">{pr.description}</p>
+            <h2 class="font-semibold text-[#eee] mt-4">{pr.title}</h2>
+            <p class="text-gray-400">{pr.description}</p>
 
-            <a class="p-2 overflow-hidden w-9 mt-4 hover:bg-[#cdcfcf] hover:dark:bg-[#332b48] rounded" target="_blank" href={pr.link}>
+            <a class="group flex justify-center items-center p-2 overflow-hidden w-9 mt-4 hover:bg-[#362c4e] rounded" target="_blank" href={pr.link}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-brand-github"
+                class="icon icon-tabler icon-tabler-brand-github opacity-50 group-hover:opacity-100"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -98,8 +99,10 @@ const projects: Projects = [
                 <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
               </svg>
             </a>
+            <button class="bg-red-500" onclick={`window.${pr.title}.showModal()`}>{"open"}</button>
           </div>
-        ))
+          <ProjectModal stack={["typescript"]} title={pr.title} description={pr.description} github={pr.link} image={[pr.img.src]}  />
+          ))
       }
     </div>
   </main>
