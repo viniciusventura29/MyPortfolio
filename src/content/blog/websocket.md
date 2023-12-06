@@ -1,5 +1,4 @@
 ---
-url: /blog/websocket
 title: What is a websocket
 description: A little explanation about what is websocket, how this protocol works and why it is used, if want to understand something about it click here!
 publishDate: 11/10/2022

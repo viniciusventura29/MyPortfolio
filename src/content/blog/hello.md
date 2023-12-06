@@ -3,7 +3,6 @@ image: /blogg/hello/meWallpaper.png
 title: Vinicius Ventura!
 description: Welcome to my personal website/blog!
 publishDate: 11/10/2022
-
 time: 0
 draft: false
 ---
