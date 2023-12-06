@@ -10,7 +10,7 @@ export async function get(context) {
 		site: context.site,
 		items: posts.map((post) => ({
 			...post.data,
-            pubDate:new Date(post.data.publishDate),
+            pubDate:post.data.publishDate,
 			enclosure: {
 				length: 1,
 				type: "img",
