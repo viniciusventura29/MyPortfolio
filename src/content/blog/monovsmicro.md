@@ -1,7 +1,7 @@
 ---
 title: Why you should not develop a microservice
 description: My opinion about the dicussion monolith vs microservice.
-publishDate: 07/08/2023
+publishDate: "Aug 07 2023"
 image: /blogg/monoVSmicro/microVSmonoWallpaper.png
 time: 4 
 draft: false

@@ -1,7 +1,7 @@
 ---
 title: Why not javascript
 description: This is why javascript shouldn't be used in everywhere
-publishDate: 21/11/2023
+publishDate: "Nov 21 2023"
 image: /blogg/whyNotJs/whyNotJSWallpaper.png
 time: 2
 draft: true
