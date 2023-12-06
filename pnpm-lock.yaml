@@ -4,6 +4,9 @@ dependencies:
   '@astrojs/react':
     specifier: ^1.1.4
     version: 1.2.2(@types/react-dom@18.0.6)(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0)
+  '@astrojs/rss':
+    specifier: ^4.0.0
+    version: 4.0.0
   '@astrojs/tailwind':
     specifier: ^5.0.0
     version: 5.0.0(astro@3.3.1)(tailwindcss@3.3.2)
@@ -106,6 +109,13 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@astrojs/rss@4.0.0:
+    resolution: {integrity: sha512-Lu7xBVg2qe/+Ja3vJY9qprWDl5K2MjztQXekes4jCz/VcDrqRWLUiRQGLXOVqu/k9aORuj6yiU5hTcsiJb9zuA==}
+    dependencies:
+      fast-xml-parser: 4.3.2
+      kleur: 4.1.5
     dev: false
 
   /@astrojs/tailwind@5.0.0(astro@3.3.1)(tailwindcss@3.3.2):
@@ -1853,6 +1863,13 @@ packages:
       glob-parent: 5.1.2
       merge2: 1.4.1
       micromatch: 4.0.5
+    dev: false
+
+  /fast-xml-parser@4.3.2:
+    resolution: {integrity: sha512-rmrXUXwbJedoXkStenj1kkljNF7ugn5ZjR9FJcwmCfcCbtOMDghPajbc+Tck6vE6F5XsDmx+Pr2le9fw8+pXBg==}
+    hasBin: true
+    dependencies:
+      strnum: 1.0.5
     dev: false
 
   /fastq@1.15.0:
@@ -3770,6 +3787,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
     optional: true
+
+  /strnum@1.0.5:
+    resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
+    dev: false
 
   /sucrase@3.32.0:
     resolution: {integrity: sha512-ydQOU34rpSyj2TGyz4D2p8rbktIOZ8QY9s+DGLvFU1i5pWJE8vkpruCjGCMHsdXwnD7JDcS+noSwM/a7zyNFDQ==}

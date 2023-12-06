@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^1.1.4",
+    "@astrojs/rss": "^4.0.0",
     "@astrojs/tailwind": "^5.0.0",
     "@types/react": "^18.0.21",
     "@types/react-dom": "18.0.6",
