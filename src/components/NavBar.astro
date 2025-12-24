@@ -1,25 +1,18 @@
-<nav class="flex flex-col lg:flex-row py-6 justify-between" transition:persist>
-  <a href="/"
-    ><h2
-      class="font-semibold text-blue-100 hover:underline mt-0 text-lg 2xl:text-xl"
+<nav class="flex items-center justify-between py-6" transition:persist>
+  <a href="/" class="font-semibold text-blue-100 hover:text-blue-50 transition-colors">
+    <span class="text-slate-600">{"<"}</span>ventura<span class="text-slate-600">{" />"}</span>
+  </a>
+  
+  <div class="flex items-center gap-6 text-sm">
+    <a class="text-slate-400 hover:text-blue-200 transition-colors" href="/blog">
+      Blog
+    </a>
+    <a 
+      class="text-slate-400 hover:text-blue-200 transition-colors" 
+      href="https://github.com/viniciusventura29"
+      target="_blank"
     >
-      <span class="text-gray-700 ">{`<`}</span>Vinicius Ventura <span class="text-gray-700">{`/>`}</span>
-    </h2></a>
-    <div
-      class="flex items-center justify-between 2xl:w-80 w-60 text-sm 2xl:text-base"
-    >
-      <a class="text-blue-100 hover:underline" href="/#Projects"
-        >Projects</a
-      >
-      <a class="text-blue-100 hover:underline" href="/#AboutMe"
-        >About me</a
-      >
-      <a class="text-blue-100 hover:underline" href="/blog"
-        >Blog</a
-      >
-      <a class="text-blue-100 hover:underline" href="/#Contacts"
-        >Contacts</a
-      >
-    </div>
-    <!-- <ThemeIcon transition:persist/> -->
+      GitHub
+    </a>
+  </div>
 </nav>

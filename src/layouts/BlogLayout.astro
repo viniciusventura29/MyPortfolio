@@ -10,72 +10,78 @@ interface Props {
     publishDate: string;
     image?: string | undefined;
     time: number;
-    draft: boolean
+    draft: boolean;
   };
 }
 
 const { frontmatter } = Astro.props as Props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html class="bg-grainy" lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{frontmatter.title}</title>
-  </head>
-  <body
-    class="scrollbar-thumb-darkBlue scrollbar-track-slate-800 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
-  >
-    <NavBar />
-    <div
-      class="p-2 px-4 mt-10 text-xs bg-[#262036] w-fit rounded"
-      id="read"
-    >
-      {frontmatter.time} minutes reading
-    </div>
-    <img
-      class="w-full rounded mt-2"
-      transition:name={frontmatter.image}
-      src={frontmatter.image}
-      alt=""
-    />
-    <h1 class="w-full" transition:name={`title-${frontmatter.title}`}>
-      {frontmatter.title}
-    </h1>
-    <slot />
+    <meta name="description" content={frontmatter.description} />
+    <title>{frontmatter.title} - Vinicius Ventura</title>
     <ViewTransitions />
+  </head>
+  <body class="scrollbar-thumb-darkBlue scrollbar-track-slate-800 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
+    <NavBar />
+    
+    <article class="mt-10 lg:mt-16">
+      <!-- Header -->
+      <header class="mb-8">
+        <div class="flex items-center gap-4 text-sm text-slate-500 mb-4">
+          <time>{frontmatter.publishDate}</time>
+          <span>·</span>
+          <span>{frontmatter.time} min read</span>
+        </div>
+        
+        <h1 
+          class="text-3xl lg:text-4xl font-bold text-blue-200 leading-tight"
+          transition:name={`title-${frontmatter.title}`}
+        >
+          {frontmatter.title}
+        </h1>
+      </header>
+
+      {frontmatter.image && (
+        <img
+          class="w-full rounded-xl mb-10"
+          transition:name={frontmatter.image}
+          src={frontmatter.image}
+          alt=""
+        />
+      )}
+
+      <!-- Content -->
+      <div class="prose">
+        <slot />
+      </div>
+    </article>
+
     <Footer />
+
     <style is:inline>
       :root {
         --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
-        --font-size-md: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
         --font-size-lg: clamp(1.2rem, 0.54vw + 1.11rem, 1.39rem);
-        --font-size-xl: clamp(1.6rem, 1.1vw + 1.6rem, 1.9rem);
-        --font-size-2xl: clamp(2rem, 1.54vw + 1.41rem, 3.31rem);
+        --font-size-xl: clamp(1.4rem, 1vw + 1.2rem, 1.7rem);
       }
 
       html {
         font-family: system-ui, sans-serif;
         font-size: var(--font-size-base);
-      }
-      .bg-grainy {
-        background-image: url(../back-grainy.svg);
-        background-size: cover;
-      }
-
-      html {
         background-color: #1a1623;
         color: #eeeeee;
       }
 
-       a {
-        color: #eeeeee;
-      }
-      p {
-        color: #eeeeee;
+      .bg-grainy {
+        background-image: url(../back-grainy.svg);
+        background-size: cover;
       }
 
       body {
@@ -89,136 +95,127 @@ const { frontmatter } = Astro.props as Props;
           margin-right: 15%;
         }
         .bg-grainy {
-        background-image: none
-      }
-      }
-
-      h1 {
-        font-size: var(--font-size-2xl);
-        line-height: 1.2;
-        color: #93c5fd;
-        font-weight: 600;
+          background-image: none;
+        }
       }
 
-      h2 {
+      /* Prose styles */
+      .prose {
+        color: #e2e8f0;
+        line-height: 1.75;
+      }
+
+      .prose h2 {
         font-size: var(--font-size-xl);
-        color: #003375;
-        font-weight: 500;
-        margin-top: 2rem;
-      }
-
-      nav h2 {
-        font-size: 1.5rem;
-        line-height: 2rem /* 32px */;
-      }
-
-      h2 {
-        color: #93c5fd;
-      }
-
-      h3 {
-        font-size: var(--font-size-lg);
-        color: rgb(34, 34, 34);
-        margin-top: 2rem;
-      }
-
-      h3 {
-        color: #93c5fd;
-      }
-
-      h4 {
-        font-size: var(--font-size-base);
-        margin-top: 1rem;
-      }
-
-      h4 {
-        color: #93c5fd;
-      }
-
-      li {
-        letter-spacing: 0.05em;
-        text-align: justify;
-        line-height: 1.3rem;
-        font-size: 0.775rem;
-        color: #011c40;
-        list-style: inside;
-      }
-
-      li {
-        color: #bfdbfe;
-      }
-
-      hr {
-        margin-top: 1rem;
-        border-top-width: 2px;
-      }
-
-      blockquote p {
-        margin: 0 0 1.2rem 1.1rem;
-        letter-spacing: 0.05em;
-        text-align: justify;
-        line-height: 1.3rem;
-        font-size: 0.775rem;
-        color: #adadad;
-        padding: 2px 20px;
-        border-width: 0 0 0 4px;
-        border-color: #919191;
-      }
-
-      code {
-        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        background: #e1e1e1;
-        padding: 4px;
-        border-radius: 6px;
-        font-size: 0.775rem;
-      }
-
-      code {
-        background: #2f2b3a;
-      }
-
-      p {
-        letter-spacing: 0.05em;
-        text-align: justify;
-        line-height: 1.3rem;
-        font-size: 0.875rem;
-
-        margin-top: 1rem;
-      }
-       {
-        color: #eee;
-      }
-
-      button {
-        display: flex;
-        margin-top: 30px;
-        padding: 10px 10px 10px 10px;
-        border: solid 1.5px rgb(61, 61, 61);
-        border-radius: 5px;
-      }
-
-      button:hover {
-        background-color: #f0f0f0;
-      }
-
-      details {
-        background: #e2e2e2;
-        padding: 15px 20px;
-        cursor: pointer;
-        letter-spacing: 0.05em;
-        text-align: justify;
-        line-height: 1.3rem;
-        font-size: 0.875rem;
-        color: #011c40;
-        font-weight: 400;
-        border-radius: 7px;
-
-        margin: 1rem 0 1rem 0;
-      }
-
-      details summary {
         font-weight: 600;
+        color: #93c5fd;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .prose h3 {
+        font-size: var(--font-size-lg);
+        font-weight: 600;
+        color: #93c5fd;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .prose h4 {
+        font-size: var(--font-size-base);
+        font-weight: 600;
+        color: #93c5fd;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .prose p {
+        margin-top: 1.25rem;
+        margin-bottom: 1.25rem;
+        color: #cbd5e1;
+      }
+
+      .prose a {
+        color: #60a5fa;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .prose a:hover {
+        color: #93c5fd;
+      }
+
+      .prose strong {
+        color: #f1f5f9;
+        font-weight: 600;
+      }
+
+      .prose ul,
+      .prose ol {
+        margin: 1.25rem 0;
+        padding-left: 1.5rem;
+      }
+
+      .prose li {
+        color: #cbd5e1;
+        margin: 0.5rem 0;
+        line-height: 1.6;
+      }
+
+      .prose ul li {
+        list-style-type: disc;
+      }
+
+      .prose ol li {
+        list-style-type: decimal;
+      }
+
+      .prose blockquote {
+        border-left: 4px solid #3b82f6;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+      }
+
+      .prose blockquote p {
+        color: #94a3b8;
+      }
+
+      .prose code {
+        font-family: "Fira Code", Menlo, Monaco, monospace;
+        background: rgba(59, 130, 246, 0.1);
+        padding: 0.2rem 0.4rem;
+        border-radius: 0.25rem;
+        font-size: 0.875em;
+        color: #93c5fd;
+      }
+
+      .prose pre {
+        background: #0f0d12;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.75rem;
+        padding: 1rem;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+      }
+
+      .prose pre code {
+        background: none;
+        padding: 0;
+        color: #e2e8f0;
+      }
+
+      .prose img {
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+
+      .prose hr {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 2rem 0;
       }
     </style>
   </body>

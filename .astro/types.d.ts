@@ -196,13 +196,6 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
-"whyNotJavascript.md": {
-	id: "whyNotJavascript.md";
-  slug: "whynotjavascript";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
 };
 
 	};

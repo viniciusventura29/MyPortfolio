@@ -3,40 +3,69 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/MainLayout.astro";
 
 const posts = await getCollection("blog");
+const publishedPosts = posts.filter((post) => post.data.draft !== true);
 ---
 
-<Layout title="Vinicius Ventura - Blog">
-  <div class="">
-    <h2 class="mb-6 text-3xl font-semibold mt-16 text-blue-300">My blog</h2>
-    <div class="grid gap-2">
-      {
-        posts.map((post) => (
-          <a
-            href={`blog/${post.slug}`}
-            class={`${post.data.draft === true ? "hidden" : ""}`}
+<Layout title="Blog - Vinicius Ventura">
+  <main class="mt-10 lg:mt-20">
+    <header class="mb-12">
+      <h1 class="text-3xl lg:text-4xl font-bold text-blue-200 mb-4">Blog</h1>
+      <p class="text-slate-400">
+        Thoughts on software development, architecture, and technology.
+      </p>
+    </header>
+
+    <div class="space-y-6">
+      {publishedPosts.map((post) => (
+        <a href={`/blog/${post.slug}`} class="blog-post group">
+          {post.data.image && (
+            <img
+              src={post.data.image}
+              alt=""
+              class="w-full h-48 object-cover rounded-lg mb-4"
+              transition:name={post.data.image}
+            />
+          )}
+          
+          <h2 
+            class="text-xl font-semibold text-blue-200 group-hover:text-blue-100 transition-colors"
+            transition:name={`title-${post.data.title}`}
           >
-            <div class="border hover:bg-[#2f2b3a] text-blue-300 border-gray-800 bg-[#292533] rounded-md p-4">
-              <img
-                src={post.data.image}
-                transition:name={post.data.image}
-                class="flex justify-center w-full h-auto rounded-md bg-red-100 mb-4"
-              />
-              <h5
-                class="text-xl font-semibold"
-                transition:name={`title-${post.data.title}`}
-              >
-                {post.data.title}
-              </h5>
-              <h5 class="text-xs lg:pr-2 text-justify overflow-hidden text-blue-100 mb-[0.5rem] mt-2">
-                {post.data.description}
-              </h5>
-              <time class="text-xs text-slate-500 italic">
-                {post.data.publishDate}
-              </time>
-            </div>
-          </a>
-        ))
-      }
+            {post.data.title}
+          </h2>
+          
+          <p class="text-slate-400 mt-2 line-clamp-3">
+            {post.data.description}
+          </p>
+          
+          <time class="text-xs text-slate-500 mt-3 block">
+            {post.data.publishDate}
+          </time>
+        </a>
+      ))}
     </div>
-  </div>
+
+    {publishedPosts.length === 0 && (
+      <p class="text-slate-500 text-center py-12">
+        No posts yet. Coming soon!
+      </p>
+    )}
+  </main>
 </Layout>
+
+<style>
+  .blog-post {
+    display: block;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .blog-post:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(59, 130, 246, 0.2);
+    transform: translateY(-2px);
+  }
+</style>

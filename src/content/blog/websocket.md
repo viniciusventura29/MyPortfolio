@@ -1,52 +1,52 @@
 ---
-title: What is a websocket
-description: A little explanation about what is websocket, how this protocol works and why it is used, if want to understand something about it click here!
+title: What is a WebSocket
+description: A clear explanation of WebSocket, how this protocol works and why it's used. If you want to understand real-time communication, click here!
 publishDate: "Dec 11 2022"
 image: /blogg/websocket/websocketWallpaper.png
 time: 2 
 draft: false
 ---
 
-Some months ago I have done some projects using this protocol and in this article I tell what I learn.
+Some months ago I worked on some projects using this protocol, and in this article I'll share what I learned.
 
-#### Here, I'll try to explain you, what is websocket and why is it used for
+## What is WebSocket and why is it used?
 
-Websocket is a different form to see request and responses on the web, because websocket do not have "requests" and "responses" like in http, in fact websocket have a bilateral comunication 
-wich gives us the possibility of receives informations whithout requests from the server.
+WebSocket is a different way of handling communication on the web. Unlike HTTP, WebSocket doesn't follow the traditional "request-response" model. Instead, it provides bilateral communication, which gives us the ability to receive information from the server without explicitly requesting it.
 
-## How works in http
+## How HTTP works
 
-Let's undestand fastly how http works to better see websockets.
+Let's quickly understand how HTTP works to better appreciate WebSocket.
 
-In http we have to do a request to receive a reponse, follow the example bellow.
+In HTTP, we need to make a request to receive a response. See the example below:
 
-![Alt text](/blogg/websocket/http.png)
+![HTTP request-response model](/blogg/websocket/http.png)
 
-I asked for a website page and it returns me what i asked. Following the same logic if I don't ask for nothing it will returns me nothing! 
+I asked for a website page, and it returned what I requested. Following the same logic, if I don't ask for anything, I won't receive anything!
 
-Now is when some problems comes out. Try to imagine do a real time application with http... We cannot know when we get new informations in the server and the client will only 
-get new information if they asked for, so, to do something nearly of real time, we have to do a infinity of requests, even though there's nothing to be received. Is a lot of constant request to
-verify if there is something new in the server.
+This is where problems arise. Imagine building a real-time application with HTTP... We can't know when new information arrives on the server, and the client will only get updates if they explicitly ask for them. To achieve something close to real-time, we would need to make endless requests, even when there's nothing new to receive. That's a lot of constant requests just to check if something has changed.
 
 ## Polling
-To pass trough this problem, exists the polling that is a technique where a system or component regularly checks or queries another system or component for information or updates. It involves sending periodic requests or inquiries to gather data or determine a particular status.
 
-This technique was developed to achieve a near-real-time experience in applications without consuming excessive computer capacity.
+To work around this problem, there's a technique called polling. It's when a system regularly checks another system for updates by sending periodic requests.
+
+This technique was developed to achieve a near-real-time experience without consuming excessive computing resources.
 
 ### Example
-![Alt text](/blogg/websocket/polling.png)
 
-So in this example here, the client sends a request to the server each 30 seconds and when the server recives that request it returns a response.
+![Polling example](/blogg/websocket/polling.png)
 
-## How works in Websocket
+In this example, the client sends a request to the server every 30 seconds. When the server receives that request, it returns a response with any available updates.
 
-The websocket bring us the solution for this type of problem. Like i said in the start, websocket doesn't work like `http model` ("request" 
-and "response"). websocket is like a tunnel of informations,
-sending and receiving. The client don't have to "ask" for information to receive updates responses, the server send it automatically. They 
-have a bilateral comunication, both client to server and server to client.
+## How WebSocket works
 
-![Alt text](/blogg/websocket/websocket.png)
+WebSocket brings us a solution for this type of problem. As I mentioned earlier, WebSocket doesn't follow the HTTP model of "request and response". Instead, it's like a tunnel of information — constantly sending and receiving.
 
-Anyway, websocket is a interesting protocol but isn't appropriate to all the cases, develop using this protocol is not the easily thing to do and also you could lose performace in your application, so, you have to thing and calculate if is valid use this technology in your application.
+The client doesn't have to "ask" for information to receive updates. The server sends them automatically. Both sides can communicate freely: client to server and server to client.
 
-This is the end of this short article. I hope you have learned something and enjoyed! Thanks for reading.
+![WebSocket bilateral communication](/blogg/websocket/websocket.png)
+
+## Conclusion
+
+WebSocket is an interesting protocol, but it's not appropriate for all cases. Developing with this protocol isn't the easiest thing to do, and you might lose performance in certain scenarios. So, you need to think carefully and evaluate whether it's worth using this technology in your application.
+
+This is the end of this short article. I hope you learned something and enjoyed it! Thanks for reading.
