@@ -1,0 +1,172 @@
+---
+title: "Context is King: The New Way to Use AI"
+description: "We've been using AI wrong. It's not about asking better questions — it's about giving better context. Here's how the shift to contextual AI is changing everything."
+publishDate: "Dec 24 2024"
+image:/blogg/monoVSmicro/Context_is_king.jpg
+time: 5
+draft: false
+---
+
+import InteractiveDiagram from '../../components/mdx/InteractiveDiagram.astro';
+import BeforeAfterCompare from '../../components/mdx/BeforeAfterCompare.astro';
+import FlowTimeline from '../../components/mdx/FlowTimeline.astro';
+import Tooltip from '../../components/mdx/Tooltip.tsx';
+
+Are you still using AI like a smarter Google? Asking questions and hoping for useful answers?
+
+I was too. And I was missing the point.
+
+## The Problem: AI Without Context
+
+Let me be honest: <Tooltip client:load content="Large Language Models - AI systems trained on massive amounts of text data to understand and generate human-like text">ChatGPT, Claude, and other LLMs</Tooltip> are incredible. They can write code, explain complex topics, and help you think through problems. But there's a fundamental limitation that most people don't think about.
+
+**They know nothing about you.**
+
+They don't know what emails you received today. They don't know what meetings you have scheduled. They don't know what tasks are piling up on your to-do list. They don't know the codebase you're working on or the documents your team shares.
+
+<BeforeAfterCompare 
+  before={{
+    title: "AI Without Context",
+    description: "Generic answers that apply to anyone",
+    items: [
+      "Copy-paste information manually",
+      "Adapt generic answers to your situation",
+      "Do the actual work yourself",
+      "AI as 'fancy autocomplete'"
+    ]
+  }}
+  after={{
+    title: "AI With Context",
+    description: "Personalized actions based on your world",
+    items: [
+      "AI understands your environment",
+      "Receives specific, actionable responses",
+      "Automates real tasks end-to-end",
+      "AI as true assistant"
+    ]
+  }}
+/>
+
+## The Shift: Context is King
+
+Here's what I've learned: the new way to use AI isn't about crafting better <Tooltip client:load content="Prompts are the instructions or questions you give to an AI. Prompt engineering is the practice of designing these instructions to get better outputs.">prompts</Tooltip> or learning magic techniques. It's about giving AI access to your world.
+
+When AI has context about your environment — your emails, your calendar, your documents, your tools — something magical happens. It stops just *answering* and starts *acting*.
+
+Instead of asking "How should I organize my emails?" you can say "Analyze my emails from today, summarize the important ones, and create tasks for anything that requires action."
+
+And it just... does it.
+
+## MCP: The Protocol Making This Possible
+
+If you haven't heard about <Tooltip client:load content="Model Context Protocol - An open standard created by Anthropic that allows AI models to connect to external tools and data sources through a universal interface.">MCP (Model Context Protocol)</Tooltip>, it's worth understanding. In simple terms, MCP is a standard way to connect AI models to external tools and data sources.
+
+<InteractiveDiagram 
+  title="How MCP Connects Everything"
+  nodes={[
+    { id: "client", label: "AI Client", icon: "💬" },
+    { id: "mcp", label: "MCP Protocol", icon: "🔗" },
+    { id: "server", label: "MCP Server", icon: "⚙️" },
+    { id: "tools", label: "Your Tools", icon: "🛠️" }
+  ]}
+/>
+
+Think of it as a universal adapter. Instead of building custom integrations for every AI tool, MCP provides a common language. Any MCP-compatible client (like <Tooltip client:load content="Cursor is an AI-powered code editor that integrates AI directly into the development workflow. Claude Desktop is Anthropic's official desktop application for interacting with Claude.">Cursor, Claude Desktop</Tooltip>, or custom agents) can connect to any MCP server and use its capabilities.
+
+> If you want to dive deeper into MCP, check out the [official documentation](https://modelcontextprotocol.io/) and the [Anthropic announcement](https://www.anthropic.com/news/model-context-protocol).
+
+The beauty of MCP is that it's open. Anyone can create an MCP server for their tool, and suddenly that tool becomes available to any AI that speaks MCP.
+
+## My Setup: From Theory to Practice
+
+Let me share a real example from my own workflow.
+
+I connected three services through MCP:
+
+<InteractiveDiagram 
+  title="My Connected Services"
+  nodes={[
+    { id: "gmail", label: "Gmail", icon: "📧" },
+    { id: "ai", label: "AI Agent", icon: "🤖" },
+    { id: "notion", label: "Notion", icon: "📝" },
+    { id: "calendar", label: "Calendar", icon: "📅" }
+  ]}
+/>
+
+Then I asked the AI something like this:
+
+> "Look at the emails I received today. Summarize what's important. Find any emails that require action or a decision from me, create tasks for them in Notion, and then block some time on my calendar for me to handle these tasks."
+
+<FlowTimeline 
+  title="What Actually Happens"
+  steps={[
+    { 
+      title: "Email Analysis", 
+      description: "AI scans today's inbox and identifies important messages",
+      icon: "📬"
+    },
+    { 
+      title: "Smart Summarization", 
+      description: "Creates concise summaries with action items highlighted",
+      icon: "📋"
+    },
+    { 
+      title: "Task Creation", 
+      description: "Automatically creates tasks in Notion for each action item",
+      icon: "✅"
+    },
+    { 
+      title: "Calendar Blocking", 
+      description: "Finds available time slots and blocks them for task completion",
+      icon: "⏰"
+    }
+  ]}
+/>
+
+And it worked. Not as a demonstration or a proof of concept — as an actual workflow I now use.
+
+This is the difference between AI that *informs* and AI that *acts*. I didn't ask for information. I asked for action. And because the AI had context about my email, my calendar, and my task management system, it could actually deliver.
+
+## Going Further: The Possibilities
+
+Once you understand this paradigm, the possibilities explode.
+
+### Communication Integration
+
+Connect <Tooltip client:load content="Popular team communication platforms used in workplaces for real-time messaging and collaboration.">Slack and Teams</Tooltip> to your AI. Now it can analyze messages across all your communication channels, not just email. Imagine asking: "Summarize everything that happened in my work channels while I was in meetings."
+
+### Development Workflow
+
+Connect GitHub or <Tooltip client:load content="Jira is a project management tool by Atlassian commonly used for bug tracking, issue tracking, and agile project management.">Jira</Tooltip>. When someone assigns an issue to you, the AI can automatically create a task and notify you. Or ask it to review the PRs waiting for your review and draft responses based on the code changes.
+
+### Personal Productivity
+
+Connect your banking app for weekly spending summaries. Connect Spotify to create focus playlists based on your calendar blocks. The possibilities are endless.
+
+The pattern is always the same: give AI context, and it becomes exponentially more useful.
+
+## Managing the Complexity: MCP Mesh
+
+As you connect more and more services, things can get messy. How do you manage authentication for ten different MCP servers? How do you control which AI agents can access which tools? How do you track what's being called and why?
+
+This is where solutions like [deco's MCP Mesh](https://www.decocms.com/mesh) come in. Instead of wiring every client to every MCP server, a mesh provides a single control plane. One endpoint, centralized authentication, access policies, and observability across all your MCP traffic.
+
+I work at deco, so I'm obviously biased. But I genuinely believe this is the direction things are going. As MCP adoption grows, the need for proper infrastructure to manage it becomes critical — just like how APIs needed <Tooltip client:load content="An API Gateway is a server that acts as a single entry point for multiple backend services, handling authentication, rate limiting, and routing.">API gateways</Tooltip>, MCP needs its own management layer.
+
+## Conclusion: The Future is Contextual
+
+Here's my take: the next leap in AI usefulness won't come from bigger models or better training. It will come from better context.
+
+A model with perfect knowledge and zero context about your life is less useful than a smaller model that knows exactly what you're working on, what you need to do, and what tools you have available.
+
+We're moving from "AI as oracle" to "AI as assistant." An oracle answers questions. An assistant knows your world and acts within it.
+
+**Your AI is only as useful as the context you give it.**
+
+---
+
+If you want to explore this yourself, start small. Pick one tool you use daily — maybe your calendar or your notes app — and find an MCP server for it. Connect it to your AI client and see what becomes possible.
+
+The shift from generic to contextual AI isn't coming. It's already here.
+
+Let me know what you think about this on my socials. I'd love to hear how you're using contextual AI in your workflows!

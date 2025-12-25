@@ -1,0 +1,60 @@
+---
+interface Props {
+  before: {
+    title: string;
+    description: string;
+    items: string[];
+  };
+  after: {
+    title: string;
+    description: string;
+    items: string[];
+  };
+}
+
+const { before, after } = Astro.props;
+---
+
+<div class="before-after-compare my-12">
+  <div class="grid md:grid-cols-2 gap-px bg-zinc-700/50 rounded-lg overflow-hidden border border-zinc-700/50">
+    <!-- Before Card -->
+    <div class="before-card bg-zinc-900/80 p-6 md:p-8">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-2 h-2 rounded-full bg-zinc-500"></div>
+        <span class="text-xs font-medium uppercase tracking-widest text-zinc-500">Before</span>
+      </div>
+      
+      <h4 class="text-lg font-medium text-zinc-200 mb-2">{before.title}</h4>
+      <p class="text-sm text-zinc-500 mb-6 leading-relaxed">{before.description}</p>
+      
+      <ul class="space-y-3">
+        {before.items.map((item) => (
+          <li class="flex items-start gap-3 text-sm text-zinc-400">
+            <span class="text-zinc-600 mt-0.5 text-xs">—</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    
+    <!-- After Card -->
+    <div class="after-card bg-zinc-900/80 p-6 md:p-8">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-2 h-2 rounded-full bg-zinc-300"></div>
+        <span class="text-xs font-medium uppercase tracking-widest text-zinc-400">After</span>
+      </div>
+      
+      <h4 class="text-lg font-medium text-zinc-100 mb-2">{after.title}</h4>
+      <p class="text-sm text-zinc-500 mb-6 leading-relaxed">{after.description}</p>
+      
+      <ul class="space-y-3">
+        {after.items.map((item) => (
+          <li class="flex items-start gap-3 text-sm text-zinc-300">
+            <span class="text-zinc-400 mt-0.5 text-xs">→</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>

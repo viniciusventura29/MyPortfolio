@@ -1,0 +1,55 @@
+---
+interface Props {
+  nodes: { id: string; label: string; icon?: string }[];
+  connections?: { from: string; to: string }[];
+  title?: string;
+}
+
+const { nodes, connections = [], title } = Astro.props;
+---
+
+<div class="interactive-diagram my-10 w-full">
+  {title && <p class="text-center text-xs text-zinc-500 mb-4 uppercase tracking-widest font-medium">{title}</p>}
+  
+  <div class="diagram-container flex flex-wrap items-center justify-center gap-2 py-6 px-4 rounded-lg bg-zinc-900/60 border border-zinc-800">
+    {nodes.map((node, index) => (
+      <>
+        <div 
+          class="diagram-node flex flex-col items-center gap-2 p-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50 hover:border-zinc-600 transition-all duration-200"
+          style={`animation-delay: ${index * 100}ms`}
+          data-node={node.id}
+        >
+          {node.icon && (
+            <span class="text-lg opacity-70">{node.icon}</span>
+          )}
+          <span class="text-xs font-medium text-zinc-300 text-center">{node.label}</span>
+        </div>
+        
+        {index < nodes.length - 1 && (
+          <div class="connector flex items-center px-1" style={`animation-delay: ${index * 100 + 50}ms`}>
+            <svg class="w-4 h-4 text-zinc-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </div>
+        )}
+      </>
+    ))}
+  </div>
+</div>
+
+<style>
+  .diagram-node {
+    animation: fadeIn 0.4s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .connector {
+    animation: fadeIn 0.3s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>

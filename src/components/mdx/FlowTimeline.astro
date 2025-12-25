@@ -1,0 +1,64 @@
+---
+interface Props {
+  steps: {
+    title: string;
+    description: string;
+    icon?: string;
+  }[];
+  title?: string;
+}
+
+const { steps, title } = Astro.props;
+---
+
+<div class="flow-timeline my-10 w-full">
+  {title && (
+    <p class="text-center text-xs text-zinc-500 mb-6 uppercase tracking-widest font-medium">{title}</p>
+  )}
+  
+  <div class="relative">
+    <!-- Vertical line -->
+    <div class="timeline-line absolute left-[11px] top-2 bottom-2 w-px bg-zinc-800"></div>
+    
+    <div class="space-y-5">
+      {steps.map((step, index) => (
+        <div 
+          class="timeline-step relative flex items-start gap-4"
+          style={`animation-delay: ${index * 150}ms`}
+        >
+          <!-- Step number -->
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center text-xs text-zinc-500 font-mono z-10">
+            {index + 1}
+          </div>
+          
+          <!-- Content -->
+          <div class="flex-1 min-w-0 pt-0.5">
+            <div class="flex items-center gap-2 mb-1">
+              {step.icon && <span class="text-base opacity-60 flex-shrink-0">{step.icon}</span>}
+              <h5 class="text-sm font-medium text-zinc-200">{step.title}</h5>
+            </div>
+            <p class="text-sm text-zinc-500 leading-relaxed">{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .timeline-step {
+    animation: fadeIn 0.4s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>
