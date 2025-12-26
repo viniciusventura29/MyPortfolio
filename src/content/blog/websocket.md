@@ -2,7 +2,7 @@
 title: What is a WebSocket
 description: A clear explanation of WebSocket, how this protocol works and why it's used. If you want to understand real-time communication, click here!
 publishDate: "Dec 11 2022"
-image: /blogg/websocket/websocketWallpaper.png
+image: /blogg/websocket/websocketWallpaper.jpg
 time: 2 
 draft: false
 ---
