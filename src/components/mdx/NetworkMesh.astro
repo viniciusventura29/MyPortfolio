@@ -1,0 +1,304 @@
+---
+interface Props {
+  user?: { label: string; icon?: string };
+  agent?: { label: string; icon?: string };
+  gateway: { label: string; icon?: string };
+  mcps: { id: string; label: string; icon?: string }[];
+  title?: string;
+}
+
+const { user, agent, gateway, mcps, title } = Astro.props;
+---
+
+<div class="network-mesh my-12 w-full">
+  {title && <p class="text-center text-xs text-zinc-500 mb-6 uppercase tracking-widest font-medium">{title}</p>}
+  
+  <div class="mesh-container relative w-full max-w-lg mx-auto" style="aspect-ratio: 1 / 1.1;">
+    <!-- SVG connections -->
+    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 440" preserveAspectRatio="xMidYMid meet">
+      <!-- Glow filter -->
+      <defs>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+        <linearGradient id="lineGradientVertical" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="rgb(96, 165, 250)" stop-opacity="0.3"/>
+          <stop offset="50%" stop-color="rgb(139, 92, 246)" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="rgb(139, 92, 246)" stop-opacity="0.3"/>
+        </linearGradient>
+        <linearGradient id="lineGradientRadial" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgb(139, 92, 246)" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="rgb(52, 211, 153)" stop-opacity="0.4"/>
+        </linearGradient>
+      </defs>
+      
+      <!-- User to Agent connection -->
+      {user && agent && (
+        <g class="connection-line" style="animation-delay: 0ms">
+          <line 
+            x1="200" y1="45" 
+            x2="200" y2="130"
+            stroke="url(#lineGradientVertical)"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <circle class="pulse-dot" r="4" fill="rgb(96, 165, 250)" filter="url(#glow)">
+            <animateMotion dur="1.5s" repeatCount="indefinite">
+              <mpath href="#path-user-agent"/>
+            </animateMotion>
+          </circle>
+          <path id="path-user-agent" d="M200,45 L200,130" fill="none" stroke="none"/>
+        </g>
+      )}
+      
+      <!-- Agent to Gateway connection -->
+      {agent && (
+        <g class="connection-line" style="animation-delay: 200ms">
+          <line 
+            x1="200" y1="175" 
+            x2="200" y2="260"
+            stroke="url(#lineGradientVertical)"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <circle class="pulse-dot" r="4" fill="rgb(139, 92, 246)" filter="url(#glow)">
+            <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.3s">
+              <mpath href="#path-agent-gateway"/>
+            </animateMotion>
+          </circle>
+          <path id="path-agent-gateway" d="M200,175 L200,260" fill="none" stroke="none"/>
+        </g>
+      )}
+      
+      <!-- Gateway to MCPs connections -->
+      {mcps.map((_, index) => {
+        const totalMcps = mcps.length;
+        const spreadAngle = 140;
+        const startAngle = 90 - spreadAngle / 2;
+        const angleStep = spreadAngle / (totalMcps - 1 || 1);
+        const angle = totalMcps === 1 ? 90 : startAngle + (index * angleStep);
+        const radian = angle * Math.PI / 180;
+        const endX = 200 + Math.cos(radian) * 120;
+        const endY = 290 + Math.sin(radian) * 100;
+        
+        return (
+          <g class="connection-line" style={`animation-delay: ${400 + index * 150}ms`}>
+            <line 
+              x1="200" y1="290" 
+              x2={endX} y2={endY}
+              stroke="url(#lineGradientRadial)"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <circle 
+              class="pulse-dot"
+              r="4"
+              fill="rgb(52, 211, 153)"
+              filter="url(#glow)"
+            >
+              <animateMotion 
+                dur="2s" 
+                repeatCount="indefinite"
+                begin={`${0.5 + index * 0.3}s`}
+              >
+                <mpath href={`#path-mcp-${index}`}/>
+              </animateMotion>
+            </circle>
+            <path 
+              id={`path-mcp-${index}`} 
+              d={`M200,290 L${endX},${endY}`} 
+              fill="none" 
+              stroke="none"
+            />
+          </g>
+        );
+      })}
+      
+      <!-- Mesh connections between MCPs (subtle) -->
+      {mcps.length > 1 && mcps.map((_, index) => {
+        if (index === mcps.length - 1) return null;
+        const totalMcps = mcps.length;
+        const spreadAngle = 140;
+        const startAngle = 90 - spreadAngle / 2;
+        const angleStep = spreadAngle / (totalMcps - 1 || 1);
+        
+        const angle1 = startAngle + (index * angleStep);
+        const angle2 = startAngle + ((index + 1) * angleStep);
+        const radian1 = angle1 * Math.PI / 180;
+        const radian2 = angle2 * Math.PI / 180;
+        const x1 = 200 + Math.cos(radian1) * 120;
+        const y1 = 290 + Math.sin(radian1) * 100;
+        const x2 = 200 + Math.cos(radian2) * 120;
+        const y2 = 290 + Math.sin(radian2) * 100;
+        
+        return (
+          <line 
+            class="outer-connection"
+            x1={x1} y1={y1} 
+            x2={x2} y2={y2}
+            stroke="rgb(63, 63, 70)"
+            stroke-width="1"
+            stroke-dasharray="4 4"
+            style={`animation-delay: ${700 + index * 100}ms`}
+          />
+        );
+      })}
+    </svg>
+    
+    <!-- User node -->
+    {user && (
+      <div class="user-node absolute left-1/2 -translate-x-1/2 z-10" style="top: 0;">
+        <div class="flex flex-col items-center gap-1">
+          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 border-2 border-blue-400/50 flex items-center justify-center shadow-lg shadow-blue-500/20">
+            {user.icon && <span class="text-xl">{user.icon}</span>}
+          </div>
+          <span class="text-xs font-medium text-zinc-400">{user.label}</span>
+        </div>
+      </div>
+    )}
+    
+    <!-- Agent node -->
+    {agent && (
+      <div class="agent-node absolute left-1/2 -translate-x-1/2 z-10" style="top: 22%;">
+        <div class="flex flex-col items-center gap-1">
+          <div class="relative">
+            <div class="absolute -inset-1 rounded-xl bg-indigo-500/20 blur-sm"></div>
+            <div class="relative w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 border-2 border-indigo-400/50 flex items-center justify-center shadow-lg shadow-indigo-500/25">
+              {agent.icon && <span class="text-2xl">{agent.icon}</span>}
+            </div>
+          </div>
+          <span class="text-xs font-medium text-zinc-300">{agent.label}</span>
+        </div>
+      </div>
+    )}
+    
+    <!-- Gateway node (center) -->
+    <div class="gateway-node absolute left-1/2 -translate-x-1/2 z-20" style="top: 52%;">
+      <div class="relative">
+        <!-- Pulsing ring -->
+        <div class="absolute inset-0 rounded-full bg-violet-500/20 animate-ping-slow"></div>
+        <div class="absolute -inset-2 rounded-full bg-gradient-to-r from-violet-500/20 to-purple-500/20 blur-md"></div>
+        
+        <div class="relative flex flex-col items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-violet-600 to-purple-700 border-2 border-violet-400/50 shadow-lg shadow-violet-500/30">
+          {gateway.icon && (
+            <span class="text-2xl">{gateway.icon}</span>
+          )}
+          <span class="text-[9px] font-bold text-white/90 text-center mt-0.5 leading-tight px-1">{gateway.label}</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- MCP nodes -->
+    {mcps.map((mcp, index) => {
+      const totalMcps = mcps.length;
+      const spreadAngle = 140;
+      const startAngle = 90 - spreadAngle / 2;
+      const angleStep = spreadAngle / (totalMcps - 1 || 1);
+      const angle = totalMcps === 1 ? 90 : startAngle + (index * angleStep);
+      const radian = angle * Math.PI / 180;
+      // Convert SVG coords to percentages
+      const x = 50 + (Math.cos(radian) * 30);
+      const y = 66 + (Math.sin(radian) * 23);
+      
+      return (
+        <div 
+          class="mcp-node absolute z-10"
+          style={`left: ${x}%; top: ${y}%; transform: translate(-50%, -50%); animation-delay: ${index * 100}ms`}
+          data-mcp={mcp.id}
+        >
+          <div class="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-zinc-800/80 border border-emerald-500/30 backdrop-blur-sm hover:border-emerald-400/50 hover:bg-zinc-700/80 transition-all duration-300 cursor-default group">
+            {mcp.icon && (
+              <span class="text-xl group-hover:scale-110 transition-transform">{mcp.icon}</span>
+            )}
+            <span class="text-xs font-medium text-zinc-300 text-center whitespace-nowrap">{mcp.label}</span>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .mesh-container {
+    min-height: 380px;
+  }
+  
+  .user-node,
+  .agent-node,
+  .gateway-node {
+    animation: scaleIn 0.5s ease-out forwards;
+  }
+  
+  .agent-node {
+    animation-delay: 100ms;
+  }
+  
+  .gateway-node {
+    animation-delay: 200ms;
+  }
+  
+  .mcp-node {
+    animation: fadeInScale 0.4s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .connection-line {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .outer-connection {
+    opacity: 0;
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+  
+  .pulse-dot {
+    opacity: 0.8;
+  }
+  
+  @keyframes scaleIn {
+    from { 
+      opacity: 0;
+      transform: translateX(-50%) scale(0.5);
+    }
+    to { 
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+  }
+  
+  @keyframes fadeInScale {
+    from { 
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    to { 
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .animate-ping-slow {
+    animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  
+  @keyframes ping-slow {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    75%, 100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+</style>
