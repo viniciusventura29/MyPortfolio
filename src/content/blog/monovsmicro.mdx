@@ -1,0 +1,391 @@
+---
+title: Monolith vs Microservices - When to use each
+description: My opinion on the monolith vs microservice discussion and when each architecture makes sense.
+publishDate: "Aug 07 2023"
+image: /blogg/monoVSmicro/microVSmonoWallpaper.jpg
+time: 4 
+draft: false
+---
+
+import InteractiveDiagram from '../../components/mdx/InteractiveDiagram.astro';
+import BeforeAfterCompare from '../../components/mdx/BeforeAfterCompare.astro';
+import FlowTimeline from '../../components/mdx/FlowTimeline.astro';
+
+When we talk about software development, many doubts and discussions come up — like which programming language is better, which database to use, or even how to deploy the application. That's normal.
+
+The real problem is when people take sides and only see one perspective.
+
+This happens a lot!
+
+I was on Twitter and saw a big discussion thread about **Which is better: monolith or microservices?**
+
+So, this article is to share my opinion on the topic.
+
+## The Beginning
+
+Before this type of discussion existed, there was already a way to build applications, and that way is called *Monolith*.
+
+Monolith was conceived first because, most of the time, it's a simpler architecture (though that's not always the case). Let's understand what exactly a *monolith* project is:
+
+### Understanding a monolith
+
+<InteractiveDiagram 
+  title="E-commerce Monolith Architecture"
+  nodes={[
+    { id: "frontend", label: "Frontend", icon: "🖥️" },
+    { id: "backend", label: "Backend (API)", icon: "⚙️" },
+    { id: "database", label: "Database", icon: "🗄️" }
+  ]}
+/>
+
+This is an example of an e-commerce application. To better explain what's happening, we have this e-commerce split into three parts:
+- **Frontend**: what the end user sees and interacts with
+- **Backend**: where all the application logic lives
+- **Database**: where all the data and information of our e-commerce is stored
+
+So, this is a single system with all modules and functionality within it. One project, one codebase, one database, one programming language!
+
+### Good Points
+
+That singularity brings us many advantages:
+
+<BeforeAfterCompare
+  before={{
+    title: "Without Monolith",
+    description: "Scattered development without unified structure",
+    items: [
+      "Multiple codebases to manage",
+      "Different patterns in each service",
+      "Complex deployment orchestration",
+      "Technology fragmentation"
+    ]
+  }}
+  after={{
+    title: "With Monolith",
+    description: "Unified development with consistent structure",
+    items: [
+      "Single repository, single codebase",
+      "Consistent patterns and logic",
+      "One deployment pipeline",
+      "Rapid development cycle"
+    ]
+  }}
+/>
+
+Monolith has a lot of good points.
+
+---
+
+Imagine that our e-commerce has all these functionalities:
+
+<InteractiveDiagram 
+  title="E-commerce Features (All in One)"
+  nodes={[
+    { id: "auth", label: "Auth", icon: "🔐" },
+    { id: "products", label: "Products", icon: "📦" },
+    { id: "cart", label: "Cart", icon: "🛒" },
+    { id: "payments", label: "Payments", icon: "💳" },
+    { id: "notifications", label: "Notifications", icon: "🔔" },
+    { id: "shipping", label: "Shipping", icon: "🚚" }
+  ]}
+/>
+
+It's a great application, right? We have many functionalities coupled together, and this brings us to the first problem of monoliths...
+
+### Bad Points
+
+As I said, all functionalities are highly coupled, which means that if one functionality breaks, all the others break too.
+
+<FlowTimeline
+  title="When Notifications Break..."
+  steps={[
+    { 
+      title: "Notification Service Crashes", 
+      description: "An unhandled exception occurs in the notifications module.",
+      icon: "💥"
+    },
+    { 
+      title: "Backend Goes Down", 
+      description: "Since everything is in the same process, the entire backend crashes.",
+      icon: "⚠️"
+    },
+    { 
+      title: "All Services Unavailable", 
+      description: "Auth, Products, Cart, Payments, Shipping — everything stops working.",
+      icon: "🚫"
+    },
+    { 
+      title: "Users Can't Access Anything", 
+      description: "Complete service outage. Users see error pages everywhere.",
+      icon: "😱"
+    }
+  ]}
+/>
+
+In our example, the notification functionality had a problem, and because of it, the entire application is down.
+
+Unfortunately, this isn't the only problem with monolith applications...
+
+<BeforeAfterCompare
+  before={{
+    title: "Monolith Challenges",
+    description: "Issues that arise as the application grows",
+    items: [
+      "Scaling requires duplicating the entire app",
+      "Codebase grows exponentially",
+      "Single point of failure",
+      "Deployment = everything or nothing"
+    ]
+  }}
+  after={{
+    title: "What You Need",
+    description: "Ideal characteristics for large-scale systems",
+    items: [
+      "Scale only what needs scaling",
+      "Smaller, manageable codebases",
+      "Isolated failures",
+      "Independent deployments"
+    ]
+  }}
+/>
+
+## The Present
+
+Looking at these problems, software architects wanted to find a better way to build software, so they came up with a solution.
+
+The term "microservices" was coined in May 2011 during a software architects conference to represent a style of system architecture. The microservices-oriented architecture proposal is to develop systems that are more flexible, scalable, and simpler to maintain than monolithic architectures.
+
+But the first question is: how exactly does it work?
+
+### Understanding microservices
+
+In a microservices architecture, modules and functions are split apart. It's as if each service is a standalone application. See the example below:
+
+<div class="my-10 p-6 rounded-xl bg-zinc-900/60 border border-zinc-800">
+  <p class="text-center text-xs text-zinc-500 mb-6 uppercase tracking-widest font-medium">Microservices Architecture</p>
+  
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <div class="microservice-card p-4 rounded-lg bg-gradient-to-br from-blue-900/40 to-blue-800/20 border border-blue-700/30 hover:border-blue-500/50 transition-all">
+      <div class="text-2xl mb-2">🔐</div>
+      <div class="text-sm font-medium text-zinc-200">Auth Service</div>
+      <div class="text-xs text-zinc-500 mt-1">Node.js + Redis</div>
+      <div class="mt-3 flex items-center gap-1.5">
+        <div class="w-2 h-2 rounded-full bg-blue-500/60"></div>
+        <span class="text-[10px] text-zinc-600">Own Database</span>
+      </div>
+    </div>
+    
+    <div class="microservice-card p-4 rounded-lg bg-gradient-to-br from-amber-900/40 to-amber-800/20 border border-amber-700/30 hover:border-amber-500/50 transition-all">
+      <div class="text-2xl mb-2">📦</div>
+      <div class="text-sm font-medium text-zinc-200">Products</div>
+      <div class="text-xs text-zinc-500 mt-1">Go + PostgreSQL</div>
+      <div class="mt-3 flex items-center gap-1.5">
+        <div class="w-2 h-2 rounded-full bg-amber-500/60"></div>
+        <span class="text-[10px] text-zinc-600">Own Database</span>
+      </div>
+    </div>
+    
+    <div class="microservice-card p-4 rounded-lg bg-gradient-to-br from-emerald-900/40 to-emerald-800/20 border border-emerald-700/30 hover:border-emerald-500/50 transition-all">
+      <div class="text-2xl mb-2">🛒</div>
+      <div class="text-sm font-medium text-zinc-200">Cart</div>
+      <div class="text-xs text-zinc-500 mt-1">Python + MongoDB</div>
+      <div class="mt-3 flex items-center gap-1.5">
+        <div class="w-2 h-2 rounded-full bg-emerald-500/60"></div>
+        <span class="text-[10px] text-zinc-600">Own Database</span>
+      </div>
+    </div>
+    
+    <div class="microservice-card p-4 rounded-lg bg-gradient-to-br from-violet-900/40 to-violet-800/20 border border-violet-700/30 hover:border-violet-500/50 transition-all">
+      <div class="text-2xl mb-2">💳</div>
+      <div class="text-sm font-medium text-zinc-200">Payments</div>
+      <div class="text-xs text-zinc-500 mt-1">Java + MySQL</div>
+      <div class="mt-3 flex items-center gap-1.5">
+        <div class="w-2 h-2 rounded-full bg-violet-500/60"></div>
+        <span class="text-[10px] text-zinc-600">Own Database</span>
+      </div>
+    </div>
+    
+    <div class="microservice-card p-4 rounded-lg bg-gradient-to-br from-rose-900/40 to-rose-800/20 border border-rose-700/30 hover:border-rose-500/50 transition-all">
+      <div class="text-2xl mb-2">🔔</div>
+      <div class="text-sm font-medium text-zinc-200">Notifications</div>
+      <div class="text-xs text-zinc-500 mt-1">Rust + Kafka</div>
+      <div class="mt-3 flex items-center gap-1.5">
+        <div class="w-2 h-2 rounded-full bg-rose-500/60"></div>
+        <span class="text-[10px] text-zinc-600">Own Queue</span>
+      </div>
+    </div>
+    
+    <div class="microservice-card p-4 rounded-lg bg-gradient-to-br from-cyan-900/40 to-cyan-800/20 border border-cyan-700/30 hover:border-cyan-500/50 transition-all">
+      <div class="text-2xl mb-2">🚚</div>
+      <div class="text-sm font-medium text-zinc-200">Shipping</div>
+      <div class="text-xs text-zinc-500 mt-1">C# + SQL Server</div>
+      <div class="mt-3 flex items-center gap-1.5">
+        <div class="w-2 h-2 rounded-full bg-cyan-500/60"></div>
+        <span class="text-[10px] text-zinc-600">Own Database</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="mt-6 pt-4 border-t border-zinc-800 flex flex-wrap justify-center gap-4 text-xs text-zinc-500">
+    <span class="flex items-center gap-1.5">
+      <span class="text-base">🐳</span> Each runs in its own container
+    </span>
+    <span class="flex items-center gap-1.5">
+      <span class="text-base">🔀</span> Communicate via APIs/Events
+    </span>
+    <span class="flex items-center gap-1.5">
+      <span class="text-base">📈</span> Scale independently
+    </span>
+  </div>
+</div>
+
+Notice how each service is **completely independent**:
+- **Different technologies**: Each team chooses what works best (Node, Go, Python, Java, Rust, C#)
+- **Own database**: No shared state between services
+- **Isolated deployment**: Deploy one without touching others
+
+#### Observations
+
+Microservices are occasionally misconstrued as Pattern-Oriented Software Architecture (POSA); however, it's essential to recognize that they are distinct concepts.
+
+The company *RedHat* says this about it:
+
+> The main characteristic that differentiates them is scope: SOA is an architectural approach adopted by the enterprise as a whole, while microservices are an implementation strategy of the development team for each application.
+
+With that in mind, let's continue.
+
+### Good Points
+
+A major advantage of microservices architecture is that if one microservice stops, the entire application doesn't break!
+
+<FlowTimeline
+  title="When Notifications Break in Microservices..."
+  steps={[
+    { 
+      title: "Notification Service Crashes", 
+      description: "The notifications microservice encounters an error.",
+      icon: "💥"
+    },
+    { 
+      title: "Other Services Keep Running", 
+      description: "Auth, Products, Cart, Payments — all continue working normally.",
+      icon: "✅"
+    },
+    { 
+      title: "Graceful Degradation", 
+      description: "Users can still shop, pay, and use the app. Only notifications are delayed.",
+      icon: "🛡️"
+    },
+    { 
+      title: "Easy Recovery", 
+      description: "Ops team restarts just the notification service. No full redeploy needed.",
+      icon: "🔄"
+    }
+  ]}
+/>
+
+Here we can see that if one of the microservices breaks, the others keep working. This is great because it brings us more consistency and reliability.
+
+Microservices bring many benefits:
+
+<BeforeAfterCompare
+  before={{
+    title: "Monolith Limitations",
+    description: "What you're limited to with monolithic architecture",
+    items: [
+      "One massive codebase for everything",
+      "Complex code that's hard to understand",
+      "Deploy everything at once",
+      "Stuck with one programming language"
+    ]
+  }}
+  after={{
+    title: "Microservices Benefits",
+    description: "What microservices architecture enables",
+    items: [
+      "Smaller, focused codebases",
+      "Each service is easy to understand",
+      "Deploy services independently",
+      "Use the best language for each service"
+    ]
+  }}
+/>
+
+As you can see, microservices have many advantages and are used to some extent by almost every large tech company nowadays, since they provide many capabilities for organizations to scale their systems properly.
+
+### Bad Points
+
+Unfortunately, microservices aren't perfect. This software architecture has problems, so let's talk about some of them.
+
+<FlowTimeline
+  title="Microservices Complexity"
+  steps={[
+    { 
+      title: "Distributed System Challenges", 
+      description: "Network calls can fail. Latency becomes a concern. Debugging across services is hard.",
+      icon: "🌐"
+    },
+    { 
+      title: "Deployment Overhead", 
+      description: "Each service needs its own CI/CD pipeline, monitoring, and infrastructure.",
+      icon: "🔧"
+    },
+    { 
+      title: "Data Consistency", 
+      description: "Keeping data in sync across services requires careful design (sagas, event sourcing).",
+      icon: "🔄"
+    },
+    { 
+      title: "Increased Costs", 
+      description: "More services = more servers, more monitoring, more operational complexity.",
+      icon: "💰"
+    }
+  ]}
+/>
+
+Microservices are usually complex. They need to be very well planned and executed because, if not, the software can become insecure, vulnerable, and hard to understand as a whole.
+
+The truth is, microservices are excellent but can also be a shot in the foot.
+
+## The Future?
+
+So, to finally answer the awaited question... **Which is better?**
+
+In my opinion, it depends on the situation :)
+
+<BeforeAfterCompare
+  before={{
+    title: "Use Monolith When",
+    description: "Scenarios where monolith makes more sense",
+    items: [
+      "Small team (< 10 developers)",
+      "Simple business logic",
+      "MVP or early-stage startup",
+      "Limited budget for infrastructure"
+    ]
+  }}
+  after={{
+    title: "Use Microservices When",
+    description: "Scenarios where microservices shine",
+    items: [
+      "Large team with multiple squads",
+      "Complex, evolving business rules",
+      "High scale requirements",
+      "Need for independent deployments"
+    ]
+  }}
+/>
+
+We, as developers, need to be smart when choosing one architecture over another. For example, it's not smart to use microservices architecture for a website for a small local store because the development will be slower, the website probably won't have complex business rules, and it will be more expensive.
+
+## Conclusion
+
+It's important to always be open-minded. Microservices have become mainstream in software development, but that doesn't mean we should only use them. There are other types of software architecture like Component-Based Architecture, Service-Oriented Architecture (SOA), Layered Architecture, and others.
+
+I think a good developer must understand when to use one or the other.
+
+---
+
+Contact me and tell me what you think about this article!
+
+Hope you liked it.
