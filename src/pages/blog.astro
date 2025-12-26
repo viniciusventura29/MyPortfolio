@@ -3,7 +3,9 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/MainLayout.astro";
 
 const posts = await getCollection("blog");
-const publishedPosts = posts.filter((post) => post.data.draft !== true);
+const publishedPosts = posts
+  .filter((post) => post.data.draft !== true)
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
 ---
 
 <Layout title="Blog - Vinicius Ventura">

@@ -2,7 +2,7 @@
 title: Monolith vs Microservices - When to use each
 description: My opinion on the monolith vs microservice discussion and when each architecture makes sense.
 publishDate: "Aug 07 2023"
-image: /blogg/monoVSmicro/microVSmonoWallpaper.png
+image: /blogg/monoVSmicro/microVSmonoWallpaper.jpg
 time: 4 
 draft: false
 ---
