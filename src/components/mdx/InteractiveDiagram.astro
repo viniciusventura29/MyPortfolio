@@ -8,26 +8,26 @@ interface Props {
 const { nodes, connections = [], title } = Astro.props;
 ---
 
-<div class="interactive-diagram my-10 w-full">
-  {title && <p class="text-center text-xs text-zinc-500 mb-4 uppercase tracking-widest font-medium">{title}</p>}
+<div class="interactive-diagram">
+  {title && <p class="diagram-title">{title}</p>}
   
-  <div class="diagram-container flex flex-wrap items-center justify-center gap-2 py-6 px-4 rounded-lg bg-zinc-900/60 border border-zinc-800">
+  <div class="diagram-container">
     {nodes.map((node, index) => (
       <>
         <div 
-          class="diagram-node flex flex-col items-center gap-2 p-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50 hover:border-zinc-600 transition-all duration-200"
+          class="diagram-node"
           style={`animation-delay: ${index * 100}ms`}
           data-node={node.id}
         >
           {node.icon && (
-            <span class="text-lg opacity-70">{node.icon}</span>
+            <span class="node-icon">{node.icon}</span>
           )}
-          <span class="text-xs font-medium text-zinc-300 text-center">{node.label}</span>
+          <span class="node-label">{node.label}</span>
         </div>
         
         {index < nodes.length - 1 && (
-          <div class="connector flex items-center px-1" style={`animation-delay: ${index * 100 + 50}ms`}>
-            <svg class="w-4 h-4 text-zinc-600" fill="currentColor" viewBox="0 0 20 20">
+          <div class="connector" style={`animation-delay: ${index * 100 + 50}ms`}>
+            <svg class="connector-icon" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
           </div>
@@ -38,16 +38,78 @@ const { nodes, connections = [], title } = Astro.props;
 </div>
 
 <style>
+  .interactive-diagram {
+    margin: 2.5rem 0;
+    width: 100%;
+  }
+
+  .diagram-title {
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: #5A5A5A;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+  }
+
+  .diagram-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem;
+    background: #F5F2ED;
+    border: 1px solid #2D3D3F;
+  }
+
   .diagram-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #E8E4DE;
+    border: 1px solid #2D3D3F;
+    transition: all 0.2s ease;
     animation: fadeIn 0.4s ease-out forwards;
     opacity: 0;
   }
-  
+
+  .diagram-node:hover {
+    border-color: #0D5C4B;
+    background: rgba(13, 92, 75, 0.05);
+  }
+
+  .node-icon {
+    font-size: 1.1rem;
+    opacity: 0.8;
+  }
+
+  .node-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #1A1A1A;
+    text-align: center;
+  }
+
   .connector {
+    display: flex;
+    align-items: center;
+    padding: 0 0.25rem;
     animation: fadeIn 0.3s ease-out forwards;
     opacity: 0;
   }
-  
+
+  .connector-icon {
+    width: 1rem;
+    height: 1rem;
+    color: #0D5C4B;
+  }
+
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }

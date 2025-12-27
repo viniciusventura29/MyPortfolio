@@ -1,18 +1,200 @@
-<nav class="flex items-center justify-between py-6" transition:persist>
-  <a href="/" class="font-semibold text-blue-100 hover:text-blue-50 transition-colors">
-    <span class="text-slate-600">{"<"}</span>ventura<span class="text-slate-600">{" />"}</span>
-  </a>
+---
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="nav-container" transition:persist>
+  <div class="nav-content">
+    <!-- Logo / Name -->
+    <a href="/" class="nav-logo">
+      <span class="logo-prefix">EMP.</span>
+      <span class="logo-name">VENTURA.V</span>
+    </a>
+    
+    <!-- Navigation Links -->
+    <div class="nav-links">
+      <a 
+        class={`nav-link ${currentPath === '/blog' || currentPath.startsWith('/blog/') ? 'active' : ''}`} 
+        href="/blog"
+      >
+        <span class="link-number">01</span>
+        <span class="link-text">BLOG</span>
+      </a>
+      <a 
+        class="nav-link" 
+        href="https://github.com/viniciusventura29"
+        target="_blank"
+      >
+        <span class="link-number">02</span>
+        <span class="link-text">GITHUB</span>
+      </a>
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span class="status-text">ONLINE</span>
+      </div>
+    </div>
+  </div>
   
-  <div class="flex items-center gap-6 text-sm">
-    <a class="text-slate-400 hover:text-blue-200 transition-colors" href="/blog">
-      Blog
-    </a>
-    <a 
-      class="text-slate-400 hover:text-blue-200 transition-colors" 
-      href="https://github.com/viniciusventura29"
-      target="_blank"
-    >
-      GitHub
-    </a>
+  <!-- Bottom border with file number -->
+  <div class="nav-border">
+    <span class="file-info">FILE NO. 001</span>
+    <span class="divider-line"></span>
+    <span class="department">DEPT: DEVELOPMENT</span>
   </div>
 </nav>
+
+<style>
+  .nav-container {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #1A1A1A;
+    transition: all 0.2s ease;
+  }
+
+  .nav-logo:hover {
+    color: #0D5C4B;
+  }
+
+  .logo-prefix {
+    font-size: 0.7rem;
+    color: #5A5A5A;
+    letter-spacing: 0.1em;
+  }
+
+  .logo-name {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: #5A5A5A;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    transition: all 0.2s ease;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid transparent;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: #0D5C4B;
+    border-bottom-color: #0D5C4B;
+  }
+
+  .link-number {
+    font-size: 0.6rem;
+    opacity: 0.6;
+  }
+
+  .link-text {
+    font-weight: 500;
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding-left: 1rem;
+    border-left: 1px solid rgba(45, 61, 63, 0.3);
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #0D5C4B;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .status-text {
+    font-size: 0.6rem;
+    color: #0D5C4B;
+    letter-spacing: 0.15em;
+  }
+
+  .nav-border {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(45, 61, 63, 0.2);
+    font-size: 0.6rem;
+    color: #5A5A5A;
+    letter-spacing: 0.15em;
+  }
+
+  .file-info {
+    white-space: nowrap;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(45, 61, 63, 0.2),
+      rgba(45, 61, 63, 0.1),
+      transparent
+    );
+  }
+
+  .department {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .nav-content {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .nav-links {
+      gap: 1rem;
+    }
+
+    .status-indicator {
+      display: none;
+    }
+
+    .nav-border {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+
+    .divider-line {
+      width: 100%;
+    }
+  }
+</style>

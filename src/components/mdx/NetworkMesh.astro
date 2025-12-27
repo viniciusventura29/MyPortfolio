@@ -10,12 +10,12 @@ interface Props {
 const { user, agent, gateway, mcps, title } = Astro.props;
 ---
 
-<div class="network-mesh my-12 w-full">
-  {title && <p class="text-center text-xs text-zinc-500 mb-6 uppercase tracking-widest font-medium">{title}</p>}
+<div class="network-mesh">
+  {title && <p class="mesh-title">{title}</p>}
   
-  <div class="mesh-container relative w-full max-w-lg mx-auto" style="aspect-ratio: 1 / 1.1;">
+  <div class="mesh-container">
     <!-- SVG connections -->
-    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 440" preserveAspectRatio="xMidYMid meet">
+    <svg class="mesh-svg" viewBox="0 0 400 440" preserveAspectRatio="xMidYMid meet">
       <!-- Glow filter -->
       <defs>
         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
@@ -26,13 +26,13 @@ const { user, agent, gateway, mcps, title } = Astro.props;
           </feMerge>
         </filter>
         <linearGradient id="lineGradientVertical" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="rgb(96, 165, 250)" stop-opacity="0.3"/>
-          <stop offset="50%" stop-color="rgb(139, 92, 246)" stop-opacity="0.7"/>
-          <stop offset="100%" stop-color="rgb(139, 92, 246)" stop-opacity="0.3"/>
+          <stop offset="0%" stop-color="#0D5C4B" stop-opacity="0.3"/>
+          <stop offset="50%" stop-color="#0D5C4B" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#0D5C4B" stop-opacity="0.3"/>
         </linearGradient>
         <linearGradient id="lineGradientRadial" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="rgb(139, 92, 246)" stop-opacity="0.6"/>
-          <stop offset="100%" stop-color="rgb(52, 211, 153)" stop-opacity="0.4"/>
+          <stop offset="0%" stop-color="#0D5C4B" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#1A7D68" stop-opacity="0.4"/>
         </linearGradient>
       </defs>
       
@@ -46,7 +46,7 @@ const { user, agent, gateway, mcps, title } = Astro.props;
             stroke-width="2"
             stroke-linecap="round"
           />
-          <circle class="pulse-dot" r="4" fill="rgb(96, 165, 250)" filter="url(#glow)">
+          <circle class="pulse-dot" r="4" fill="#0D5C4B" filter="url(#glow)">
             <animateMotion dur="1.5s" repeatCount="indefinite">
               <mpath href="#path-user-agent"/>
             </animateMotion>
@@ -65,7 +65,7 @@ const { user, agent, gateway, mcps, title } = Astro.props;
             stroke-width="2"
             stroke-linecap="round"
           />
-          <circle class="pulse-dot" r="4" fill="rgb(139, 92, 246)" filter="url(#glow)">
+          <circle class="pulse-dot" r="4" fill="#0D5C4B" filter="url(#glow)">
             <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.3s">
               <mpath href="#path-agent-gateway"/>
             </animateMotion>
@@ -97,7 +97,7 @@ const { user, agent, gateway, mcps, title } = Astro.props;
             <circle 
               class="pulse-dot"
               r="4"
-              fill="rgb(52, 211, 153)"
+              fill="#1A7D68"
               filter="url(#glow)"
             >
               <animateMotion 
@@ -140,7 +140,7 @@ const { user, agent, gateway, mcps, title } = Astro.props;
             class="outer-connection"
             x1={x1} y1={y1} 
             x2={x2} y2={y2}
-            stroke="rgb(63, 63, 70)"
+            stroke="#2D3D3F"
             stroke-width="1"
             stroke-dasharray="4 4"
             style={`animation-delay: ${700 + index * 100}ms`}
@@ -151,43 +151,40 @@ const { user, agent, gateway, mcps, title } = Astro.props;
     
     <!-- User node -->
     {user && (
-      <div class="user-node absolute left-1/2 -translate-x-1/2 z-10" style="top: 0;">
-        <div class="flex flex-col items-center gap-1">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 border-2 border-blue-400/50 flex items-center justify-center shadow-lg shadow-blue-500/20">
-            {user.icon && <span class="text-xl">{user.icon}</span>}
+      <div class="user-node">
+        <div class="node-wrapper">
+          <div class="user-circle">
+            {user.icon && <span class="node-icon">{user.icon}</span>}
           </div>
-          <span class="text-xs font-medium text-zinc-400">{user.label}</span>
+          <span class="node-label">{user.label}</span>
         </div>
       </div>
     )}
     
     <!-- Agent node -->
     {agent && (
-      <div class="agent-node absolute left-1/2 -translate-x-1/2 z-10" style="top: 22%;">
-        <div class="flex flex-col items-center gap-1">
-          <div class="relative">
-            <div class="absolute -inset-1 rounded-xl bg-indigo-500/20 blur-sm"></div>
-            <div class="relative w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 border-2 border-indigo-400/50 flex items-center justify-center shadow-lg shadow-indigo-500/25">
-              {agent.icon && <span class="text-2xl">{agent.icon}</span>}
-            </div>
+      <div class="agent-node">
+        <div class="node-wrapper">
+          <div class="agent-box">
+            {agent.icon && <span class="node-icon-large">{agent.icon}</span>}
           </div>
-          <span class="text-xs font-medium text-zinc-300">{agent.label}</span>
+          <span class="node-label">{agent.label}</span>
         </div>
       </div>
     )}
     
     <!-- Gateway node (center) -->
-    <div class="gateway-node absolute left-1/2 -translate-x-1/2 z-20" style="top: 52%;">
-      <div class="relative">
+    <div class="gateway-node">
+      <div class="gateway-wrapper">
         <!-- Pulsing ring -->
-        <div class="absolute inset-0 rounded-full bg-violet-500/20 animate-ping-slow"></div>
-        <div class="absolute -inset-2 rounded-full bg-gradient-to-r from-violet-500/20 to-purple-500/20 blur-md"></div>
+        <div class="gateway-ring"></div>
+        <div class="gateway-glow"></div>
         
-        <div class="relative flex flex-col items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-violet-600 to-purple-700 border-2 border-violet-400/50 shadow-lg shadow-violet-500/30">
+        <div class="gateway-circle">
           {gateway.icon && (
-            <span class="text-2xl">{gateway.icon}</span>
+            <span class="gateway-icon">{gateway.icon}</span>
           )}
-          <span class="text-[9px] font-bold text-white/90 text-center mt-0.5 leading-tight px-1">{gateway.label}</span>
+          <span class="gateway-label">{gateway.label}</span>
         </div>
       </div>
     </div>
@@ -206,15 +203,15 @@ const { user, agent, gateway, mcps, title } = Astro.props;
       
       return (
         <div 
-          class="mcp-node absolute z-10"
-          style={`left: ${x}%; top: ${y}%; transform: translate(-50%, -50%); animation-delay: ${index * 100}ms`}
+          class="mcp-node"
+          style={`left: ${x}%; top: ${y}%; animation-delay: ${index * 100}ms`}
           data-mcp={mcp.id}
         >
-          <div class="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-zinc-800/80 border border-emerald-500/30 backdrop-blur-sm hover:border-emerald-400/50 hover:bg-zinc-700/80 transition-all duration-300 cursor-default group">
+          <div class="mcp-box">
             {mcp.icon && (
-              <span class="text-xl group-hover:scale-110 transition-transform">{mcp.icon}</span>
+              <span class="mcp-icon">{mcp.icon}</span>
             )}
-            <span class="text-xs font-medium text-zinc-300 text-center whitespace-nowrap">{mcp.label}</span>
+            <span class="mcp-label">{mcp.label}</span>
           </div>
         </div>
       );
@@ -223,43 +220,219 @@ const { user, agent, gateway, mcps, title } = Astro.props;
 </div>
 
 <style>
+  .network-mesh {
+    margin: 3rem 0;
+    width: 100%;
+  }
+
+  .mesh-title {
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: #5A5A5A;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+  }
+
   .mesh-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1.1;
     min-height: 380px;
   }
-  
-  .user-node,
-  .agent-node,
-  .gateway-node {
+
+  .mesh-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .user-node {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    z-index: 10;
     animation: scaleIn 0.5s ease-out forwards;
   }
-  
+
   .agent-node {
+    position: absolute;
+    left: 50%;
+    top: 22%;
+    transform: translateX(-50%);
+    z-index: 10;
+    animation: scaleIn 0.5s ease-out forwards;
     animation-delay: 100ms;
   }
-  
+
   .gateway-node {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    transform: translateX(-50%);
+    z-index: 20;
+    animation: scaleIn 0.5s ease-out forwards;
     animation-delay: 200ms;
   }
-  
+
+  .node-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .user-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #0D5C4B;
+    border: 2px solid #1A7D68;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(13, 92, 75, 0.3);
+  }
+
+  .agent-box {
+    width: 64px;
+    height: 64px;
+    background: #0D5C4B;
+    border: 2px solid #1A7D68;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(13, 92, 75, 0.3);
+  }
+
+  .node-icon {
+    font-size: 1.25rem;
+  }
+
+  .node-icon-large {
+    font-size: 1.5rem;
+  }
+
+  .node-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: #1A1A1A;
+  }
+
+  .gateway-wrapper {
+    position: relative;
+  }
+
+  .gateway-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(13, 92, 75, 0.2);
+    animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .gateway-glow {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(13, 92, 75, 0.2), transparent);
+    filter: blur(8px);
+  }
+
+  .gateway-circle {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0D5C4B, #0A4A3C);
+    border: 2px solid #1A7D68;
+    box-shadow: 0 8px 24px rgba(13, 92, 75, 0.4);
+  }
+
+  .gateway-icon {
+    font-size: 1.5rem;
+  }
+
+  .gateway-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: #E8E4DE;
+    text-align: center;
+    margin-top: 0.25rem;
+    padding: 0 0.25rem;
+    line-height: 1.2;
+  }
+
   .mcp-node {
+    position: absolute;
+    z-index: 10;
+    transform: translate(-50%, -50%);
     animation: fadeInScale 0.4s ease-out forwards;
     opacity: 0;
   }
-  
+
+  .mcp-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem;
+    background: #F5F2ED;
+    border: 1px solid #0D5C4B;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+
+  .mcp-box:hover {
+    background: rgba(13, 92, 75, 0.05);
+    border-color: #1A7D68;
+    transform: scale(1.05);
+  }
+
+  .mcp-icon {
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+  }
+
+  .mcp-box:hover .mcp-icon {
+    transform: scale(1.1);
+  }
+
+  .mcp-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: #1A1A1A;
+    text-align: center;
+    white-space: nowrap;
+  }
+
   .connection-line {
     opacity: 0;
     animation: fadeIn 0.6s ease-out forwards;
   }
-  
+
   .outer-connection {
     opacity: 0;
     animation: fadeIn 0.4s ease-out forwards;
   }
-  
+
   .pulse-dot {
     opacity: 0.8;
   }
-  
+
   @keyframes scaleIn {
     from { 
       opacity: 0;
@@ -270,7 +443,7 @@ const { user, agent, gateway, mcps, title } = Astro.props;
       transform: translateX(-50%) scale(1);
     }
   }
-  
+
   @keyframes fadeInScale {
     from { 
       opacity: 0;
@@ -281,16 +454,12 @@ const { user, agent, gateway, mcps, title } = Astro.props;
       transform: translate(-50%, -50%) scale(1);
     }
   }
-  
+
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
   }
-  
-  .animate-ping-slow {
-    animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-  }
-  
+
   @keyframes ping-slow {
     0% {
       transform: scale(1);

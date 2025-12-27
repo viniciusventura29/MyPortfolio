@@ -17,12 +17,18 @@ const {
 ---
 
 <!doctype html>
-<html class="bg-grainy" lang="en">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- IBM Plex Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
@@ -40,81 +46,176 @@ const {
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
     <ViewTransitions />
   </head>
-  <body
-    class="scrollbar-thumb-darkBlue scrollbar-track-slate-800 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
-  >
-    <NavBar />
-    <slot />
-    <Footer />
+  <body>
+    <!-- Scan line effect -->
+    <div class="scan-line"></div>
+    
+    <div class="page-container">
+      <NavBar />
+      <slot />
+      <Footer />
+    </div>
+
     <style>
       html {
-        font-family: system-ui, sans-serif;
-        font-size: 1.3em;
-      }
-
-      .bg-grainy {
-        background-size: cover;
-        background-image: url(../back-grainy.svg);
+        font-family: 'IBM Plex Sans', system-ui, sans-serif;
+        font-size: 16px;
+        background-color: #E8E4DE;
+        color: #1A1A1A;
       }
 
       body {
-        margin-left: 30% !important;
-        margin-right: 30% !important;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        position: relative;
       }
 
-      @media (max-width: 768px) {
-        .bg-grainy {
-          background-size: cover;
-          background-image: none;
+      /* Subtle grid pattern background */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+          linear-gradient(rgba(13, 92, 75, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(13, 92, 75, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Scan line effect */
+      .scan-line {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(13, 92, 75, 0.1),
+          transparent
+        );
+        animation: scan 8s linear infinite;
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      @keyframes scan {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100vh); }
+      }
+
+      .page-container {
+        position: relative;
+        z-index: 1;
+        margin-left: 25%;
+        margin-right: 25%;
+        padding: 0 2rem;
+      }
+
+      @media (max-width: 1200px) {
+        .page-container {
+          margin-left: 15%;
+          margin-right: 15%;
         }
       }
 
       @media (max-width: 768px) {
-        body {
-          margin-left: 15% !important;
-          margin-right: 15% !important;
+        .page-container {
+          margin-left: 5%;
+          margin-right: 5%;
+          padding: 0 1rem;
         }
       }
     </style>
 
     <style is:global>
-      html {
-        background-color: #1a1623;
-        color: #eeeeee;
+      /* Global Severance styles */
+      * {
+        box-sizing: border-box;
+      }
+
+      ::selection {
+        background-color: #0D5C4B;
+        color: #E8E4DE;
       }
 
       a {
-        color: #eeeeee;
+        color: #0D5C4B;
+        text-decoration: none;
+        transition: all 0.2s ease;
       }
+
+      a:hover {
+        color: #1A7D68;
+      }
+
       p {
-        color: #eeeeee;
+        color: #1A1A1A;
+        letter-spacing: 0.02em;
+        line-height: 1.7;
+        font-size: 0.95rem;
       }
-      h2 {
-        font-size: var(--font-size-lg);
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #0D5C4B;
       }
 
       code {
-        font-family:
-          Menlo,
-          Monaco,
-          Lucida Console,
-          Liberation Mono,
-          DejaVu Sans Mono,
-          Bitstream Vera Sans Mono,
-          Courier New,
-          monospace;
+        font-family: 'IBM Plex Mono', Menlo, Monaco, monospace;
+        background: rgba(13, 92, 75, 0.1);
+        padding: 0.15rem 0.4rem;
+        font-size: 0.85em;
+        border: 1px solid rgba(13, 92, 75, 0.2);
       }
-      p {
-        letter-spacing: 0.05em;
-        text-align: justify;
-        line-height: 1.3rem;
-        font-size: 0.9rem;
+
+      /* Scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 8px;
       }
-      li {
-        letter-spacing: 0.05em;
-        text-align: justify;
-        line-height: 1.3rem;
-        font-size: 0.9rem;
+
+      ::-webkit-scrollbar-track {
+        background: #E8E4DE;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #0D5C4B;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #1A7D68;
+      }
+
+      /* Form elements */
+      button, input, textarea {
+        font-family: 'IBM Plex Mono', monospace;
+        border: 1px solid #2D3D3F;
+        background: #F5F2ED;
+        color: #1A1A1A;
+        padding: 0.5rem 1rem;
+      }
+
+      button {
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.8rem;
+        transition: all 0.2s ease;
+      }
+
+      button:hover {
+        background: #0D5C4B;
+        color: #E8E4DE;
+        border-color: #0D5C4B;
       }
     </style>
   </body>

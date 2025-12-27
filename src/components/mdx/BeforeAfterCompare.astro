@@ -15,22 +15,22 @@ interface Props {
 const { before, after } = Astro.props;
 ---
 
-<div class="before-after-compare my-12">
-  <div class="grid md:grid-cols-2 gap-px bg-zinc-700/50 rounded-lg overflow-hidden border border-zinc-700/50">
+<div class="before-after-compare">
+  <div class="compare-grid">
     <!-- Before Card -->
-    <div class="before-card bg-zinc-900/80 p-6 md:p-8">
-      <div class="flex items-center gap-3 mb-5">
-        <div class="w-2 h-2 rounded-full bg-zinc-500"></div>
-        <span class="text-xs font-medium uppercase tracking-widest text-zinc-500">Before</span>
+    <div class="compare-card before-card">
+      <div class="card-header">
+        <div class="status-dot before-dot"></div>
+        <span class="card-label">BEFORE</span>
       </div>
       
-      <h4 class="text-lg font-medium text-zinc-200 mb-2">{before.title}</h4>
-      <p class="text-sm text-zinc-500 mb-6 leading-relaxed">{before.description}</p>
+      <h4 class="card-title">{before.title}</h4>
+      <p class="card-description">{before.description}</p>
       
-      <ul class="space-y-3">
+      <ul class="card-list">
         {before.items.map((item) => (
-          <li class="flex items-start gap-3 text-sm text-zinc-400">
-            <span class="text-zinc-600 mt-0.5 text-xs">—</span>
+          <li class="card-item before-item">
+            <span class="item-icon">—</span>
             <span>{item}</span>
           </li>
         ))}
@@ -38,19 +38,19 @@ const { before, after } = Astro.props;
     </div>
     
     <!-- After Card -->
-    <div class="after-card bg-zinc-900/80 p-6 md:p-8">
-      <div class="flex items-center gap-3 mb-5">
-        <div class="w-2 h-2 rounded-full bg-zinc-300"></div>
-        <span class="text-xs font-medium uppercase tracking-widest text-zinc-400">After</span>
+    <div class="compare-card after-card">
+      <div class="card-header">
+        <div class="status-dot after-dot"></div>
+        <span class="card-label">AFTER</span>
       </div>
       
-      <h4 class="text-lg font-medium text-zinc-100 mb-2">{after.title}</h4>
-      <p class="text-sm text-zinc-500 mb-6 leading-relaxed">{after.description}</p>
+      <h4 class="card-title after-title">{after.title}</h4>
+      <p class="card-description">{after.description}</p>
       
-      <ul class="space-y-3">
+      <ul class="card-list">
         {after.items.map((item) => (
-          <li class="flex items-start gap-3 text-sm text-zinc-300">
-            <span class="text-zinc-400 mt-0.5 text-xs">→</span>
+          <li class="card-item after-item">
+            <span class="item-icon">→</span>
             <span>{item}</span>
           </li>
         ))}
@@ -58,3 +58,118 @@ const { before, after } = Astro.props;
     </div>
   </div>
 </div>
+
+<style>
+  .before-after-compare {
+    margin: 2rem 0;
+  }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #2D3D3F;
+    border: 1px solid #2D3D3F;
+  }
+
+  @media (max-width: 768px) {
+    .compare-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .compare-card {
+    padding: 1.5rem;
+    background: #F5F2ED;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .before-dot {
+    background-color: #5A5A5A;
+  }
+
+  .after-dot {
+    background-color: #0D5C4B;
+  }
+
+  .card-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: #5A5A5A;
+  }
+
+  .card-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1A1A1A;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .after-title {
+    color: #0D5C4B;
+  }
+
+  .card-description {
+    font-size: 0.85rem;
+    color: #5A5A5A;
+    margin: 0 0 1.25rem 0;
+    line-height: 1.5;
+  }
+
+  .card-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .card-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .before-item {
+    color: #5A5A5A;
+  }
+
+  .after-item {
+    color: #1A1A1A;
+  }
+
+  .item-icon {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+  }
+
+  .before-item .item-icon {
+    color: #8A8A8A;
+  }
+
+  .after-item .item-icon {
+    color: #0D5C4B;
+  }
+</style>

@@ -1,28 +1,179 @@
-<footer class="mt-20 py-8 border-t border-white/5">
-  <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-    <p>&copy; {new Date().getFullYear()} Vinicius Ventura</p>
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer-container">
+  <div class="footer-border">
+    <span class="end-marker">END OF FILE</span>
+    <span class="divider-line"></span>
+    <span class="timestamp">{year}.12.27</span>
+  </div>
+  
+  <div class="footer-content">
+    <div class="footer-left">
+      <p class="copyright">© {year} VENTURA.V</p>
+      <p class="disclaimer">ALL RIGHTS RESERVED</p>
+    </div>
     
-    <div class="flex items-center gap-6">
+    <div class="footer-links">
       <a 
         href="https://github.com/viniciusventura29" 
         target="_blank"
-        class="hover:text-blue-300 transition-colors"
+        class="footer-link"
       >
-        GitHub
+        <span class="link-label">EXT.</span>
+        GITHUB
       </a>
       <a 
         href="https://www.linkedin.com/in/vini-ventura29/" 
         target="_blank"
-        class="hover:text-blue-300 transition-colors"
+        class="footer-link"
       >
-        LinkedIn
+        <span class="link-label">EXT.</span>
+        LINKEDIN
       </a>
       <a 
         href="mailto:ViniciusVentura29@gmail.com"
-        class="hover:text-blue-300 transition-colors"
+        class="footer-link"
       >
-        Email
+        <span class="link-label">MSG.</span>
+        EMAIL
       </a>
     </div>
   </div>
+  
+  <div class="footer-bottom">
+    <span class="terminal-prompt">{">"} SESSION ACTIVE_</span>
+  </div>
 </footer>
+
+<style>
+  .footer-container {
+    margin-top: 5rem;
+    padding: 2rem 0;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .footer-border {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.6rem;
+    color: #5A5A5A;
+    letter-spacing: 0.15em;
+  }
+
+  .end-marker {
+    white-space: nowrap;
+    color: #0D5C4B;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(13, 92, 75, 0.3),
+      rgba(45, 61, 63, 0.1)
+    );
+  }
+
+  .timestamp {
+    white-space: nowrap;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .copyright {
+    font-size: 0.75rem;
+    color: #1A1A1A;
+    letter-spacing: 0.1em;
+    margin: 0;
+  }
+
+  .disclaimer {
+    font-size: 0.55rem;
+    color: #5A5A5A;
+    letter-spacing: 0.1em;
+    margin: 0;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    color: #5A5A5A;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: all 0.2s ease;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid transparent;
+  }
+
+  .footer-link:hover {
+    color: #0D5C4B;
+    border-bottom-color: #0D5C4B;
+  }
+
+  .link-label {
+    font-size: 0.55rem;
+    opacity: 0.6;
+  }
+
+  .footer-bottom {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(45, 61, 63, 0.1);
+  }
+
+  .terminal-prompt {
+    font-size: 0.65rem;
+    color: #0D5C4B;
+    letter-spacing: 0.05em;
+  }
+
+  .terminal-prompt::after {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 12px;
+    background-color: #0D5C4B;
+    margin-left: 2px;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .footer-links {
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  }
+</style>

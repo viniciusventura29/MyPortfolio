@@ -18,204 +18,450 @@ const { frontmatter } = Astro.props as Props;
 ---
 
 <!doctype html>
-<html class="bg-grainy" lang="pt-br">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={frontmatter.description} />
+    
+    <!-- IBM Plex Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <title>{frontmatter.title} - Vinicius Ventura</title>
     <ViewTransitions />
   </head>
-  <body class="scrollbar-thumb-darkBlue scrollbar-track-slate-800 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
-    <NavBar />
+  <body>
+    <!-- Scan line effect -->
+    <div class="scan-line"></div>
     
-    <article class="mt-10 lg:mt-16">
-      <!-- Header -->
-      <header class="mb-8">
-        <div class="flex items-center gap-4 text-sm text-slate-500 mb-4">
-          <time>{frontmatter.publishDate}</time>
-          <span>·</span>
-          <span>{frontmatter.time} min read</span>
+    <div class="page-container">
+      <NavBar />
+      
+      <article class="article">
+        <!-- Document Header -->
+        <header class="article-header">
+          <div class="header-meta">
+            <span class="meta-item">
+              <span class="meta-label">DATE</span>
+              <span class="meta-value">{frontmatter.publishDate}</span>
+            </span>
+            <span class="meta-divider">|</span>
+            <span class="meta-item">
+              <span class="meta-label">READ</span>
+              <span class="meta-value">{frontmatter.time} MIN</span>
+            </span>
+          </div>
+          
+          <h1 
+            class="article-title"
+            transition:name={`title-${frontmatter.title}`}
+          >
+            {frontmatter.title}
+          </h1>
+          
+          <div class="title-underline">
+            <span class="underline-label">DOCUMENT</span>
+            <span class="underline-line"></span>
+          </div>
+        </header>
+
+        {frontmatter.image && (
+          <div class="article-image-container">
+            <img
+              class="article-image"
+              transition:name={frontmatter.image}
+              src={frontmatter.image}
+              alt=""
+            />
+            <span class="image-caption">FEATURED ATTACHMENT</span>
+          </div>
+        )}
+
+        <!-- Content -->
+        <div class="prose">
+          <slot />
         </div>
         
-        <h1 
-          class="text-3xl lg:text-4xl font-bold text-blue-200 leading-tight"
-          transition:name={`title-${frontmatter.title}`}
-        >
-          {frontmatter.title}
-        </h1>
-      </header>
+        <!-- End marker -->
+        <div class="article-end">
+          <span class="end-line"></span>
+          <span class="end-text">END OF DOCUMENT</span>
+          <span class="end-line"></span>
+        </div>
+      </article>
 
-      {frontmatter.image && (
-        <img
-          class="w-full rounded-xl mb-10"
-          transition:name={frontmatter.image}
-          src={frontmatter.image}
-          alt=""
-        />
-      )}
+      <Footer />
+    </div>
 
-      <!-- Content -->
-      <div class="prose">
-        <slot />
-      </div>
-    </article>
-
-    <Footer />
-
-    <style is:inline>
-      :root {
-        --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
-        --font-size-lg: clamp(1.2rem, 0.54vw + 1.11rem, 1.39rem);
-        --font-size-xl: clamp(1.4rem, 1vw + 1.2rem, 1.7rem);
-      }
-
+    <style>
       html {
-        font-family: system-ui, sans-serif;
-        font-size: var(--font-size-base);
-        background-color: #1a1623;
-        color: #eeeeee;
-      }
-
-      .bg-grainy {
-        background-image: url(../back-grainy.svg);
-        background-size: cover;
+        font-family: 'IBM Plex Sans', system-ui, sans-serif;
+        font-size: 16px;
+        background-color: #E8E4DE;
+        color: #1A1A1A;
       }
 
       body {
-        margin-left: 30%;
-        margin-right: 30%;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        position: relative;
       }
 
-      @media (max-width: 768px) {
-        body {
+      /* Subtle grid pattern background */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+          linear-gradient(rgba(13, 92, 75, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(13, 92, 75, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Scan line effect */
+      .scan-line {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(13, 92, 75, 0.1),
+          transparent
+        );
+        animation: scan 8s linear infinite;
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      @keyframes scan {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100vh); }
+      }
+
+      .page-container {
+        position: relative;
+        z-index: 1;
+        margin-left: 25%;
+        margin-right: 25%;
+        padding: 0 2rem;
+      }
+
+      @media (max-width: 1200px) {
+        .page-container {
           margin-left: 15%;
           margin-right: 15%;
         }
-        .bg-grainy {
-          background-image: none;
+      }
+
+      @media (max-width: 768px) {
+        .page-container {
+          margin-left: 5%;
+          margin-right: 5%;
+          padding: 0 1rem;
         }
+      }
+
+      /* Article */
+      .article {
+        margin-top: 2rem;
+      }
+
+      .article-header {
+        margin-bottom: 2rem;
+      }
+
+      .header-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.65rem;
+        color: #5A5A5A;
+        letter-spacing: 0.15em;
+      }
+
+      .meta-item {
+        display: flex;
+        gap: 0.4rem;
+      }
+
+      .meta-label {
+        opacity: 0.6;
+      }
+
+      .meta-value {
+        color: #0D5C4B;
+      }
+
+      .meta-divider {
+        opacity: 0.3;
+      }
+
+      .article-title {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 1.75rem;
+        font-weight: 500;
+        color: #1A1A1A;
+        letter-spacing: 0.08em;
+        line-height: 1.3;
+        margin: 0 0 1rem 0;
+        text-transform: uppercase;
+      }
+
+      .title-underline {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.55rem;
+        color: #5A5A5A;
+        letter-spacing: 0.15em;
+      }
+
+      .underline-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(to right, #2D3D3F, transparent);
+      }
+
+      /* Article Image */
+      .article-image-container {
+        position: relative;
+        margin-bottom: 2.5rem;
+      }
+
+      .article-image {
+        width: 100%;
+        border: 1px solid #2D3D3F;
+        filter: grayscale(10%);
+      }
+
+      .image-caption {
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #E8E4DE;
+        padding: 0 0.75rem;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.55rem;
+        color: #5A5A5A;
+        letter-spacing: 0.15em;
+      }
+
+      /* Article End */
+      .article-end {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+      }
+
+      .end-line {
+        flex: 1;
+        height: 1px;
+        background: rgba(45, 61, 63, 0.2);
+      }
+
+      .end-text {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.6rem;
+        color: #0D5C4B;
+        letter-spacing: 0.2em;
       }
 
       /* Prose styles */
       .prose {
-        color: #e2e8f0;
-        line-height: 1.75;
+        color: #1A1A1A;
+        line-height: 1.8;
       }
 
-      .prose h2 {
-        font-size: var(--font-size-xl);
-        font-weight: 600;
-        color: #93c5fd;
+      .prose :global(h2) {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: #0D5C4B;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
         margin-top: 2.5rem;
         margin-bottom: 1rem;
         padding-bottom: 0.5rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(13, 92, 75, 0.2);
       }
 
-      .prose h3 {
-        font-size: var(--font-size-lg);
-        font-weight: 600;
-        color: #93c5fd;
+      .prose :global(h3) {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #0D5C4B;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
         margin-top: 2rem;
         margin-bottom: 0.75rem;
       }
 
-      .prose h4 {
-        font-size: var(--font-size-base);
-        font-weight: 600;
-        color: #93c5fd;
+      .prose :global(h4) {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #0D5C4B;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
         margin-top: 1.5rem;
         margin-bottom: 0.5rem;
       }
 
-      .prose p {
+      .prose :global(p) {
         margin-top: 1.25rem;
         margin-bottom: 1.25rem;
-        color: #cbd5e1;
+        color: #3A3A3A;
+        font-size: 0.95rem;
       }
 
-      .prose a {
-        color: #60a5fa;
+      .prose :global(a) {
+        color: #0D5C4B;
         text-decoration: underline;
-        text-underline-offset: 2px;
+        text-underline-offset: 3px;
+        transition: opacity 0.2s ease;
       }
 
-      .prose a:hover {
-        color: #93c5fd;
+      .prose :global(a:hover) {
+        opacity: 0.7;
       }
 
-      .prose strong {
-        color: #f1f5f9;
+      .prose :global(strong) {
+        color: #0D5C4B;
         font-weight: 600;
       }
 
-      .prose ul,
-      .prose ol {
+      .prose :global(ul),
+      .prose :global(ol) {
         margin: 1.25rem 0;
         padding-left: 1.5rem;
       }
 
-      .prose li {
-        color: #cbd5e1;
+      .prose :global(li) {
+        color: #3A3A3A;
         margin: 0.5rem 0;
         line-height: 1.6;
+        font-size: 0.95rem;
       }
 
-      .prose ul li {
-        list-style-type: disc;
+      .prose :global(ul li) {
+        list-style-type: square;
       }
 
-      .prose ol li {
+      .prose :global(ol li) {
         list-style-type: decimal;
       }
 
-      .prose blockquote {
-        border-left: 4px solid #3b82f6;
+      .prose :global(blockquote) {
+        border-left: 3px solid #0D5C4B;
         padding-left: 1rem;
         margin: 1.5rem 0;
-        font-style: italic;
-      }
-
-      .prose blockquote p {
-        color: #94a3b8;
-      }
-
-      .prose code {
-        font-family: "Fira Code", Menlo, Monaco, monospace;
-        background: rgba(59, 130, 246, 0.1);
-        padding: 0.2rem 0.4rem;
-        border-radius: 0.25rem;
-        font-size: 0.875em;
-        color: #93c5fd;
-      }
-
-      .prose pre {
-        background: #0f0d12;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 0.75rem;
+        background: rgba(13, 92, 75, 0.03);
         padding: 1rem;
+        padding-left: 1.5rem;
+      }
+
+      .prose :global(blockquote p) {
+        color: #5A5A5A;
+        font-style: italic;
+        margin: 0;
+      }
+
+      .prose :global(code) {
+        font-family: 'IBM Plex Mono', monospace;
+        background: rgba(13, 92, 75, 0.08);
+        padding: 0.15rem 0.4rem;
+        font-size: 0.85em;
+        color: #0D5C4B;
+        border: 1px solid rgba(13, 92, 75, 0.15);
+      }
+
+      .prose :global(pre) {
+        background: #1A1A1A;
+        border: 1px solid #2D3D3F;
+        padding: 1.25rem;
         overflow-x: auto;
         margin: 1.5rem 0;
+        font-family: 'IBM Plex Mono', monospace;
       }
 
-      .prose pre code {
+      .prose :global(pre code) {
         background: none;
         padding: 0;
-        color: #e2e8f0;
-      }
-
-      .prose img {
-        border-radius: 0.75rem;
-        margin: 1.5rem 0;
-      }
-
-      .prose hr {
+        color: #E8E4DE;
         border: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        margin: 2rem 0;
+        font-size: 0.85rem;
+      }
+
+      .prose :global(img) {
+        border: 1px solid #2D3D3F;
+        margin: 1.5rem 0;
+        max-width: 100%;
+      }
+
+      .prose :global(hr) {
+        border: none;
+        border-top: 1px dashed rgba(45, 61, 63, 0.3);
+        margin: 2.5rem 0;
+      }
+
+      .prose :global(table) {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+        font-size: 0.9rem;
+      }
+
+      .prose :global(th),
+      .prose :global(td) {
+        border: 1px solid #2D3D3F;
+        padding: 0.75rem;
+        text-align: left;
+      }
+
+      .prose :global(th) {
+        background: rgba(13, 92, 75, 0.05);
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #0D5C4B;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #E8E4DE;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #0D5C4B;
+      }
+
+      ::selection {
+        background-color: #0D5C4B;
+        color: #E8E4DE;
       }
     </style>
   </body>
