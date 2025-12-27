@@ -1,0 +1,266 @@
+---
+title: "I Built an MCP Client to Understand How MCP Mesh Works"
+description: "A POC to understand how LLMs execute external tools via MCP and how Deco's MCP Mesh solves the scaling problem."
+publishDate: "Dec 27 2024"
+image: /blogg/trampoai/trampoAiWallpaper.jpg
+time: 5
+draft: false
+---
+
+import InteractiveDiagram from '../../components/mdx/InteractiveDiagram.astro';
+import FlowTimeline from '../../components/mdx/FlowTimeline.astro';
+import BeforeAfterCompare from '../../components/mdx/BeforeAfterCompare.astro';
+import NetworkMesh from '../../components/mdx/NetworkMesh.astro';
+
+Every company today has their own "internal ChatGPT". A wrapper with the company logo, integrated into Slack, answering questions about documentation...
+
+But it only **answers**. It doesn't **do** anything.
+
+What if I told you that your AI can execute real actions? Fetch data from your CRM, run queries, trigger automations, create tickets?
+
+That's exactly what **MCP (Model Context Protocol)** enables. And I built a POC to understand how it works in practice.
+
+## What is MCP?
+
+The Model Context Protocol is a standard created by Anthropic that defines how LLMs can discover and execute **external tools**.
+
+Think about it: before MCP, every integration was custom. Want Claude to access your database? Write a plugin. Want it to send emails? Another plugin. Each one with its own API, authentication, data format.
+
+MCP standardizes all of this.
+
+<FlowTimeline
+  title="How MCP Works"
+  steps={[
+    { 
+      title: "1. Connection", 
+      description: "The client connects to the MCP Server via SSE (Server-Sent Events) or stdio.",
+      icon: "🔌"
+    },
+    { 
+      title: "2. Discovery", 
+      description: "The client lists all available tools (tools/list).",
+      icon: "🔍"
+    },
+    { 
+      title: "3. Prompt", 
+      description: "Tools are sent to the LLM along with the user's message.",
+      icon: "💬"
+    },
+    { 
+      title: "4. Tool Use", 
+      description: "The LLM decides which tool to use and returns a tool_use with arguments.",
+      icon: "🛠️"
+    },
+    { 
+      title: "5. Execution", 
+      description: "The client executes the tool on the MCP Server and returns the result to the LLM.",
+      icon: "⚡"
+    }
+  ]}
+/>
+
+The key point here is: **the LLM decides which tool to use**. You just pass the list of available tools and it automatically chooses based on the conversation context.
+
+## TrampoAI - The POC
+
+To understand this in practice, I built [TrampoAI](https://github.com/viniciusventura29/TrampoAI) — a complete MCP client with a chat interface.
+
+### Architecture
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────────┐
+│   React     │────▶│   Express   │────▶│   MCP Servers   │
+│   (Vite)    │◀────│   Backend   │◀────│   (via SSE)     │
+└─────────────┘     └──────┬──────┘     └─────────────────┘
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │  Anthropic  │
+                    │    API      │
+                    └─────────────┘
+```
+
+The flow is simple:
+
+1. **Frontend** sends a message to the backend
+2. **Backend** collects tools from all connected MCP Servers
+3. **Backend** sends message + tools to Anthropic API
+4. **Claude** responds with `tool_use` if it needs to execute something
+5. **Backend** executes the tool on the corresponding MCP Server
+6. **Backend** sends the `tool_result` back to Claude
+7. **Claude** generates the final response
+
+### Stack
+
+<div class="my-8 grid grid-cols-2 md:grid-cols-3 gap-4">
+  <div class="p-4 rounded-lg bg-gradient-to-br from-cyan-900/40 to-cyan-800/20 border border-cyan-700/30">
+    <div class="text-sm font-medium text-zinc-200">Frontend</div>
+    <div class="text-xs text-zinc-500 mt-1">React 18 + Vite + TypeScript</div>
+  </div>
+  <div class="p-4 rounded-lg bg-gradient-to-br from-green-900/40 to-green-800/20 border border-green-700/30">
+    <div class="text-sm font-medium text-zinc-200">Backend</div>
+    <div class="text-xs text-zinc-500 mt-1">Express + TypeScript</div>
+  </div>
+  <div class="p-4 rounded-lg bg-gradient-to-br from-purple-900/40 to-purple-800/20 border border-purple-700/30">
+    <div class="text-sm font-medium text-zinc-200">MCP SDK</div>
+    <div class="text-xs text-zinc-500 mt-1">@modelcontextprotocol/sdk</div>
+  </div>
+  <div class="p-4 rounded-lg bg-gradient-to-br from-orange-900/40 to-orange-800/20 border border-orange-700/30">
+    <div class="text-sm font-medium text-zinc-200">LLM</div>
+    <div class="text-xs text-zinc-500 mt-1">Claude Sonnet 4</div>
+  </div>
+  <div class="p-4 rounded-lg bg-gradient-to-br from-blue-900/40 to-blue-800/20 border border-blue-700/30">
+    <div class="text-sm font-medium text-zinc-200">Styling</div>
+    <div class="text-xs text-zinc-500 mt-1">Tailwind CSS</div>
+  </div>
+  <div class="p-4 rounded-lg bg-gradient-to-br from-rose-900/40 to-rose-800/20 border border-rose-700/30">
+    <div class="text-sm font-medium text-zinc-200">Icons</div>
+    <div class="text-xs text-zinc-500 mt-1">Lucide Icons</div>
+  </div>
+</div>
+
+### Demo
+
+Here's TrampoAI in action. In this demo, I use a single prompt:
+
+> *"Read my last 10 emails, summarize them, find the ones I need to take action on, create tasks in Notion, and block 1 hour at 3pm today on my calendar to work on them."*
+
+Watch what happens:
+
+<video 
+  controls 
+  playsinline
+  preload="metadata"
+  class="w-full rounded-xl border border-zinc-800 my-8"
+  poster="/blogg/trampoai/trampoAiWallpaper.jpg"
+>
+  <source src="/blogg/trampoai/demoVideo.mp4" type="video/mp4" />
+  Your browser does not support video playback.
+</video>
+
+With **one prompt**, Claude automatically:
+1. Called the **Gmail MCP** to read my emails
+2. Summarized and filtered which ones needed action
+3. Called the **Notion MCP** to create tasks
+4. Called the **Google Calendar MCP** to block time
+
+No manual orchestration. No hardcoded workflows. The LLM figured out which tools to use and in what order.
+
+**This is what MCP unlocks.**
+
+## The Problem: MCP Mess
+
+Ok, it works. But what happens when you have **10 MCP Servers**? **50**? **100**?
+
+<BeforeAfterCompare
+  before={{
+    title: "Naive MCP",
+    description: "Each client connects to each MCP Server",
+    items: [
+      "N clients × M servers = N×M connections",
+      "Each client manages its own credentials",
+      "No centralized access control",
+      "No unified observability"
+    ]
+  }}
+  after={{
+    title: "The Problem",
+    description: "This doesn't scale",
+    items: [
+      "Connection explosion",
+      "Scattered credentials",
+      "Who accessed what?",
+      "How much are we spending?"
+    ]
+  }}
+/>
+
+Building TrampoAI, I realized in practice: **managing multiple MCP Servers is a nightmare**.
+
+Each server has its own connection, its own tools, its own credentials. There's no way to know who executed what, how much it cost, if someone is abusing the system.
+
+## The Solution: MCP Mesh
+
+This is where [Deco's MCP Mesh](https://www.decocms.com/mesh) comes in.
+
+The idea is simple: instead of each client connecting directly to each MCP Server, you have a **control plane** in the middle.
+
+<InteractiveDiagram 
+  title="MCP Mesh Architecture"
+  nodes={[
+    { id: "clients", label: "Clients", icon: "💻" },
+    { id: "mesh", label: "MCP Mesh", icon: "🔀" },
+    { id: "servers", label: "MCP Servers", icon: "⚙️" }
+  ]}
+/>
+
+MCP Mesh provides:
+
+### 1. One Endpoint for Everything
+
+No matter how many MCP Servers you have. Your clients connect to **a single endpoint**. The Mesh routes to the right tools.
+
+### 2. RBAC and Policies
+
+Access control at the control plane level. Who can use which tool? Does it need approval to execute? All configurable.
+
+### 3. Observability
+
+Unified logs for all executions. Latency, errors, costs — all in one place.
+
+### 4. Smart Routing
+
+When you have many tools, sending all of them to the LLM gets expensive (tokens) and slow. The Mesh has intelligent selection strategies.
+
+### 5. No Vendor Lock-in
+
+Open-source, self-hosted. Runs on your Kubernetes, on your infrastructure. You're in control.
+
+```bash
+# Run locally in 1 minute
+npx @decocms/mesh
+```
+
+## What I Learned
+
+Building TrampoAI was real proof of how things work under the hood.
+
+<FlowTimeline
+  title="Learnings"
+  steps={[
+    { 
+      title: "MCP is simple", 
+      description: "The protocol itself is elegant. SSE + JSON-RPC. Easy to implement.",
+      icon: "✅"
+    },
+    { 
+      title: "Managing is complex", 
+      description: "Multiple servers, credentials, connections... quickly becomes chaos.",
+      icon: "⚠️"
+    },
+    { 
+      title: "Tool selection is critical", 
+      description: "Sending 100 tools to the LLM doesn't work. You need curation.",
+      icon: "🎯"
+    },
+    { 
+      title: "You need a Mesh", 
+      description: "For production, you need a control plane. Simple as that.",
+      icon: "🔀"
+    }
+  ]}
+/>
+
+## Conclusion
+
+MCP is the future of how LLMs will interact with the real world. It's no longer "chatbot that answers", it's **agent that executes**.
+
+But for this to work at enterprise scale, you need governance, observability, cost control.
+
+That's exactly what [Deco's MCP Mesh](https://www.decocms.com/mesh) solves.
+
+If you want to understand how it works in practice, check out [TrampoAI](https://github.com/viniciusventura29/TrampoAI). It's open-source and you can run it locally in 5 minutes.
+
+---
+
+Liked the article? Hit me up on Twitter to chat about MCP!
