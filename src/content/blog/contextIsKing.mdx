@@ -1,9 +1,9 @@
 ---
 title: "Context is King: The New Way to Use AI"
-description: "We've been using AI wrong. It's not about asking better questions — it's about giving better context. Here's how the shift to contextual AI is changing everything."
-publishDate: "Dec 24 2025"
+description: "We've been using AI wrong. It's not about asking better questions — it's about giving better context. Here's how MCP is changing everything, and how I built a POC to prove it."
+publishDate: "Dec 27 2025"
 image: /blogg/contextIsKing/context_is_king.jpg
-time: 5
+time: 10
 draft: false
 ---
 
@@ -25,6 +25,9 @@ Let me be honest: <Tooltip client:load content="Large Language Models - AI syste
 
 They don't know about your work. They don't know what meetings you have scheduled. They don't know what tasks are piling up on your to-do list. They don't know the codebase you're working on or the documents your team shares. They don't know about you.
 
+Every company today has their own "internal ChatGPT". A wrapper with the company logo, integrated into Slack, answering questions about documentation...
+
+But it only **answers**. It doesn't **do** anything.
 
 ## The Shift: Context is King
 
@@ -63,24 +66,114 @@ And it just... does it.
 
 If you haven't heard about <Tooltip client:load content="Model Context Protocol - An open standard created by Anthropic that allows AI models to connect to external tools and data sources through a universal interface.">MCP (Model Context Protocol)</Tooltip>, it's worth understanding. In simple terms, MCP is a standard way to connect AI models to external tools and data sources.
 
+Think about it: before MCP, every integration was custom. Want Claude to access your database? Write a plugin. Want it to send emails? Another plugin. Each one with its own API, authentication, data format.
+
+MCP standardizes all of this.
+
+<FlowTimeline
+  title="How MCP Works"
+  steps={[
+    { 
+      title: "1. Connection", 
+      description: "The client connects to the MCP Server via SSE (Server-Sent Events) or stdio.",
+      icon: "🔌"
+    },
+    { 
+      title: "2. Discovery", 
+      description: "The client lists all available tools (tools/list).",
+      icon: "🔍"
+    },
+    { 
+      title: "3. Prompt", 
+      description: "Tools are sent to the LLM along with the user's message.",
+      icon: "💬"
+    },
+    { 
+      title: "4. Tool Use", 
+      description: "The LLM decides which tool to use and returns a tool_use with arguments.",
+      icon: "🛠️"
+    },
+    { 
+      title: "5. Execution", 
+      description: "The client executes the tool on the MCP Server and returns the result to the LLM.",
+      icon: "⚡"
+    }
+  ]}
+/>
+
+The key point here is: **the LLM decides which tool to use**. You just pass the list of available tools and it automatically chooses based on the conversation context.
+
 In practice:
 - **Connect Gmail** → AI can read, search, summarize, and send your emails
 - **Connect Calendar** → AI can check availability, schedule meetings, and block time
 - **Connect Notion** → AI can create pages, update databases, and organize your notes
 - **Connect GitHub** → AI can review PRs, create issues, and check build status
 
-
 Think of it as a universal adapter. Instead of building custom integrations for every AI tool, MCP provides a common language. Any MCP-compatible client (like <Tooltip client:load content="Cursor is an AI-powered code editor that integrates AI directly into the development workflow. Claude Desktop is Anthropic's official desktop application for interacting with Claude.">Cursor, Claude Desktop</Tooltip>, or custom agents) can connect to any MCP server and use its capabilities.
 
 > If you want to dive deeper into MCP, check out the [official documentation](https://modelcontextprotocol.io/) and the [Anthropic announcement](https://www.anthropic.com/news/model-context-protocol).
 
-The beauty of MCP is that it's open. Anyone can create an MCP server for their tool, and suddenly that tool becomes available to any AI that speaks MCP.
+## TrampoAI: From Theory to Practice
 
-## My Setup: From Theory to Practice
+To understand how this works in practice, I built [TrampoAI](https://github.com/viniciusventura29/TrampoAI) — a complete MCP client with a chat interface.
 
-Let me share a real example from my own workflow.
+### Architecture
 
-I connected three services through MCP:
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────────┐
+│   React     │────▶│   Express   │────▶│   MCP Servers   │
+│   (Vite)    │◀────│   Backend   │◀────│   (via SSE)     │
+└─────────────┘     └──────┬──────┘     └─────────────────┘
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │  Anthropic  │
+                    │    API      │
+                    └─────────────┘
+```
+
+The flow is simple:
+
+1. **Frontend** sends a message to the backend
+2. **Backend** collects tools from all connected MCP Servers
+3. **Backend** sends message + tools to Anthropic API
+4. **Claude** responds with `tool_use` if it needs to execute something
+5. **Backend** executes the tool on the corresponding MCP Server
+6. **Backend** sends the `tool_result` back to Claude
+7. **Claude** generates the final response
+
+### Stack
+
+<div class="my-8 grid grid-cols-2 md:grid-cols-3 gap-4">
+  <div class="p-4 rounded-lg bg-gradient-to-br from-cyan-900/40 to-cyan-800/20 border border-cyan-700/30">
+    <div class="text-sm font-medium text-zinc-200">Frontend</div>
+    <div class="text-xs text-zinc-500 mt-1">React 18 + Vite + TypeScript</div>
+  </div>
+  <div class="p-4 rounded-lg bg-gradient-to-br from-green-900/40 to-green-800/20 border border-green-700/30">
+    <div class="text-sm font-medium text-zinc-200">Backend</div>
+    <div class="text-xs text-zinc-500 mt-1">Express + TypeScript</div>
+  </div>
+  <div class="p-4 rounded-lg bg-gradient-to-br from-purple-900/40 to-purple-800/20 border border-purple-700/30">
+    <div class="text-sm font-medium text-zinc-200">MCP SDK</div>
+    <div class="text-xs text-zinc-500 mt-1">@modelcontextprotocol/sdk</div>
+  </div>
+  <div class="p-4 rounded-lg bg-gradient-to-br from-orange-900/40 to-orange-800/20 border border-orange-700/30">
+    <div class="text-sm font-medium text-zinc-200">LLM</div>
+    <div class="text-xs text-zinc-500 mt-1">Claude Sonnet 4</div>
+  </div>
+  <div class="p-4 rounded-lg bg-gradient-to-br from-blue-900/40 to-blue-800/20 border border-blue-700/30">
+    <div class="text-sm font-medium text-zinc-200">Styling</div>
+    <div class="text-xs text-zinc-500 mt-1">Tailwind CSS</div>
+  </div>
+  <div class="p-4 rounded-lg bg-gradient-to-br from-rose-900/40 to-rose-800/20 border border-rose-700/30">
+    <div class="text-sm font-medium text-zinc-200">Icons</div>
+    <div class="text-xs text-zinc-500 mt-1">Lucide Icons</div>
+  </div>
+</div>
+
+### Demo: One Prompt, Four Tools
+
+Here's TrampoAI in action. I connected three services:
 
 <NetworkMesh 
   title="My Connected Services"
@@ -94,69 +187,107 @@ I connected three services through MCP:
   ]}
 />
 
-Then I asked the AI something like this:
+Then I asked something like this:
 
-> "Look at the emails I received today. Summarize what's important. Find any emails that require action or a decision from me, create tasks for them in Notion, and then block some time on my calendar for me to handle these tasks."
+> *"Read my last 10 emails, summarize them, find the ones I need to take action on, create tasks in Notion, and block 1 hour at 3pm today on my calendar to work on them."*
 
-<FlowTimeline 
-  title="What Actually Happens"
-  steps={[
-    { 
-      title: "Email Analysis", 
-      description: "AI scans today's inbox and identifies important messages",
-      icon: "📬"
-    },
-    { 
-      title: "Smart Summarization", 
-      description: "Creates concise summaries with action items highlighted",
-      icon: "📋"
-    },
-    { 
-      title: "Task Creation", 
-      description: "Automatically creates tasks in Notion for each action item",
-      icon: "✅"
-    },
-    { 
-      title: "Calendar Blocking", 
-      description: "Finds available time slots and blocks them for task completion",
-      icon: "⏰"
-    }
-  ]}
-/>
+Watch what happens:
 
-And it worked. Not as a demonstration or a proof of concept — as an actual workflow I now use.
+<video 
+  controls 
+  playsinline
+  preload="metadata"
+  class="w-full rounded-xl border border-zinc-800 my-8"
+  poster="/blogg/trampoai/trampoAiWallpaper.jpg"
+>
+  <source src="/blogg/trampoai/demoVideo.mp4" type="video/mp4" />
+  Your browser does not support video playback.
+</video>
 
-But it doesn't stop at actions. I can also *ask* about anything in that context. "What was that email from last week about the project deadline?" or "Do I have any conflicts next Tuesday?" — the AI searches through my connected services and gives me answers based on my actual data, not generic responses.
+With **one prompt**, Claude automatically:
+1. Called the **Gmail MCP** to read my emails
+2. Summarized and filtered which ones needed action
+3. Called the **Notion MCP** to create tasks
+4. Called the **Google Calendar MCP** to block time
+
+No manual orchestration. No hardcoded workflows. The LLM figured out which tools to use and in what order.
 
 This is the difference between AI that *informs* and AI that *acts*. I didn't ask for information. I asked for action. And because the AI had context about my email, my calendar, and my task management system, it could actually deliver.
 
-And here's the thing: you don't lose the ability to just *ask questions*. You still can — but now you get sharper, more accurate answers because the AI actually knows your context. You're not replacing anything. You're gaining actions *on top of* better-informed responses.
+## The Scaling Problem: MCP Mess
 
-## Going Further: The Possibilities
+Ok, it works. But what happens when you have **10 MCP Servers**? **50**? **100**?
 
-Once you understand this paradigm, the possibilities explode.
+<BeforeAfterCompare
+  before={{
+    title: "Naive MCP",
+    description: "Each client connects to each MCP Server",
+    items: [
+      "N clients × M servers = N×M connections",
+      "Each client manages its own credentials",
+      "No centralized access control",
+      "No unified observability"
+    ]
+  }}
+  after={{
+    title: "The Problem",
+    description: "This doesn't scale",
+    items: [
+      "Connection explosion",
+      "Scattered credentials",
+      "Who accessed what?",
+      "How much are we spending?"
+    ]
+  }}
+/>
 
-### Communication Integration
+Building TrampoAI, I realized in practice: **managing multiple MCP Servers is a nightmare**.
 
-Connect <Tooltip client:load content="Popular team communication platforms used in workplaces for real-time messaging and collaboration.">Slack and Teams</Tooltip> to your AI. Now it can analyze messages across all your communication channels, not just email. Imagine asking: "Summarize everything that happened in my work channels while I was in meetings."
+Each server has its own connection, its own tools, its own credentials. There's no way to know who executed what, how much it cost, if someone is abusing the system.
 
-### Development Workflow
+## The Solution: MCP Mesh
 
-Connect GitHub or <Tooltip client:load content="Jira is a project management tool by Atlassian commonly used for bug tracking, issue tracking, and agile project management.">Jira</Tooltip>. When someone assigns an issue to you, the AI can automatically create a task and notify you. Or ask it to review the PRs waiting for your review and draft responses based on the code changes.
+This is where [Deco's MCP Mesh](https://www.decocms.com/mesh) comes in.
 
-### Personal Productivity
+The idea is simple: instead of each client connecting directly to each MCP Server, you have a **control plane** in the middle.
 
-Connect your banking app for weekly spending summaries. Connect Spotify to create focus playlists based on your calendar blocks. The possibilities are endless.
+<InteractiveDiagram 
+  title="MCP Mesh Architecture"
+  nodes={[
+    { id: "clients", label: "Clients", icon: "💻" },
+    { id: "mesh", label: "MCP Mesh", icon: "🔀" },
+    { id: "servers", label: "MCP Servers", icon: "⚙️" }
+  ]}
+/>
 
-The pattern is always the same: give AI context, and it becomes exponentially more useful.
+MCP Mesh provides:
 
-## Managing the Complexity: MCP Mesh
+### 1. One Endpoint for Everything
 
-As you connect more and more services, things can get messy. How do you manage authentication for ten different MCP servers? How do you control which AI agents can access which tools? How do you track what's being called and why?
+No matter how many MCP Servers you have. Your clients connect to **a single endpoint**. The Mesh routes to the right tools.
 
-This is where solutions like [deco's MCP Mesh](https://www.decocms.com/mesh) come in. Instead of wiring every client to every MCP server, a mesh provides a single control plane. One endpoint, centralized authentication, access policies, and observability across all your MCP traffic.
+### 2. RBAC and Policies
 
-I work at deco, so I'm obviously biased. But I genuinely believe this is the direction things are going. As MCP adoption grows, the need for proper infrastructure to manage it becomes critical — just like how APIs needed <Tooltip client:load content="An API Gateway is a server that acts as a single entry point for multiple backend services, handling authentication, rate limiting, and routing.">API gateways</Tooltip>, MCP needs its own management layer.
+Access control at the control plane level. Who can use which tool? Does it need approval to execute? All configurable.
+
+### 3. Observability
+
+Unified logs for all executions. Latency, errors, costs — all in one place.
+
+### 4. Smart Routing
+
+When you have many tools, sending all of them to the LLM gets expensive (tokens) and slow. The Mesh has intelligent selection strategies.
+
+### 5. No Vendor Lock-in
+
+Open-source, self-hosted. Runs on your Kubernetes, on your infrastructure. You're in control.
+
+```bash
+# Run locally in 1 minute
+npx @decocms/mesh
+```
+
+I work at Deco, so I'm obviously biased. But I genuinely believe this is the direction things are going. As MCP adoption grows, the need for proper infrastructure to manage it becomes critical — just like how APIs needed <Tooltip client:load content="An API Gateway is a server that acts as a single entry point for multiple backend services, handling authentication, rate limiting, and routing.">API gateways</Tooltip>, MCP needs its own management layer.
 
 ## A Glimpse of the Future
 
@@ -174,7 +305,37 @@ I truly believe we're heading toward a world where your AI isn't just a tool you
 
 That's the future I'm excited about. And honestly? We're closer than most people think.
 
-## Conclusion: The Future is Contextual
+## What I Learned
+
+Building TrampoAI was real proof of how things work under the hood.
+
+<FlowTimeline
+  title="Key Takeaways"
+  steps={[
+    { 
+      title: "MCP is simple", 
+      description: "The protocol itself is elegant. SSE + JSON-RPC. Easy to implement.",
+      icon: "✅"
+    },
+    { 
+      title: "Context changes everything", 
+      description: "A smaller model with your context beats a bigger model without it.",
+      icon: "🎯"
+    },
+    { 
+      title: "Managing is complex", 
+      description: "Multiple servers, credentials, connections... quickly becomes chaos.",
+      icon: "⚠️"
+    },
+    { 
+      title: "You need a Mesh", 
+      description: "For production, you need a control plane. Simple as that.",
+      icon: "🔀"
+    }
+  ]}
+/>
+
+## Conclusion
 
 Here's my take: the next leap in AI usefulness won't come from bigger models or better training. It will come from better context.
 
@@ -186,8 +347,10 @@ We're moving from "AI as oracle" to "AI as assistant." An oracle answers questio
 
 ---
 
-If you want to explore this yourself, start small. Pick one tool you use daily — maybe your calendar or your notes app — and find an MCP server for it. Connect it to your AI client and see what becomes possible.
+If you want to understand how this works in practice, check out [TrampoAI](https://github.com/viniciusventura29/TrampoAI). It's open-source and you can run it locally in 5 minutes.
+
+And if you want to explore contextual AI yourself, start small. Pick one tool you use daily — maybe your calendar or your notes app — and find an MCP server for it. Connect it to your AI client and see what becomes possible.
 
 The shift from generic to contextual AI isn't coming. It's already here.
 
-Let me know what you think about this on my socials. I'd love to hear how you're using contextual AI in your workflows!
+Let me know what you think on my socials. I'd love to hear how you're using contextual AI in your workflows!
