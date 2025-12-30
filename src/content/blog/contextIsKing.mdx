@@ -27,7 +27,7 @@ They don't know about your work. They don't know what meetings you have schedule
 
 Every company today has their own "internal ChatGPT". A wrapper with the company logo, integrated into Slack, answering questions about documentation...
 
-But it only **answers**. It doesn't **do** anything.
+But it only **answers**. And honestly? Not even that well — because it lacks your context. It doesn't **do** anything, and even when it tries to help, the answers are generic. Imagine an AI that not only answers *much better* because it knows your world, but also **acts** — and acts precisely.
 
 ## The Shift: Context is King
 
@@ -250,6 +250,8 @@ Each server has its own connection, its own tools, its own credentials. There's 
 This is where [Deco's MCP Mesh](https://www.decocms.com/mesh) comes in.
 
 The idea is simple: instead of each client connecting directly to each MCP Server, you have a **control plane** in the middle.
+
+And honestly? Setting it up was **ridiculously easy**. I ran the Deco project locally, opened their MCP store, clicked to authenticate the MCPs I wanted (Gmail, Notion, Calendar), selected the tools I needed, and exported everything as a single link — that's the mesh. That one URL is what I used in TrampoAI. No manual configuration for each server. No credential juggling. Just click, authenticate, export. Done.
 
 <InteractiveDiagram 
   title="MCP Mesh Architecture"
