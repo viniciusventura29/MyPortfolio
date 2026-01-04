@@ -22,6 +22,9 @@
         "draft": {
           "type": "boolean"
         },
+        "translationKey": {
+          "type": "string"
+        },
         "$schema": {
           "type": "string"
         }

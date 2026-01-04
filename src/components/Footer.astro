@@ -1,10 +1,18 @@
 ---
+import { useTranslations, defaultLocale, type Locale } from "../i18n/utils";
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = defaultLocale } = Astro.props;
+const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer-container">
   <div class="footer-border">
-    <span class="end-marker">END OF FILE</span>
+    <span class="end-marker">{t.footer.endOfFile}</span>
     <span class="divider-line"></span>
     <span class="timestamp">{year}.12.27</span>
   </div>
@@ -12,7 +20,7 @@ const year = new Date().getFullYear();
   <div class="footer-content">
     <div class="footer-left">
       <p class="copyright">© {year} VENTURA.V</p>
-      <p class="disclaimer">ALL RIGHTS RESERVED</p>
+      <p class="disclaimer">{t.footer.allRights}</p>
     </div>
     
     <div class="footer-links">
@@ -21,7 +29,7 @@ const year = new Date().getFullYear();
         target="_blank"
         class="footer-link"
       >
-        <span class="link-label">EXT.</span>
+        <span class="link-label">{t.footer.external}</span>
         GITHUB
       </a>
       <a 
@@ -29,21 +37,21 @@ const year = new Date().getFullYear();
         target="_blank"
         class="footer-link"
       >
-        <span class="link-label">EXT.</span>
+        <span class="link-label">{t.footer.external}</span>
         LINKEDIN
       </a>
       <a 
         href="mailto:ViniciusVentura29@gmail.com"
         class="footer-link"
       >
-        <span class="link-label">MSG.</span>
+        <span class="link-label">{t.footer.message}</span>
         EMAIL
       </a>
     </div>
   </div>
   
   <div class="footer-bottom">
-    <span class="terminal-prompt">{">"} SESSION ACTIVE_</span>
+    <span class="terminal-prompt">{t.footer.sessionActive}</span>
   </div>
 </footer>
 

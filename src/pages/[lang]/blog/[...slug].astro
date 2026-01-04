@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+import { languages, type Locale } from "../../../i18n/utils";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const paths: { params: { lang: string; slug: string }; props: { post: any } }[] = [];
+
+  for (const lang of Object.keys(languages)) {
+    // Filter posts that belong to this language
+    const langPosts = posts.filter((post) => post.slug.startsWith(`${lang}/`));
+    
+    for (const post of langPosts) {
+      // Remove the language prefix from the slug
+      const slugWithoutLang = post.slug.replace(`${lang}/`, '');
+      
+      paths.push({
+        params: { lang, slug: slugWithoutLang },
+        props: { post },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { post } = Astro.props;
+const lang = Astro.params.lang as Locale;
+const { Content } = await post.render();
+---
+
+<BlogLayout post={post} lang={lang}>
+  <Content />
+</BlogLayout>

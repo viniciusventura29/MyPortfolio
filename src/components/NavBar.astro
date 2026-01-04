@@ -1,11 +1,21 @@
 ---
+import { useTranslations, getAlternateLocale, getPathWithoutLocale, defaultLocale, languages, type Locale } from "../i18n/utils";
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = defaultLocale } = Astro.props;
+const t = useTranslations(lang);
+const altLang = getAlternateLocale(lang);
+const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 const currentPath = Astro.url.pathname;
 ---
 
-<nav class="nav-container" transition:persist>
+<nav class="nav-container">
   <div class="nav-content">
     <!-- Logo / Name -->
-    <a href="/" class="nav-logo">
+    <a href={`/${lang}`} class="nav-logo">
       <span class="logo-prefix">EMP.</span>
       <span class="logo-name">VENTURA.V</span>
     </a>
@@ -13,11 +23,11 @@ const currentPath = Astro.url.pathname;
     <!-- Navigation Links -->
     <div class="nav-links">
       <a 
-        class={`nav-link ${currentPath === '/blog' || currentPath.startsWith('/blog/') ? 'active' : ''}`} 
-        href="/blog"
+        class={`nav-link ${currentPath.includes('/blog') ? 'active' : ''}`} 
+        href={`/${lang}/blog`}
       >
         <span class="link-number">01</span>
-        <span class="link-text">BLOG</span>
+        <span class="link-text">{t.nav.blog}</span>
       </a>
       <a 
         class="nav-link" 
@@ -25,20 +35,39 @@ const currentPath = Astro.url.pathname;
         target="_blank"
       >
         <span class="link-number">02</span>
-        <span class="link-text">GITHUB</span>
+        <span class="link-text">{t.nav.github}</span>
       </a>
+      
+      <!-- Language Switcher -->
+      <div class="lang-container">
+        <span class="lang-label">LANG:</span>
+        <div class="lang-toggle">
+          <span class={`lang-option ${lang === 'pt' ? 'active' : ''}`}>PT</span>
+          <a 
+            href={`/${altLang}${pathWithoutLocale}`}
+            class="lang-switch"
+            title={`Switch to ${languages[altLang]}`}
+          >
+            <span class="switch-track">
+              <span class={`switch-thumb ${lang === 'en' ? 'right' : 'left'}`}></span>
+            </span>
+          </a>
+          <span class={`lang-option ${lang === 'en' ? 'active' : ''}`}>EN</span>
+        </div>
+      </div>
+      
       <div class="status-indicator">
         <span class="status-dot"></span>
-        <span class="status-text">ONLINE</span>
+        <span class="status-text">{t.nav.online}</span>
       </div>
     </div>
   </div>
   
   <!-- Bottom border with file number -->
   <div class="nav-border">
-    <span class="file-info">FILE NO. 001</span>
+    <span class="file-info">{t.nav.fileNo}</span>
     <span class="divider-line"></span>
-    <span class="department">DEPT: DEVELOPMENT</span>
+    <span class="department">{t.nav.department}</span>
   </div>
 </nav>
 
@@ -114,6 +143,83 @@ const currentPath = Astro.url.pathname;
     font-weight: 500;
   }
 
+  /* Language Switcher */
+  .lang-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .lang-label {
+    font-size: 0.55rem;
+    color: #5A5A5A;
+    letter-spacing: 0.1em;
+  }
+
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .lang-option {
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    color: #8A8A8A;
+    transition: all 0.2s ease;
+  }
+
+  .lang-option.active {
+    color: #0D5C4B;
+    font-weight: 700;
+  }
+
+  .lang-switch {
+    display: block;
+    text-decoration: none;
+  }
+
+  .switch-track {
+    display: block;
+    width: 28px;
+    height: 14px;
+    background: #E0DDD8;
+    border: 1px solid #2D3D3F;
+    border-radius: 7px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .switch-track:hover {
+    border-color: #0D5C4B;
+    background: #D8D5D0;
+  }
+
+  .switch-thumb {
+    position: absolute;
+    top: 1px;
+    width: 10px;
+    height: 10px;
+    background: #0D5C4B;
+    border-radius: 50%;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .switch-thumb.left {
+    left: 1px;
+  }
+
+  .switch-thumb.right {
+    left: 15px;
+  }
+
+  .switch-track:hover .switch-thumb {
+    background: #0A4A3C;
+    box-shadow: 0 0 4px rgba(13, 92, 75, 0.4);
+  }
+
   .status-indicator {
     display: flex;
     align-items: center;
@@ -181,6 +287,7 @@ const currentPath = Astro.url.pathname;
 
     .nav-links {
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
     .status-indicator {

@@ -1,0 +1,360 @@
+---
+title: "Contexto é Rei: A Nova Forma de Usar IA"
+description: "Estávamos usando IA errado. Não é sobre fazer perguntas melhores — é sobre dar contexto melhor. Veja como o MCP está mudando tudo, e como construí um POC para provar isso."
+publishDate: "Dec 27 2025"
+image: /blogg/contextIsKing/context_is_king.jpg
+time: 10
+draft: false
+translationKey: contextIsKing
+---
+
+import InteractiveDiagram from '../../../components/mdx/InteractiveDiagram.astro';
+import NetworkMesh from '../../../components/mdx/NetworkMesh.astro';
+import BeforeAfterCompare from '../../../components/mdx/BeforeAfterCompare.astro';
+import FlowTimeline from '../../../components/mdx/FlowTimeline.astro';
+import Tooltip from '../../../components/mdx/Tooltip.tsx';
+
+Você ainda está usando IA como um Google mais inteligente? Fazendo perguntas e esperando respostas úteis?
+
+Eu estava também. E estava perdendo o ponto.
+
+## O Problema: IA Sem Contexto
+
+Vou ser honesto: <Tooltip client:load content="Large Language Models - Sistemas de IA treinados em quantidades massivas de texto para entender e gerar texto similar ao humano">ChatGPT, Claude e outros LLMs</Tooltip> são incríveis. Eles podem escrever código, explicar tópicos complexos e ajudar você a pensar em problemas. Mas há uma limitação fundamental que a maioria das pessoas não pensa.
+
+**Eles não sabem nada sobre você.**
+
+Eles não sabem sobre seu trabalho. Não sabem que reuniões você tem agendadas. Não sabem que tarefas estão se acumulando na sua lista de afazeres. Não conhecem o codebase em que você está trabalhando ou os documentos que seu time compartilha. Eles não sabem sobre você.
+
+Toda empresa hoje tem seu próprio "ChatGPT interno". Um wrapper com o logo da empresa, integrado no Slack, respondendo perguntas sobre documentação...
+
+Mas ele só **responde**. E honestamente? Nem bem — porque falta contexto. Ele não **faz** nada, e mesmo quando tenta ajudar, as respostas são genéricas. Imagine uma IA que não só responde *muito melhor* porque conhece seu mundo, mas também **age** — e age com precisão.
+
+## A Mudança: Contexto é Rei
+
+Aqui está o que aprendi: a nova forma de usar IA não é sobre criar <Tooltip client:load content="Prompts são as instruções ou perguntas que você dá a uma IA. Engenharia de prompt é a prática de projetar essas instruções para obter melhores outputs.">prompts</Tooltip> melhores ou aprender técnicas mágicas. É sobre dar à IA acesso ao seu mundo.
+
+Quando a IA tem contexto sobre seu ambiente — seus emails, seu calendário, seus documentos, suas ferramentas — algo mágico acontece. Ela para de apenas *responder* e começa a *agir*.
+
+Em vez de perguntar "Como devo organizar meus emails?" você pode dizer "Analise meus emails de hoje, resuma os importantes e crie tarefas para qualquer coisa que precise de ação."
+
+E ela simplesmente... faz.
+
+<BeforeAfterCompare 
+  before={{
+    title: "IA Sem Contexto",
+    description: "Respostas genéricas que servem para qualquer um",
+    items: [
+      "Copiar-colar informações manualmente",
+      "Adaptar respostas genéricas para sua situação",
+      "Fazer o trabalho real você mesmo",
+      "IA como 'autocomplete chique'"
+    ]
+  }}
+  after={{
+    title: "IA Com Contexto",
+    description: "Ações personalizadas baseadas no seu mundo",
+    items: [
+      "IA entende seu ambiente",
+      "Recebe respostas específicas e acionáveis",
+      "Automatiza tarefas reais de ponta a ponta",
+      "IA como verdadeiro assistente"
+    ]
+  }}
+/>
+
+## MCP: O Protocolo Tornando Isso Possível
+
+Se você não ouviu falar do <Tooltip client:load content="Model Context Protocol - Um padrão aberto criado pela Anthropic que permite modelos de IA se conectarem a ferramentas externas e fontes de dados através de uma interface universal.">MCP (Model Context Protocol)</Tooltip>, vale a pena entender. Em termos simples, MCP é uma forma padrão de conectar modelos de IA a ferramentas externas e fontes de dados.
+
+Pense nisso: antes do MCP, toda integração era customizada. Quer que o Claude acesse seu banco de dados? Escreva um plugin. Quer que ele envie emails? Outro plugin. Cada um com sua própria API, autenticação, formato de dados.
+
+O MCP padroniza tudo isso.
+
+<FlowTimeline
+  title="Como o MCP Funciona"
+  steps={[
+    { 
+      title: "1. Conexão", 
+      description: "O cliente se conecta ao MCP Server via SSE (Server-Sent Events) ou stdio.",
+      icon: "🔌"
+    },
+    { 
+      title: "2. Descoberta", 
+      description: "O cliente lista todas as ferramentas disponíveis (tools/list).",
+      icon: "🔍"
+    },
+    { 
+      title: "3. Prompt", 
+      description: "Ferramentas são enviadas ao LLM junto com a mensagem do usuário.",
+      icon: "💬"
+    },
+    { 
+      title: "4. Uso de Ferramenta", 
+      description: "O LLM decide qual ferramenta usar e retorna um tool_use com argumentos.",
+      icon: "🛠️"
+    },
+    { 
+      title: "5. Execução", 
+      description: "O cliente executa a ferramenta no MCP Server e retorna o resultado ao LLM.",
+      icon: "⚡"
+    }
+  ]}
+/>
+
+O ponto chave aqui é: **o LLM decide qual ferramenta usar**. Você apenas passa a lista de ferramentas disponíveis e ele automaticamente escolhe baseado no contexto da conversa.
+
+Na prática:
+- **Conecte Gmail** → IA pode ler, pesquisar, resumir e enviar seus emails
+- **Conecte Calendário** → IA pode verificar disponibilidade, agendar reuniões e bloquear horários
+- **Conecte Notion** → IA pode criar páginas, atualizar bancos de dados e organizar suas notas
+- **Conecte GitHub** → IA pode revisar PRs, criar issues e verificar status de builds
+
+Pense nisso como um adaptador universal. Em vez de construir integrações customizadas para cada ferramenta de IA, o MCP fornece uma linguagem comum. Qualquer cliente compatível com MCP (como <Tooltip client:load content="Cursor é um editor de código alimentado por IA que integra IA diretamente no fluxo de desenvolvimento. Claude Desktop é a aplicação desktop oficial da Anthropic para interagir com o Claude.">Cursor, Claude Desktop</Tooltip>, ou agentes customizados) pode se conectar a qualquer servidor MCP e usar suas capacidades.
+
+> Se você quiser se aprofundar no MCP, confira a [documentação oficial](https://modelcontextprotocol.io/) e o [anúncio da Anthropic](https://www.anthropic.com/news/model-context-protocol).
+
+## TrampoAI: Da Teoria à Prática
+
+Para entender como isso funciona na prática, construí o [TrampoAI](https://github.com/viniciusventura29/TrampoAI) — um cliente MCP completo com interface de chat.
+
+### Arquitetura
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────────┐
+│   React     │────▶│   Express   │────▶│   MCP Servers   │
+│   (Vite)    │◀────│   Backend   │◀────│   (via SSE)     │
+└─────────────┘     └──────┬──────┘     └─────────────────┘
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │  Anthropic  │
+                    │    API      │
+                    └─────────────┘
+```
+
+O fluxo é simples:
+
+1. **Frontend** envia uma mensagem para o backend
+2. **Backend** coleta ferramentas de todos os MCP Servers conectados
+3. **Backend** envia mensagem + ferramentas para a API da Anthropic
+4. **Claude** responde com `tool_use` se precisar executar algo
+5. **Backend** executa a ferramenta no MCP Server correspondente
+6. **Backend** envia o `tool_result` de volta para o Claude
+7. **Claude** gera a resposta final
+
+### Stack
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 2rem 0;">
+  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">FRONTEND</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">React 18 + Vite + TypeScript</div>
+  </div>
+  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">BACKEND</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">Express + TypeScript</div>
+  </div>
+  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">MCP SDK</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">@modelcontextprotocol/sdk</div>
+  </div>
+  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">LLM</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">Claude Sonnet 4</div>
+  </div>
+  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">ESTILO</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">Tailwind CSS</div>
+  </div>
+  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">ÍCONES</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">Lucide Icons</div>
+  </div>
+</div>
+
+### Demo: Um Prompt, Quatro Ferramentas
+
+Aqui está o TrampoAI em ação. Conectei três serviços:
+
+<NetworkMesh 
+  title="Meus Serviços Conectados"
+  user={{ label: "Você", icon: "👤" }}
+  agent={{ label: "Agente IA", icon: "🤖" }}
+  gateway={{ label: "Gateway MCP", icon: "🔗" }}
+  mcps={[
+    { id: "gmail", label: "Gmail", icon: "📧" },
+    { id: "notion", label: "Notion", icon: "📝" },
+    { id: "calendar", label: "Calendário", icon: "📅" }
+  ]}
+/>
+
+Então perguntei algo assim:
+
+> *"Leia meus últimos 10 emails, resuma-os, encontre os que preciso tomar ação, crie tarefas no Notion, e bloqueie 1 hora às 15h hoje no meu calendário para trabalhar neles."*
+
+Veja o que acontece:
+
+<video 
+  controls 
+  playsinline
+  preload="metadata"
+  style="width: 100%; border: 1px solid #2D3D3F; margin: 2rem 0;"
+  poster="/blogg/trampoai/trampoAiWallpaper.jpg"
+>
+  <source src="/blogg/trampoai/demoVideo.mp4" type="video/mp4" />
+  Seu navegador não suporta reprodução de vídeo.
+</video>
+
+Com **um prompt**, Claude automaticamente:
+1. Chamou o **MCP do Gmail** para ler meus emails
+2. Resumiu e filtrou quais precisavam de ação
+3. Chamou o **MCP do Notion** para criar tarefas
+4. Chamou o **MCP do Google Calendar** para bloquear horário
+
+Sem orquestração manual. Sem workflows hardcoded. O LLM descobriu quais ferramentas usar e em que ordem.
+
+Esta é a diferença entre IA que *informa* e IA que *age*. Eu não pedi informação. Pedi ação. E porque a IA tinha contexto sobre meu email, meu calendário e meu sistema de gestão de tarefas, ela realmente conseguiu entregar.
+
+## O Problema de Escala: MCP Mess
+
+Ok, funciona. Mas o que acontece quando você tem **10 MCP Servers**? **50**? **100**?
+
+<BeforeAfterCompare
+  before={{
+    title: "MCP Ingênuo",
+    description: "Cada cliente se conecta a cada MCP Server",
+    items: [
+      "N clientes × M servidores = N×M conexões",
+      "Cada cliente gerencia suas próprias credenciais",
+      "Sem controle de acesso centralizado",
+      "Sem observabilidade unificada"
+    ]
+  }}
+  after={{
+    title: "O Problema",
+    description: "Isso não escala",
+    items: [
+      "Explosão de conexões",
+      "Credenciais espalhadas",
+      "Quem acessou o quê?",
+      "Quanto estamos gastando?"
+    ]
+  }}
+/>
+
+Construindo o TrampoAI, percebi na prática: **gerenciar múltiplos MCP Servers é um pesadelo**.
+
+Cada servidor tem sua própria conexão, suas próprias ferramentas, suas próprias credenciais. Não há como saber quem executou o quê, quanto custou, se alguém está abusando do sistema.
+
+## A Solução: MCP Mesh
+
+É aqui que o [MCP Mesh da Deco](https://www.decocms.com/mesh) entra.
+
+A ideia é simples: em vez de cada cliente se conectar diretamente a cada MCP Server, você tem um **plano de controle** no meio.
+
+E honestamente? Configurar foi **ridiculamente fácil**. Rodei o projeto Deco localmente, abri a loja de MCPs deles, cliquei para autenticar os MCPs que queria (Gmail, Notion, Calendário), selecionei as ferramentas que precisava, e exportei tudo como um único link — esse é o mesh. Aquela URL é o que usei no TrampoAI. Sem configuração manual para cada servidor. Sem malabarismo de credenciais. Apenas clique, autentique, exporte. Pronto.
+
+<InteractiveDiagram 
+  title="Arquitetura MCP Mesh"
+  nodes={[
+    { id: "clients", label: "Clientes", icon: "💻" },
+    { id: "mesh", label: "MCP Mesh", icon: "🔀" },
+    { id: "servers", label: "MCP Servers", icon: "⚙️" }
+  ]}
+/>
+
+O MCP Mesh fornece:
+
+### 1. Um Endpoint para Tudo
+
+Não importa quantos MCP Servers você tem. Seus clientes se conectam a **um único endpoint**. O Mesh roteia para as ferramentas certas.
+
+### 2. RBAC e Políticas
+
+Controle de acesso no nível do plano de controle. Quem pode usar qual ferramenta? Precisa de aprovação para executar? Tudo configurável.
+
+### 3. Observabilidade
+
+Logs unificados para todas as execuções. Latência, erros, custos — tudo em um lugar.
+
+### 4. Roteamento Inteligente
+
+Quando você tem muitas ferramentas, enviar todas para o LLM fica caro (tokens) e lento. O Mesh tem estratégias de seleção inteligentes.
+
+### 5. Sem Vendor Lock-in
+
+Open-source, self-hosted. Roda no seu Kubernetes, na sua infraestrutura. Você está no controle.
+
+```bash
+# Rode localmente em 1 minuto
+npx @decocms/mesh
+```
+
+Trabalho na Deco, então sou obviamente enviesado. Mas genuinamente acredito que essa é a direção que as coisas estão indo. Conforme a adoção do MCP cresce, a necessidade de infraestrutura adequada para gerenciá-lo se torna crítica — assim como APIs precisavam de <Tooltip client:load content="Um API Gateway é um servidor que atua como ponto único de entrada para múltiplos serviços backend, lidando com autenticação, rate limiting e roteamento.">API gateways</Tooltip>, o MCP precisa de sua própria camada de gerenciamento.
+
+## Um Vislumbre do Futuro
+
+Deixa eu compartilhar algo em que tenho pensado muito.
+
+Imagino um futuro onde todos têm seu próprio mesh MCP pessoal — uma rede de conexões com todos os seus contextos, suas informações, suas ferramentas, sua vida. E junto com ele, seu próprio agente de IA. Não um produto que você usa. Um companheiro que *conhece você*.
+
+Pense nisso: você está andando por aí, conversando com sua IA sobre uma ideia que acabou de ter. Você diz para ela salvar uma nota. Você pergunta sobre aquela mensagem que seu amigo mandou ontem. Você pensa em voz alta como sua semana está, e ela simplesmente *te conta* — porque ela sabe. Ela tem acesso a tudo que você deu permissão para ela ver.
+
+Seus emails, seu calendário, suas notas, suas mensagens, seus documentos, suas fotos, sua música, suas finanças — tudo conectado, tudo contextual, tudo *seu*.
+
+Isso não é ficção científica. As peças já estão aqui. MCP é o protocolo. O mesh é a infraestrutura. Os agentes estão ficando mais inteligentes a cada dia. O que falta é apenas tempo — e adoção.
+
+Realmente acredito que estamos caminhando para um mundo onde sua IA não é apenas uma ferramenta que você abre quando precisa de algo. Ela está sempre lá, sempre ciente do seu contexto, sempre pronta para ajudar. Como ter um amigo brilhante que nunca esquece nada e está genuinamente tentando tornar sua vida mais fácil.
+
+Esse é o futuro que me empolga. E honestamente? Estamos mais perto do que a maioria das pessoas pensa.
+
+## O Que Aprendi
+
+Construir o TrampoAI foi prova real de como as coisas funcionam por baixo dos panos.
+
+<FlowTimeline
+  title="Principais Aprendizados"
+  steps={[
+    { 
+      title: "MCP é simples", 
+      description: "O protocolo em si é elegante. SSE + JSON-RPC. Fácil de implementar.",
+      icon: "✅"
+    },
+    { 
+      title: "Contexto muda tudo", 
+      description: "Um modelo menor com seu contexto supera um modelo maior sem ele.",
+      icon: "🎯"
+    },
+    { 
+      title: "Gerenciar é complexo", 
+      description: "Múltiplos servidores, credenciais, conexões... rapidamente vira caos.",
+      icon: "⚠️"
+    },
+    { 
+      title: "Você precisa de um Mesh", 
+      description: "Para produção, você precisa de um plano de controle. Simples assim.",
+      icon: "🔀"
+    }
+  ]}
+/>
+
+## Conclusão
+
+Aqui está minha visão: o próximo salto na utilidade da IA não virá de modelos maiores ou treinamento melhor. Virá de contexto melhor.
+
+Um modelo com conhecimento perfeito e zero contexto sobre sua vida é menos útil que um modelo menor que sabe exatamente em que você está trabalhando, o que precisa fazer e que ferramentas tem disponíveis.
+
+Estamos saindo de "IA como oráculo" para "IA como assistente." Um oráculo responde perguntas. Um assistente conhece seu mundo e age dentro dele.
+
+**Sua IA é tão útil quanto o contexto que você dá a ela.**
+
+---
+
+Se você quer entender como isso funciona na prática, confira o [TrampoAI](https://github.com/viniciusventura29/TrampoAI). É open-source e você pode rodar localmente em 5 minutos.
+
+E se você quer explorar IA contextual por conta própria, comece pequeno. Escolha uma ferramenta que você usa diariamente — talvez seu calendário ou app de notas — e encontre um servidor MCP para ela. Conecte ao seu cliente de IA e veja o que se torna possível.
+
+A mudança de IA genérica para contextual não está vindo. Ela já está aqui.
+
+Me conta o que você acha nas minhas redes. Adoraria ouvir como você está usando IA contextual nos seus workflows!
+
