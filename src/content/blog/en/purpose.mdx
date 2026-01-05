@@ -1,358 +1,109 @@
 ---
-title: "Purpose"
-description: "We've been using AI wrong. It's not about asking better questions — it's about giving better context. Here's how MCP is changing everything, and how I built a POC to prove it."
-publishDate: "jan 02 2026"
+title: "Who writes the script of your life?"
+description: "I was following a manual that wasn't mine. Until a simple question forced me to confront it."
+publishDate: "Jan 04 2026"
 image: /blogg/purpose/purpose.jpg
 time: 10
-draft: true
+draft: false
+translationKey: purpose
 ---
 
-import InteractiveDiagram from '../../../components/mdx/InteractiveDiagram.astro';
-import NetworkMesh from '../../../components/mdx/NetworkMesh.astro';
-import BeforeAfterCompare from '../../../components/mdx/BeforeAfterCompare.astro';
-import FlowTimeline from '../../../components/mdx/FlowTimeline.astro';
-import Tooltip from '../../../components/mdx/Tooltip.tsx';
+import Quote from '../../../components/mdx/Quote.astro';
 
-Are you still using AI like a smarter Google? Asking questions and hoping for useful answers?
+Have you ever felt like something was missing, even when everything seemed to be going right?
 
-I was too. And I was missing the point.
+I did. For a long time.
 
-## The Problem: AI Without Context
+I worked at Mercado Livre — a billion-dollar multinational, huge company, well-structured, full of opportunities. It was great. There was a world to discover, to learn. Good salary. Family. Everything.
 
-Let me be honest: <Tooltip client:load content="Large Language Models - AI systems trained on massive amounts of text data to understand and generate human-like text">ChatGPT, Claude, and other LLMs</Tooltip> are incredible. They can write code, explain complex topics, and help you think through problems. But there's a fundamental limitation that most people don't think about.
+But something was always missing inside me.
 
-**They know nothing about you.**
+I had low motivation to work. It wasn't that the job was bad — it was that I didn't feel complete. Like I was doing the right thing, but not *my* thing.
 
-They don't know about your work. They don't know what meetings you have scheduled. They don't know what tasks are piling up on your to-do list. They don't know the codebase you're working on or the documents your team shares. They don't know about you.
+And then came the guilt: how could I be sad? Why would I be unsatisfied? In my head, I couldn't complain about my life because there were people in much worse situations than mine.
 
-Every company today has their own "internal ChatGPT". A wrapper with the company logo, integrated into Slack, answering questions about documentation...
-
-But it only **answers**. And honestly? Not even that well — because it lacks your context. It doesn't **do** anything, and even when it tries to help, the answers are generic. Imagine an AI that not only answers *much better* because it knows your world, but also **acts** — and acts precisely.
-
-## The Shift: Context is King
-
-Here's what I've learned: the new way to use AI isn't about crafting better <Tooltip client:load content="Prompts are the instructions or questions you give to an AI. Prompt engineering is the practice of designing these instructions to get better outputs.">prompts</Tooltip> or learning magic techniques. It's about giving AI access to your world.
-
-When AI has context about your environment — your emails, your calendar, your documents, your tools — something magical happens. It stops just *answering* and starts *acting*.
-
-Instead of asking "How should I organize my emails?" you can say "Analyze my emails from today, summarize the important ones, and create tasks for anything that requires action."
-
-And it just... does it.
-
-<BeforeAfterCompare 
-  before={{
-    title: "AI Without Context",
-    description: "Generic answers that apply to anyone",
-    items: [
-      "Copy-paste information manually",
-      "Adapt generic answers to your situation",
-      "Do the actual work yourself",
-      "AI as 'fancy autocomplete'"
-    ]
-  }}
-  after={{
-    title: "AI With Context",
-    description: "Personalized actions based on your world",
-    items: [
-      "AI understands your environment",
-      "Receives specific, actionable responses",
-      "Automates real tasks end-to-end",
-      "AI as true assistant"
-    ]
-  }}
-/>
-
-## MCP: The Protocol Making This Possible
-
-If you haven't heard about <Tooltip client:load content="Model Context Protocol - An open standard created by Anthropic that allows AI models to connect to external tools and data sources through a universal interface.">MCP (Model Context Protocol)</Tooltip>, it's worth understanding. In simple terms, MCP is a standard way to connect AI models to external tools and data sources.
-
-Think about it: before MCP, every integration was custom. Want Claude to access your database? Write a plugin. Want it to send emails? Another plugin. Each one with its own API, authentication, data format.
-
-MCP standardizes all of this.
-
-<FlowTimeline
-  title="How MCP Works"
-  steps={[
-    { 
-      title: "1. Connection", 
-      description: "The client connects to the MCP Server via SSE (Server-Sent Events) or stdio.",
-      icon: "🔌"
-    },
-    { 
-      title: "2. Discovery", 
-      description: "The client lists all available tools (tools/list).",
-      icon: "🔍"
-    },
-    { 
-      title: "3. Prompt", 
-      description: "Tools are sent to the LLM along with the user's message.",
-      icon: "💬"
-    },
-    { 
-      title: "4. Tool Use", 
-      description: "The LLM decides which tool to use and returns a tool_use with arguments.",
-      icon: "🛠️"
-    },
-    { 
-      title: "5. Execution", 
-      description: "The client executes the tool on the MCP Server and returns the result to the LLM.",
-      icon: "⚡"
-    }
-  ]}
-/>
-
-The key point here is: **the LLM decides which tool to use**. You just pass the list of available tools and it automatically chooses based on the conversation context.
-
-In practice:
-- **Connect Gmail** → AI can read, search, summarize, and send your emails
-- **Connect Calendar** → AI can check availability, schedule meetings, and block time
-- **Connect Notion** → AI can create pages, update databases, and organize your notes
-- **Connect GitHub** → AI can review PRs, create issues, and check build status
-
-Think of it as a universal adapter. Instead of building custom integrations for every AI tool, MCP provides a common language. Any MCP-compatible client (like <Tooltip client:load content="Cursor is an AI-powered code editor that integrates AI directly into the development workflow. Claude Desktop is Anthropic's official desktop application for interacting with Claude.">Cursor, Claude Desktop</Tooltip>, or custom agents) can connect to any MCP server and use its capabilities.
-
-> If you want to dive deeper into MCP, check out the [official documentation](https://modelcontextprotocol.io/) and the [Anthropic announcement](https://www.anthropic.com/news/model-context-protocol).
-
-## TrampoAI: From Theory to Practice
-
-To understand how this works in practice, I built [TrampoAI](https://github.com/viniciusventura29/TrampoAI) — a complete MCP client with a chat interface.
-
-### Architecture
-
-```
-┌─────────────┐     ┌─────────────┐     ┌─────────────────┐
-│   React     │────▶│   Express   │────▶│   MCP Servers   │
-│   (Vite)    │◀────│   Backend   │◀────│   (via SSE)     │
-└─────────────┘     └──────┬──────┘     └─────────────────┘
-                           │
-                           ▼
-                    ┌─────────────┐
-                    │  Anthropic  │
-                    │    API      │
-                    └─────────────┘
-```
-
-The flow is simple:
-
-1. **Frontend** sends a message to the backend
-2. **Backend** collects tools from all connected MCP Servers
-3. **Backend** sends message + tools to Anthropic API
-4. **Claude** responds with `tool_use` if it needs to execute something
-5. **Backend** executes the tool on the corresponding MCP Server
-6. **Backend** sends the `tool_result` back to Claude
-7. **Claude** generates the final response
-
-### Stack
-
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 2rem 0;">
-  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">FRONTEND</div>
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">React 18 + Vite + TypeScript</div>
-  </div>
-  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">BACKEND</div>
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">Express + TypeScript</div>
-  </div>
-  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">MCP SDK</div>
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">@modelcontextprotocol/sdk</div>
-  </div>
-  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">LLM</div>
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">Claude Sonnet 4</div>
-  </div>
-  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">STYLING</div>
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">Tailwind CSS</div>
-  </div>
-  <div style="padding: 1rem; background: #F5F2ED; border: 1px solid #2D3D3F;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #5A5A5A; letter-spacing: 0.15em; margin-bottom: 0.25rem;">ICONS</div>
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #0D5C4B; font-weight: 500;">Lucide Icons</div>
-  </div>
-</div>
-
-### Demo: One Prompt, Four Tools
-
-Here's TrampoAI in action. I connected three services:
-
-<NetworkMesh 
-  title="My Connected Services"
-  user={{ label: "You", icon: "👤" }}
-  agent={{ label: "AI Agent", icon: "🤖" }}
-  gateway={{ label: "MCP Gateway", icon: "🔗" }}
-  mcps={[
-    { id: "gmail", label: "Gmail", icon: "📧" },
-    { id: "notion", label: "Notion", icon: "📝" },
-    { id: "calendar", label: "Calendar", icon: "📅" }
-  ]}
-/>
-
-Then I asked something like this:
-
-> *"Read my last 10 emails, summarize them, find the ones I need to take action on, create tasks in Notion, and block 1 hour at 3pm today on my calendar to work on them."*
-
-Watch what happens:
-
-<video 
-  controls 
-  playsinline
-  preload="metadata"
-  style="width: 100%; border: 1px solid #2D3D3F; margin: 2rem 0;"
-  poster="/blogg/trampoai/trampoAiWallpaper.jpg"
->
-  <source src="/blogg/trampoai/demoVideo.mp4" type="video/mp4" />
-  Your browser does not support video playback.
-</video>
-
-With **one prompt**, Claude automatically:
-1. Called the **Gmail MCP** to read my emails
-2. Summarized and filtered which ones needed action
-3. Called the **Notion MCP** to create tasks
-4. Called the **Google Calendar MCP** to block time
-
-No manual orchestration. No hardcoded workflows. The LLM figured out which tools to use and in what order.
-
-This is the difference between AI that *informs* and AI that *acts*. I didn't ask for information. I asked for action. And because the AI had context about my email, my calendar, and my task management system, it could actually deliver.
-
-## The Scaling Problem: MCP Mess
-
-Ok, it works. But what happens when you have **10 MCP Servers**? **50**? **100**?
-
-<BeforeAfterCompare
-  before={{
-    title: "Naive MCP",
-    description: "Each client connects to each MCP Server",
-    items: [
-      "N clients × M servers = N×M connections",
-      "Each client manages its own credentials",
-      "No centralized access control",
-      "No unified observability"
-    ]
-  }}
-  after={{
-    title: "The Problem",
-    description: "This doesn't scale",
-    items: [
-      "Connection explosion",
-      "Scattered credentials",
-      "Who accessed what?",
-      "How much are we spending?"
-    ]
-  }}
-/>
-
-Building TrampoAI, I realized in practice: **managing multiple MCP Servers is a nightmare**.
-
-Each server has its own connection, its own tools, its own credentials. There's no way to know who executed what, how much it cost, if someone is abusing the system.
-
-## The Solution: MCP Mesh
-
-This is where [Deco's MCP Mesh](https://www.decocms.com/mesh) comes in.
-
-The idea is simple: instead of each client connecting directly to each MCP Server, you have a **control plane** in the middle.
-
-And honestly? Setting it up was **ridiculously easy**. I ran the Deco project locally, opened their MCP store, clicked to authenticate the MCPs I wanted (Gmail, Notion, Calendar), selected the tools I needed, and exported everything as a single link — that's the mesh. That one URL is what I used in TrampoAI. No manual configuration for each server. No credential juggling. Just click, authenticate, export. Done.
-
-<InteractiveDiagram 
-  title="MCP Mesh Architecture"
-  nodes={[
-    { id: "clients", label: "Clients", icon: "💻" },
-    { id: "mesh", label: "MCP Mesh", icon: "🔀" },
-    { id: "servers", label: "MCP Servers", icon: "⚙️" }
-  ]}
-/>
-
-MCP Mesh provides:
-
-### 1. One Endpoint for Everything
-
-No matter how many MCP Servers you have. Your clients connect to **a single endpoint**. The Mesh routes to the right tools.
-
-### 2. RBAC and Policies
-
-Access control at the control plane level. Who can use which tool? Does it need approval to execute? All configurable.
-
-### 3. Observability
-
-Unified logs for all executions. Latency, errors, costs — all in one place.
-
-### 4. Smart Routing
-
-When you have many tools, sending all of them to the LLM gets expensive (tokens) and slow. The Mesh has intelligent selection strategies.
-
-### 5. No Vendor Lock-in
-
-Open-source, self-hosted. Runs on your Kubernetes, on your infrastructure. You're in control.
-
-```bash
-# Run locally in 1 minute
-npx @decocms/mesh
-```
-
-I work at Deco, so I'm obviously biased. But I genuinely believe this is the direction things are going. As MCP adoption grows, the need for proper infrastructure to manage it becomes critical — just like how APIs needed <Tooltip client:load content="An API Gateway is a server that acts as a single entry point for multiple backend services, handling authentication, rate limiting, and routing.">API gateways</Tooltip>, MCP needs its own management layer.
-
-## A Glimpse of the Future
-
-Let me share something I've been thinking about a lot.
-
-I imagine a future where everyone has their own personal MCP mesh — a web of connections to all your contexts, your information, your tools, your life. And alongside it, your own AI agent. Not a product you use. A companion that *knows you*.
-
-Think about it: you're walking around, talking to your AI about an idea you just had. You tell it to save a note. You ask about that message your friend sent yesterday. You wonder out loud what your week looks like, and it just *tells you* — because it knows. It has access to everything you've given it permission to see.
-
-Your emails, your calendar, your notes, your messages, your documents, your photos, your music, your finances — all connected, all contextual, all *yours*.
-
-This isn't science fiction. The pieces are already here. MCP is the protocol. The mesh is the infrastructure. The agents are getting smarter every day. What's missing is just time — and adoption.
-
-I truly believe we're heading toward a world where your AI isn't just a tool you open when you need something. It's always there, always aware of your context, always ready to help. Like having a brilliant friend who never forgets anything and is genuinely trying to make your life easier.
-
-That's the future I'm excited about. And honestly? We're closer than most people think.
-
-## What I Learned
-
-Building TrampoAI was real proof of how things work under the hood.
-
-<FlowTimeline
-  title="Key Takeaways"
-  steps={[
-    { 
-      title: "MCP is simple", 
-      description: "The protocol itself is elegant. SSE + JSON-RPC. Easy to implement.",
-      icon: "✅"
-    },
-    { 
-      title: "Context changes everything", 
-      description: "A smaller model with your context beats a bigger model without it.",
-      icon: "🎯"
-    },
-    { 
-      title: "Managing is complex", 
-      description: "Multiple servers, credentials, connections... quickly becomes chaos.",
-      icon: "⚠️"
-    },
-    { 
-      title: "You need a Mesh", 
-      description: "For production, you need a control plane. Simple as that.",
-      icon: "🔀"
-    }
-  ]}
-/>
-
-## Conclusion
-
-Here's my take: the next leap in AI usefulness won't come from bigger models or better training. It will come from better context.
-
-A model with perfect knowledge and zero context about your life is less useful than a smaller model that knows exactly what you're working on, what you need to do, and what tools you have available.
-
-We're moving from "AI as oracle" to "AI as assistant." An oracle answers questions. An assistant knows your world and acts within it.
-
-**Your AI is only as useful as the context you give it.**
+I went through many sleepless nights during this phase. I would fall into a loop. And therapy helped me understand that this logic is a trap — the fact that there are people in worse situations doesn't invalidate what you feel. Your discomfort is real. Your dissatisfaction is valid. Ignoring it only sinks you deeper.
 
 ---
 
-If you want to understand how this works in practice, check out [TrampoAI](https://github.com/viniciusventura29/TrampoAI). It's open-source and you can run it locally in 5 minutes.
+It was in this context that I received an offer from Deco.
 
-And if you want to explore contextual AI yourself, start small. Pick one tool you use daily — maybe your calendar or your notes app — and find an MCP server for it. Connect it to your AI client and see what becomes possible.
+We had about 4 or 5 meetings before I decided to accept. And in the first one, they asked me a question that caught me completely off guard:
 
-The shift from generic to contextual AI isn't coming. It's already here.
+> **"What do you want from your life?"**
 
-Let me know what you think on my socials. I'd love to hear how you're using contextual AI in your workflows!
+Such a simple question. So direct. And so hard to answer.
+
+But I knew. And I still know. **I want to build something amazing.** Not something generic. Not something just to pay the bills. Something I can look at and see myself in. "I am here." As if I belonged to that place.
+
+---
+
+That question forced me to confront something I had been avoiding: who defines what I should want? Where does this life script I was following without questioning come from?
+
+Nietzsche has a phrase that always made me think:
+
+<Quote 
+  text="God is dead. God remains dead. And we have killed him."
+/>
+
+This isn't a religious statement — and I don't want to get into that discussion. What Nietzsche was pointing to is something deeper: absolute values, those unquestionable truths that guided society, have lost their power. And that left a void.
+
+But with that void comes responsibility. If there's no longer a pre-defined guide telling you what's right, what's wrong, what the meaning of life is... then it's up to *you* to create it.
+
+Nietzsche wasn't celebrating this "death." He was warning about the immense challenge of building new purposes without a ready-made script. It's much easier to follow a manual. Do what everyone else does. Accept the values handed to you ready-made.
+
+But it's also liberating. Because if you're responsible for creating your meaning... then you can create a meaning that actually makes sense *to you*.
+
+---
+
+And that's exactly what I did. I stopped accepting ready-made truths.
+
+I used to hear a lot in my bubble things like "you have to work hard while you're young to have financial freedom when you're older and be able to do what you want." And for a long time I accepted this as truth.
+
+Until one day I asked myself: **but why can't I do what I want now? Why do I have to be old for that?**
+
+From that, I thought: "What would I do if I were a super rich old man?" And I want to go to that place. Now. Not 30 years from now.
+
+<Quote 
+  text="If you're not doing today what you would do as a super rich old person, maybe it's time to rethink your choices."
+  highlight={true}
+/>
+
+Fortunately, I think I'm already where I'd like to be. If I weren't doing what I currently do, I'd be very close to it. This mental exercise helps me calibrate whether I'm on the right path.
+
+---
+
+For a long time, I silenced my desires. Out of fear. Out of insecurity. Fear of being judged. Fear of not being supported.
+
+This job change was one of those cases. And by doing it — by finally choosing what made sense to me — something changed inside me. More and more things are emerging. The desire to publish more of what I think and am. To expose myself more to the world. To connect with more people. To talk. To discuss. To expose myself to error. To err and learn. To redo.
+
+I think this is one of my principles and life purposes:
+
+<Quote 
+  text="To live."
+  highlight={true}
+/>
+
+Simply live. Do. Experiment. Fail. Correct. Move on.
+
+---
+
+Here's what I learned: if your work aligns with your life's purpose, motivation becomes a powerful weapon for success. When you have passion, the drive to do what you do, things flow much better. Your productivity is better. The quality of your delivery is better. Your satisfaction is better. Your life is better. Because you do what makes sense to you.
+
+Today I have the privilege of working with what I love. And I say privilege because, unfortunately, that's exactly what it is — a privilege. I wish everyone could work with what excites them. That would certainly make the world much better. But our reality is harsh and cruel. Not everyone has that choice.
+
+This way, I believe there's no way to go wrong. I know that in the future I won't regret it — because I'm consciously and daily choosing to live the life I want to live.
+
+---
+
+If you're in a place where everything seems right but something feels wrong — pay attention to that. That discomfort is information.
+
+Purpose isn't something you find ready-made. It's something you build. And sometimes, the answer comes from unexpected places. A question in an interview. A conversation with someone who thinks differently. A discomfort you finally decide to stop ignoring.
+
+Today I wake up wanting to work. Not every day — let's be honest. But most of them. And that, for me, changed everything.
+
+I'm not a guru. I don't hold any special wisdom. I'm just a 21-year-old who went through this, lived it firsthand, and drew these reflections. Maybe in 10 years I'll look at this text and disagree with everything. But this is what I think today — and I thought it was worth sharing.
+
+If you're on this journey of seeking purpose, good luck. It's a journey worth taking.
+
+And if you want to chat, hit me up on socials. I love talking about these things.

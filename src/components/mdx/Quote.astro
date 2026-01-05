@@ -1,0 +1,100 @@
+---
+interface Props {
+  text: string;
+  author?: string;
+  highlight?: boolean;
+}
+
+const { text, author, highlight = false } = Astro.props;
+---
+
+<figure class:list={["quote-block", { highlight }]}>
+  <div class="quote-decoration">
+    <span class="quote-mark">"</span>
+  </div>
+  <blockquote class="quote-text">
+    {text}
+  </blockquote>
+  {author && (
+    <figcaption class="quote-author">
+      — {author}
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .quote-block {
+    position: relative;
+    margin: 2.5rem 0;
+    padding: 2rem 2rem 2rem 3rem;
+    background: linear-gradient(135deg, #F5F2ED 0%, #EDE9E3 100%);
+    border-left: 3px solid #0D5C4B;
+    overflow: hidden;
+  }
+
+  .quote-block.highlight {
+    background: linear-gradient(135deg, #0D5C4B 0%, #1a7a65 100%);
+    border-left: 3px solid #F5F2ED;
+  }
+
+  .quote-block.highlight .quote-text {
+    color: #F5F2ED;
+  }
+
+  .quote-block.highlight .quote-mark {
+    color: rgba(245, 242, 237, 0.15);
+  }
+
+  .quote-block.highlight .quote-author {
+    color: rgba(245, 242, 237, 0.8);
+  }
+
+  .quote-decoration {
+    position: absolute;
+    top: -0.5rem;
+    left: 0.5rem;
+    pointer-events: none;
+  }
+
+  .quote-mark {
+    font-family: 'Georgia', serif;
+    font-size: 6rem;
+    line-height: 1;
+    color: rgba(13, 92, 75, 0.1);
+    user-select: none;
+  }
+
+  .quote-text {
+    position: relative;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #1A1A1A;
+    margin: 0;
+    z-index: 1;
+  }
+
+  .quote-author {
+    margin-top: 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: #5A5A5A;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 640px) {
+    .quote-block {
+      padding: 1.5rem 1.5rem 1.5rem 2rem;
+    }
+
+    .quote-text {
+      font-size: 1rem;
+    }
+
+    .quote-mark {
+      font-size: 4rem;
+    }
+  }
+</style>
+
