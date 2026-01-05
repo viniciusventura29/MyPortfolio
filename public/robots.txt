@@ -1,0 +1,21 @@
+# Robots.txt for https://me.ventura.dev.br
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://me.ventura.dev.br/sitemap-index.xml
+
+# Disallow admin or draft pages if any
+Disallow: /draft/
+
+# Allow all crawlers to access the site
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Crawl-delay for polite crawling (optional)
+Crawl-delay: 1
+

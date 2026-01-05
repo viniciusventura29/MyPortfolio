@@ -2,7 +2,7 @@
 import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
-import { defaultLocale, type Locale } from "../i18n/utils";
+import { defaultLocale, type Locale, languages } from "../i18n/utils";
 
 interface BlogPost {
   data: {
@@ -12,7 +12,9 @@ interface BlogPost {
     image?: string | undefined;
     time: number;
     draft: boolean;
+    translationKey?: string;
   };
+  slug: string;
 }
 
 interface Props {
@@ -22,6 +24,50 @@ interface Props {
 
 const { post, lang = defaultLocale } = Astro.props;
 const frontmatter = post.data;
+
+// Get canonical URL and alternate language URLs
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = frontmatter.image 
+  ? new URL(frontmatter.image, Astro.site).href 
+  : new URL('/pag-og.png', Astro.site).href;
+
+// Generate alternate language URLs for hreflang
+const slugWithoutLang = post.slug.replace(`${lang}/`, '');
+const alternateLanguages = Object.keys(languages).map((l) => ({
+  lang: l,
+  url: new URL(`/${l}/blog/${slugWithoutLang}`, Astro.site).href,
+}));
+
+// Structured data for article (JSON-LD)
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": frontmatter.title,
+  "description": frontmatter.description,
+  "image": ogImage,
+  "datePublished": new Date(frontmatter.publishDate).toISOString(),
+  "dateModified": new Date(frontmatter.publishDate).toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": "Vinicius Ventura",
+    "url": "https://me.ventura.dev.br"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Vinicius Ventura",
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL('/favicon.svg', Astro.site).href
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalURL.href
+  },
+  "wordCount": frontmatter.time * 200,
+  "timeRequired": `PT${frontmatter.time}M`,
+  "inLanguage": lang
+};
 ---
 
 <!doctype html>
@@ -31,14 +77,52 @@ const frontmatter = post.data;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
+    <title>{frontmatter.title} - Vinicius Ventura</title>
+    <meta name="title" content={`${frontmatter.title} - Vinicius Ventura`} />
     <meta name="description" content={frontmatter.description} />
+    <meta name="author" content="Vinicius Ventura" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL.href} />
+    
+    <!-- Alternate Language URLs (hreflang) -->
+    {alternateLanguages.map(({ lang: altLang, url }) => (
+      <link rel="alternate" hreflang={altLang} href={url} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={alternateLanguages.find(a => a.lang === 'en')?.url} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:title" content={frontmatter.title} />
+    <meta property="og:description" content={frontmatter.description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'pt' ? 'pt_BR' : 'en_US'} />
+    <meta property="og:site_name" content="Vinicius Ventura" />
+    <meta property="article:published_time" content={new Date(frontmatter.publishDate).toISOString()} />
+    <meta property="article:author" content="Vinicius Ventura" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL.href} />
+    <meta name="twitter:title" content={frontmatter.title} />
+    <meta name="twitter:description" content={frontmatter.description} />
+    <meta name="twitter:image" content={ogImage} />
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="Vinicius Ventura Blog" href="/rss.xml" />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     
     <!-- IBM Plex Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <title>{frontmatter.title} - Vinicius Ventura</title>
     <ViewTransitions />
   </head>
   <body>
@@ -82,7 +166,8 @@ const frontmatter = post.data;
               class="article-image"
               transition:name={frontmatter.image}
               src={frontmatter.image}
-              alt=""
+              alt={`Cover image for ${frontmatter.title}`}
+              loading="eager"
             />
             <span class="image-caption">FEATURED ATTACHMENT</span>
           </div>

@@ -2,7 +2,7 @@
 import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
-import { defaultLocale, type Locale } from "../i18n/utils";
+import { defaultLocale, type Locale, languages } from "../i18n/utils";
 
 export interface Props {
   title: string;
@@ -13,10 +13,42 @@ export interface Props {
 
 const {
   title,
-  description = "Vinicius Ventura personal website",
+  description = "Vinicius Ventura - Software Developer specialized in backend development, distributed systems, and building meaningful tech products.",
   image = "/pag-og.png",
   lang = defaultLocale,
 } = Astro.props;
+
+// Canonical URL
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image as string, Astro.site).href;
+
+// Generate alternate language URLs for hreflang
+const currentPath = Astro.url.pathname;
+const pathWithoutLang = currentPath.replace(/^\/(en|pt)/, '');
+const alternateLanguages = Object.keys(languages).map((l) => ({
+  lang: l,
+  url: new URL(`/${l}${pathWithoutLang || '/'}`, Astro.site).href,
+}));
+
+// Structured data for Person/Website
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Vinicius Ventura",
+  "url": Astro.site?.href,
+  "description": description,
+  "author": {
+    "@type": "Person",
+    "name": "Vinicius Ventura",
+    "url": Astro.site?.href,
+    "jobTitle": "Software Developer",
+    "sameAs": [
+      "https://github.com/viniciusventura",
+      "https://linkedin.com/in/viniciusventura"
+    ]
+  },
+  "inLanguage": lang
+};
 ---
 
 <!doctype html>
@@ -27,26 +59,49 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content="Vinicius Ventura" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL.href} />
+    
+    <!-- Alternate Language URLs (hreflang) -->
+    {alternateLanguages.map(({ lang: altLang, url }) => (
+      <link rel="alternate" hreflang={altLang} href={url} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={alternateLanguages.find(a => a.lang === 'en')?.url} />
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="Vinicius Ventura Blog" href="/rss.xml" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'pt' ? 'pt_BR' : 'en_US'} />
+    <meta property="og:site_name" content="Vinicius Ventura" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL.href} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    
     <!-- IBM Plex Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <title>{title}</title>
-    <meta name="title" content={title} />
-    <meta name="description" content={description} />
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.url)} />
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, Astro.url)} />
     <ViewTransitions />
   </head>
   <body>
