@@ -105,9 +105,6 @@ const websiteSchema = {
     <ViewTransitions />
   </head>
   <body>
-    <!-- Scan line effect -->
-    <div class="scan-line"></div>
-    
     <div class="page-container">
       <NavBar lang={lang} />
       <slot />
@@ -143,29 +140,6 @@ const websiteSchema = {
         background-size: 40px 40px;
         pointer-events: none;
         z-index: 0;
-      }
-
-      /* Scan line effect */
-      .scan-line {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: linear-gradient(
-          to bottom,
-          transparent,
-          rgba(13, 92, 75, 0.1),
-          transparent
-        );
-        animation: scan 8s linear infinite;
-        pointer-events: none;
-        z-index: 1000;
-      }
-
-      @keyframes scan {
-        0% { transform: translateY(-100%); }
-        100% { transform: translateY(100vh); }
       }
 
       .page-container {

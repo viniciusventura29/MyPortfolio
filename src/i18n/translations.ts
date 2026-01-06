@@ -28,9 +28,9 @@ export const translations = {
         number: '01',
         title: 'ABOUT',
         content: [
-          `I'm focused on making <strong>Brazil a protagonist in technology</strong>. My goal is to build a company that gains relevance and makes a real difference in people's lives — helping to grow the tech ecosystem in my country.`,
           `I believe technology has the power to <strong>bring people together</strong> and shape the future. That's what drives me every day: connecting people, solving real problems, and building something meaningful.`,
-          `This is what I am actually doing at <a href="https://www.decocms.com/" target="_blank">Deco</a>, with incredible people by my side and a great product.`,
+          `My goal is to build a company that gains relevance and makes a real difference in people's lives — and along the way, <strong>help grow the tech ecosystem in Brazil</strong>.`,
+          `This is what I'm doing at <a href="https://www.decocms.com/" target="_blank">Deco</a>, with incredible people by my side and a great product.`,
         ],
       },
       blog: {
@@ -89,9 +89,9 @@ export const translations = {
         number: '01',
         title: 'SOBRE',
         content: [
-          `Meu foco é tornar o <strong>Brasil protagonista em tecnologia</strong>. Meu objetivo é construir uma empresa que ganhe relevância e faça diferença real na vida das pessoas — ajudando a crescer o ecossistema tech no meu país.`,
           `Acredito que a tecnologia tem o poder de <strong>conectar pessoas</strong> e moldar o futuro. É isso que me move todos os dias: conectar pessoas, resolver problemas reais e construir algo significativo.`,
-          `É isso que estou fazendo atualmente na <a href="https://www.decocms.com/" target="_blank">Deco</a>, com pessoas incríveis ao meu lado e um ótimo produto.`,
+          `Meu objetivo é construir uma empresa que ganhe relevância e faça diferença real na vida das pessoas — e, de quebra, <strong>ajudar a crescer o ecossistema tech no Brasil</strong>.`,
+          `É isso que estou fazendo na <a href="https://www.decocms.com/" target="_blank">Deco</a>, com pessoas incríveis ao meu lado e um ótimo produto.`,
         ],
       },
       blog: {
